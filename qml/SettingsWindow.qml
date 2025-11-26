@@ -21,6 +21,12 @@ ApplicationWindow {
         stackView.push(debugPaneComponent)
     }
 
+    function showHeadsetcontrolPane() {
+        show()
+        sidebarList.currentIndex = 5
+        stackView.push(headsetControlPaneComponent)
+    }
+
     property int rowHeight: 35
 
     DonatePopup {

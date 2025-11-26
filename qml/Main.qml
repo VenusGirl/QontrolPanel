@@ -1220,6 +1220,7 @@ ApplicationWindow {
                             powerConfirmationWindow.setAction(action)
                             powerConfirmationWindow.show()
                         }
+                        onShowHeadsetcontrolPane: settingsWindow.showHeadsetcontrolPane()
                     }
                 }
             }

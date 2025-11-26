@@ -14,6 +14,7 @@ Rectangle {
     signal hidePanel()
     signal showSettingsWindow()
     signal showPowerConfirmationWindow(int action)
+    signal showHeadsetcontrolPane()
 
     function closePowerMenu() {
         powerMenu.close()
@@ -34,30 +35,33 @@ Rectangle {
         anchors.rightMargin: 10
         spacing: 10
 
-        RowLayout {
-            id: batteryIndicator
-            visible: UserSettings.displayBatteryFooter &&
-                     HeadsetControlBridge.anyDeviceFound &&
-                     HeadsetControlBridge.batteryStatus !== "BATTERY_UNAVAILABLE"
-            Layout.leftMargin: 10
-            spacing: 5
+        NFToolButton {
+            Layout.preferredHeight: 38
+            onClicked: footer.showHeadsetcontrolPane()
+            contentItem: RowLayout {
+                id: batteryIndicator
+                visible: UserSettings.displayBatteryFooter &&
+                         HeadsetControlBridge.anyDeviceFound &&
+                         HeadsetControlBridge.batteryStatus !== "BATTERY_UNAVAILABLE"
+                spacing: 5
 
-            Image {
-                id: batteryIcon
-                Layout.preferredWidth: 16
-                Layout.preferredHeight: 16
-                fillMode: Image.PreserveAspectFit
-                source: (HeadsetControlBridge.batteryStatus === "BATTERY_CHARGING")
-                        ? Constants.getBatteryChargingIconStatic(HeadsetControlBridge.batteryLevel)
-                        : Constants.getBatteryIcon(HeadsetControlBridge.batteryLevel)
-            }
+                Image {
+                    id: batteryIcon
+                    Layout.preferredWidth: 16
+                    Layout.preferredHeight: 16
+                    fillMode: Image.PreserveAspectFit
+                    source: (HeadsetControlBridge.batteryStatus === "BATTERY_CHARGING")
+                            ? Constants.getBatteryChargingIconStatic(HeadsetControlBridge.batteryLevel)
+                            : Constants.getBatteryIcon(HeadsetControlBridge.batteryLevel)
+                }
 
-            Label {
-                id: batteryLabel
-                Layout.topMargin: -2
-                font.pixelSize: 12
-                opacity: 0.8
-                text: HeadsetControlBridge.batteryLevel + "%"
+                Label {
+                    id: batteryLabel
+                    Layout.topMargin: -2
+                    font.pixelSize: 12
+                    opacity: 0.8
+                    text: HeadsetControlBridge.batteryLevel + "%"
+                }
             }
         }
 
