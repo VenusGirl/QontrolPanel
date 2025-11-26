@@ -47,7 +47,6 @@ ApplicationWindow {
 
         return newHeight
     }
-    palette.accent: Constants.accentColor
 
     property bool isAnimatingIn: false
     property bool isAnimatingOut: false
@@ -1164,13 +1163,10 @@ ApplicationWindow {
                                 Layout.preferredHeight: 40
                                 enabled: MonitorManager.nightLightSupported
                                 onClicked: MonitorManager.toggleNightLight()
-                                IconImage {
-                                    anchors.centerIn: parent
-                                    sourceSize.width: 22
-                                    sourceSize.height: 22
-                                    color: palette.text
-                                    source: MonitorManager.nightLightEnabled ? "qrc:/icons/nightlight.svg" : "qrc:/icons/brightness.svg"
-                                }
+                                Component.onCompleted: console.log(palette.text)
+                                icon.source: MonitorManager.nightLightEnabled ? "qrc:/icons/nightlight.svg" : "qrc:/icons/brightness.svg"
+                                icon.width: 22
+                                icon.height: 22
                             }
 
                             ColumnLayout {

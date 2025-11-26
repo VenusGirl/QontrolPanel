@@ -5,7 +5,6 @@ import Odizinne.QontrolPanel
 Item {
     id: constants
     property bool darkMode: Qt.application.styleHints.colorScheme === Qt.ColorScheme.Dark
-    property color accentColor: darkMode ? palette.accent : palette.highlight
     property color footerColor: darkMode ? "#1c1c1c" : "#eeeeee"
     property color footerBorderColor: darkMode ? "#0F0F0F" : "#A0A0A0"
     property color panelColor: darkMode ? "#242424" : "#f2f2f2"

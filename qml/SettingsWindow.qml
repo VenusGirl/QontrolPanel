@@ -14,7 +14,6 @@ ApplicationWindow {
     visible: false
     transientParent: null
     title: qsTr("QontrolPanel - Settings")
-    palette.accent: Constants.accentColor
 
     function showUpdatePane() {
         show()
