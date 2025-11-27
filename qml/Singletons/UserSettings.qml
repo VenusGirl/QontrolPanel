@@ -6,7 +6,6 @@ Settings {
     property bool enableDeviceManager: true
     property bool enableApplicationMixer: true
     property bool enableMediaSessionManager: true
-    property bool keepAlive: false
     property int panelPosition: 1
     property int taskbarOffset: 0
     property int xAxisMargin: 12

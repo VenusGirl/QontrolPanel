@@ -657,11 +657,11 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Sound keepalive</source>
-        <translation>사운드 계속 유지</translation>
+        <translation type="vanished">사운드 계속 유지</translation>
     </message>
     <message>
         <source>Emit an inaudible sound to keep bluetooth devices awake</source>
-        <translation>블루투스 장치를 깨어 있게 하기 위해 들리지 않는 소리를 냅니다</translation>
+        <translation type="vanished">블루투스 장치를 깨어 있게 하기 위해 들리지 않는 소리를 냅니다</translation>
     </message>
     <message>
         <source>Run at system startup</source>

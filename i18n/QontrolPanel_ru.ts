@@ -652,11 +652,11 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Sound keepalive</source>
-        <translation>Поддержание соединения Bluetooth</translation>
+        <translation type="vanished">Поддержание соединения Bluetooth</translation>
     </message>
     <message>
         <source>Emit an inaudible sound to keep bluetooth devices awake</source>
-        <translation>Издавать неслышный звук, чтобы поддерживать работу устройств Bluetooth</translation>
+        <translation type="vanished">Издавать неслышный звук, чтобы поддерживать работу устройств Bluetooth</translation>
     </message>
     <message>
         <source>Run at system startup</source>

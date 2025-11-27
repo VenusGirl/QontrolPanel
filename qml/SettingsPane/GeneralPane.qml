@@ -22,17 +22,6 @@ ColumnLayout {
 
             Card {
                 Layout.fillWidth: true
-                title: qsTr("Sound keepalive")
-                description: qsTr("Emit an inaudible sound to keep bluetooth devices awake")
-
-                additionalControl: LabeledSwitch {
-                    checked: UserSettings.keepAlive
-                    onClicked: UserSettings.keepAlive = checked
-                }
-            }
-
-            Card {
-                Layout.fillWidth: true
                 title: qsTr("Run at system startup")
                 description: qsTr("QSS will boot up when your computer starts")
 

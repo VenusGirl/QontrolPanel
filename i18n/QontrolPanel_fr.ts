@@ -603,7 +603,7 @@ Si vous souhaitez soutenir mon travail, toute contribution serait grandement app
     </message>
     <message>
         <source>Sound keepalive</source>
-        <translation>Empêcher la mise en veille audio</translation>
+        <translation type="vanished">Empêcher la mise en veille audio</translation>
     </message>
     <message>
         <source>General Settings</source>
@@ -647,7 +647,7 @@ Si vous souhaitez soutenir mon travail, toute contribution serait grandement app
     </message>
     <message>
         <source>Emit an inaudible sound to keep bluetooth devices awake</source>
-        <translation>Émet un son inaudible pour garder les périphériques Bluetooth actifs</translation>
+        <translation type="vanished">Émet un son inaudible pour garder les périphériques Bluetooth actifs</translation>
     </message>
     <message>
         <source>Show power action confirmation</source>

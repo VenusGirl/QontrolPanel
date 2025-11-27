@@ -575,14 +575,6 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
         <translation></translation>
     </message>
     <message>
-        <source>Sound keepalive</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Emit an inaudible sound to keep bluetooth devices awake</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Run at system startup</source>
         <translation></translation>
     </message>

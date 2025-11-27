@@ -577,11 +577,11 @@ Se vuoi supportare il mio lavoro, qualsiasi contributo sarebbe molto apprezzato!
     </message>
     <message>
         <source>Sound keepalive</source>
-        <translation>Mantieni attivo suono</translation>
+        <translation type="vanished">Mantieni attivo suono</translation>
     </message>
     <message>
         <source>Emit an inaudible sound to keep bluetooth devices awake</source>
-        <translation>Emetti audio non udibile per mantenere attivo il Bluetooth</translation>
+        <translation type="vanished">Emetti audio non udibile per mantenere attivo il Bluetooth</translation>
     </message>
     <message>
         <source>Run at system startup</source>

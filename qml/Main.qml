@@ -475,8 +475,6 @@ ApplicationWindow {
         }
     }
 
-    KeepAlive {}
-
     SettingsWindow {
         id: settingsWindow
         Connections {
@@ -1163,7 +1161,6 @@ ApplicationWindow {
                                 Layout.preferredHeight: 40
                                 enabled: MonitorManager.nightLightSupported
                                 onClicked: MonitorManager.toggleNightLight()
-                                Component.onCompleted: console.log(palette.text)
                                 icon.source: MonitorManager.nightLightEnabled ? "qrc:/icons/nightlight.svg" : "qrc:/icons/brightness.svg"
                                 icon.width: 22
                                 icon.height: 22

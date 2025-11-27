@@ -122,7 +122,7 @@ set(QML_FILES
     qml/PowerMenu.qml
     qml/PowerConfirmationWindow.qml
     qml/SettingsWindow.qml
-    qml/KeepAlive.qml
+
     qml/MediaFlyoutContent.qml
     qml/IntroWindow.qml
     qml/DonatePopup.qml
@@ -133,6 +133,7 @@ set(QML_FILES
     qml/ExecutableRenameDialog.qml
     qml/PanelSpacer.qml
     qml/PanelFooter.qml
+    qml/LoggingConfDialog.qml
     qml/Common/ApplicationsListView.qml
     qml/Common/NFToolButton.qml
     qml/Common/NFSlider.qml
@@ -172,7 +173,6 @@ qt_add_qml_module(QontrolPanel
     URI Odizinne.QontrolPanel
     VERSION 1.0
     QML_FILES ${QML_FILES} ${QML_SINGLETONS}
-    QML_FILES qml/LoggingConfDialog.qml
 )
 
 target_include_directories(QontrolPanel PRIVATE

@@ -660,11 +660,11 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Sound keepalive</source>
-        <translation>保持声音连接检测信号</translation>
+        <translation type="vanished">保持声音连接检测信号</translation>
     </message>
     <message>
         <source>Emit an inaudible sound to keep bluetooth devices awake</source>
-        <translation>持续发出听不见的声音，让蓝牙设备保持唤醒状态</translation>
+        <translation type="vanished">持续发出听不见的声音，让蓝牙设备保持唤醒状态</translation>
     </message>
     <message>
         <source>Run at system startup</source>
