@@ -80,7 +80,6 @@ ApplicationWindow {
                 mediaLayout.opacity = 0
                 mainLayout.opacity = 0
             }
-
             if (UserSettings.showAudioLevel) {
                 AudioBridge.stopAudioLevelMonitoring()
                 AudioBridge.stopApplicationAudioLevelMonitoring()
@@ -90,8 +89,10 @@ ApplicationWindow {
                 AudioBridge.startAudioLevelMonitoring()
                 AudioBridge.startApplicationAudioLevelMonitoring()
             }
-            MonitorManager.refreshMonitors()
-            brightnessSlider.value = MonitorManager.brightness
+            if (UserSettings.allowBrightnessControl) {
+                MonitorManager.refreshMonitors()
+                brightnessSlider.value = MonitorManager.brightness
+            }
         }
     }
 
@@ -132,6 +133,33 @@ ApplicationWindow {
 
         function onGlobalShortcutsEnabledChanged() {
             panel.globalShortcutsToggled(UserSettings.globalShortcutsEnabled)
+        }
+
+        function onAllowBrightnessControlChanged() {
+            if (UserSettings.allowBrightnessControl) {
+                MonitorManager.initialize()
+                if (MonitorManager.monitorDetected) {
+                    MonitorManager.setDDCCIBrightness(Math.round(UserSettings.ddcciBrightness), UserSettings.ddcciQueueDelay)
+                }
+            } else {
+                MonitorManager.cleanup()
+            }
+        }
+
+        function onEnableDeviceManagerChanged() {
+            if (UserSettings.enableDeviceManager || UserSettings.enableApplicationMixer) {
+                AudioBridge.initialize()
+            } else {
+                AudioBridge.cleanup()
+            }
+        }
+
+        function onEnableApplicationMixerChanged() {
+            if (UserSettings.enableDeviceManager || UserSettings.enableApplicationMixer) {
+                AudioBridge.initialize()
+            } else {
+                AudioBridge.cleanup()
+            }
         }
     }
 
@@ -444,7 +472,7 @@ ApplicationWindow {
                                UserSettings.enableDeviceManager,
                                UserSettings.enableApplicationMixer && AudioBridge.isReady && AudioBridge.applications.rowCount() > 0,
                                UserSettings.activateChatmix,
-                               MonitorManager.monitorDetected && UserSettings.allowBrightnessControl
+                               UserSettings.allowBrightnessControl && MonitorManager.monitorDetected
                            ]
         if (!visibilities[currentLayoutIndex]) return false
         for (let i = 0; i < currentLayoutIndex; i++) {
@@ -1147,7 +1175,7 @@ ApplicationWindow {
                     }
 
                     ColumnLayout {
-                        visible: MonitorManager.monitorDetected && UserSettings.allowBrightnessControl
+                        visible: UserSettings.allowBrightnessControl && MonitorManager.monitorDetected
                         id: brightnessLayout
                         spacing: 5
 
@@ -1217,7 +1245,10 @@ ApplicationWindow {
                             powerConfirmationWindow.setAction(action)
                             powerConfirmationWindow.show()
                         }
-                        onShowHeadsetcontrolPane: settingsWindow.showHeadsetcontrolPane()
+                        onShowHeadsetcontrolPane: {
+                            panel.hidePanel()
+                            settingsWindow.showHeadsetcontrolPane()
+                        }
                     }
                 }
             }

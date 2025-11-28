@@ -25,7 +25,14 @@ QontrolPanel::QontrolPanel(QWidget *parent)
     , settings("Odizinne", "QontrolPanel")
     , localServer(nullptr)
 {
-    MediaSessionManager::initialize();
+    // Check if media session manager is enabled in settings
+    bool enableMediaSessionManager = settings.value("enableMediaSessionManager", true).toBool();
+    if (enableMediaSessionManager) {
+        MediaSessionManager::initialize();
+    } else {
+        LogManager::instance()->sendLog(LogManager::MediaSessionManager, "Media session manager disabled in settings, skipping initialization");
+    }
+
     instance = this;
     initializeQMLEngine();
     setupLocalServer();

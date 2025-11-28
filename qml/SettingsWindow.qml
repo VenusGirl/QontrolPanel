@@ -17,14 +17,18 @@ ApplicationWindow {
 
     function showUpdatePane() {
         show()
-        sidebarList.currentIndex = 7
-        stackView.push(debugPaneComponent)
+        if (sidebarList.currentIndex !== 7) {
+            sidebarList.currentIndex = 7
+            stackView.push(debugPaneComponent)
+        }
     }
 
     function showHeadsetcontrolPane() {
         show()
-        sidebarList.currentIndex = 5
-        stackView.push(headsetControlPaneComponent)
+        if (sidebarList.currentIndex !== 5) {
+            sidebarList.currentIndex = 5
+            stackView.push(headsetControlPaneComponent)
+        }
     }
 
     property int rowHeight: 35

@@ -1,6 +1,7 @@
 // src/audiobridge.cpp
 #include "audiobridge.h"
 #include "audiomanager.h"
+#include "logmanager.h"
 #include <QDebug>
 #include <QQmlContext>
 #include <QSettings>
@@ -488,7 +489,16 @@ AudioBridge::AudioBridge(QObject *parent)
     loadDeviceRenamesFromFile();
     loadDeviceIconsFromFile();
 
-    manager->initialize();
+    // Check if audio components are enabled in settings
+    QSettings settings("Odizinne", "QontrolPanel");
+    bool enableDeviceManager = settings.value("enableDeviceManager", true).toBool();
+    bool enableApplicationMixer = settings.value("enableApplicationMixer", true).toBool();
+
+    if (enableDeviceManager || enableApplicationMixer) {
+        manager->initialize();
+    } else {
+        LogManager::instance()->sendLog(LogManager::AudioManager, "Audio components disabled in settings, skipping initialization");
+    }
 }
 
 AudioBridge::~AudioBridge() {
@@ -1107,6 +1117,44 @@ void AudioBridge::startAudioLevelMonitoring()
 void AudioBridge::stopAudioLevelMonitoring()
 {
     AudioManager::instance()->stopAudioLevelMonitoring();
+}
+
+void AudioBridge::initialize()
+{
+    LogManager::instance()->sendLog(LogManager::AudioManager, "AudioBridge initialize requested");
+    auto* manager = AudioManager::instance();
+    manager->initialize();
+}
+
+void AudioBridge::cleanup()
+{
+    LogManager::instance()->sendLog(LogManager::AudioManager, "AudioBridge cleanup requested");
+    auto* manager = AudioManager::instance();
+    manager->cleanup();
+
+    // Reset cached values
+    m_outputVolume = 0;
+    m_inputVolume = 0;
+    m_outputMuted = false;
+    m_inputMuted = false;
+    m_isReady = false;
+    m_outputAudioLevel = 0;
+    m_inputAudioLevel = 0;
+
+    // Clear models
+    m_applicationModel->setApplications(QList<AudioApplication>());
+    m_groupedApplicationModel->setGroups(QList<ApplicationGroup>());
+    m_outputDeviceModel->setDevices(QList<AudioDevice>());
+    m_inputDeviceModel->setDevices(QList<AudioDevice>());
+
+    // Emit signals to update QML
+    emit outputVolumeChanged();
+    emit inputVolumeChanged();
+    emit outputMutedChanged();
+    emit inputMutedChanged();
+    emit isReadyChanged();
+    emit outputAudioLevelChanged();
+    emit inputAudioLevelChanged();
 }
 
 void AudioBridge::onOutputAudioLevelChanged(int level)

@@ -3,8 +3,8 @@
 #include <QApplication>
 #include <QDebug>
 #include <QTimer>
+#include <QSettings>
 #include "logmanager.h"
-// Static member definitions
 MonitorWorker* MonitorManager::s_worker = nullptr;
 QThread* MonitorManager::s_workerThread = nullptr;
 MonitorManager* MonitorManager::s_instance = nullptr;
@@ -13,35 +13,36 @@ bool MonitorManager::s_nightLightEnabled = false;
 bool MonitorManager::s_nightLightSupported = false;
 QMutex MonitorManager::s_cacheMutex;
 
-// MonitorWorker implementation
 MonitorWorker::MonitorWorker(QObject *parent)
     : QObject(parent)
-    , m_impl(new MonitorManagerImpl())
+    , m_impl(nullptr)
     , m_ddcciBrightnessTimer(new QTimer(this))
     , m_pendingDDCCIBrightness(0)
     , m_hasPendingDDCCIBrightness(false)
 {
-    // Set up callback from impl to worker thread
-    m_impl->setChangeCallback([this]() {
-        // This callback runs in worker thread, so we can call enumerateMonitors directly
-        enumerateMonitors();
-    });
-
-    // Initial enumeration
-    enumerateMonitors();
-    checkNightLightStatus();
-
     m_ddcciBrightnessTimer->setSingleShot(true);
     connect(m_ddcciBrightnessTimer, &QTimer::timeout, this, [this]() {
-        // If we have a pending brightness change, execute it
         if (m_hasPendingDDCCIBrightness) {
             int brightness = m_pendingDDCCIBrightness;
             m_hasPendingDDCCIBrightness = false;
 
-            // Execute the pending brightness change with same delay
             setDDCCIBrightness(brightness, 16);
         }
     });
+}
+
+void MonitorWorker::init()
+{
+    // This runs on the worker thread after moveToThread()
+    LogManager::instance()->sendLog(LogManager::MonitorManager, "Initializing MonitorWorker on worker thread");
+
+    m_impl = new MonitorManagerImpl();
+    m_impl->setChangeCallback([this]() {
+        enumerateMonitors();
+    });
+
+    enumerateMonitors();
+    checkNightLightStatus();
 }
 
 MonitorWorker::~MonitorWorker()
@@ -50,12 +51,14 @@ MonitorWorker::~MonitorWorker()
         m_ddcciBrightnessTimer->stop();
     }
 
-    delete m_impl;
+    if (m_impl) {
+        delete m_impl;
+        m_impl = nullptr;
+    }
 }
 
 void MonitorWorker::cleanup()
 {
-    // Stop and cleanup the timer from the correct thread
     if (m_ddcciBrightnessTimer) {
         m_ddcciBrightnessTimer->stop();
         m_ddcciBrightnessTimer->deleteLater();
@@ -63,6 +66,11 @@ void MonitorWorker::cleanup()
     }
 
     m_hasPendingDDCCIBrightness = false;
+
+    if (m_impl) {
+        delete m_impl;
+        m_impl = nullptr;
+    }
 }
 
 void MonitorWorker::enumerateMonitors()
@@ -73,10 +81,7 @@ void MonitorWorker::enumerateMonitors()
         return;
     }
 
-    // Update the implementation's monitor list
     m_impl->enumerateMonitors();
-
-    // Convert to Qt types
     updateMonitorFromImpl();
 
     emit monitorsReady(m_monitors);
@@ -105,7 +110,7 @@ void MonitorWorker::updateMonitorFromImpl()
         if (currentBrightness != -1) {
             monitor.brightness = currentBrightness;
         } else {
-            monitor.brightness = 50; // Default only if we can't read it
+            monitor.brightness = 50;
             monitor.isSupported = false;
         }
 
@@ -131,7 +136,6 @@ void MonitorWorker::setBrightness(const QString& monitorId, int brightness)
     }
 
     if (m_impl->setBrightnessInternal(index, brightness)) {
-        // Update cached value
         for (Monitor& monitor : m_monitors) {
             if (monitor.id == monitorId) {
                 monitor.brightness = brightness;
@@ -152,7 +156,6 @@ void MonitorWorker::setBrightnessAll(int brightness)
 
     bool success = m_impl->setBrightnessAll(brightness);
     if (success) {
-        // Update all cached values
         for (Monitor& monitor : m_monitors) {
             if (monitor.isSupported) {
                 monitor.brightness = brightness;
@@ -349,7 +352,16 @@ MonitorManager::MonitorManager(QObject *parent)
     , m_nightLightSupported(false)
 {
     s_instance = this;
-    initialize();
+
+    // Check if brightness control is enabled in settings
+    QSettings settings("Odizinne", "QontrolPanel");
+    bool allowBrightnessControl = settings.value("allowBrightnessControl", true).toBool();
+
+    if (allowBrightnessControl) {
+        initialize();
+    } else {
+        LogManager::instance()->sendLog(LogManager::MonitorManager, "Brightness control disabled in settings, skipping initialization");
+    }
 }
 
 MonitorManager::~MonitorManager()
@@ -498,7 +510,8 @@ void MonitorManager::initialize()
     LogManager::instance()->sendLog(LogManager::MonitorManager, "Starting worker thread");
     s_workerThread->start();
 
-    QMetaObject::invokeMethod(s_worker, "enumerateMonitors", Qt::QueuedConnection);
+    // Initialize the worker on the worker thread (this does the heavy lifting)
+    QMetaObject::invokeMethod(s_worker, "init", Qt::QueuedConnection);
     QMetaObject::invokeMethod(s_worker, "refreshBrightnessLevels", Qt::QueuedConnection);
 
     LogManager::instance()->sendLog(LogManager::MonitorManager, "MonitorManager initialization complete");
@@ -506,7 +519,12 @@ void MonitorManager::initialize()
 
 void MonitorManager::cleanup()
 {
-    if (!s_workerThread) return;
+    LogManager::instance()->sendLog(LogManager::MonitorManager, "MonitorManager cleanup requested");
+
+    if (!s_workerThread) {
+        LogManager::instance()->sendLog(LogManager::MonitorManager, "MonitorManager already cleaned up, skipping");
+        return;
+    }
 
     // Step 1: Tell worker to cleanup from its own thread
     if (s_worker) {
@@ -528,6 +546,27 @@ void MonitorManager::cleanup()
     // Step 4: Delete thread
     delete s_workerThread;
     s_workerThread = nullptr;
+
+    // Clear cached data
+    {
+        QMutexLocker locker(&s_cacheMutex);
+        s_cachedMonitors.clear();
+        s_nightLightEnabled = false;
+        s_nightLightSupported = false;
+    }
+
+    // Reset instance properties
+    m_monitorDetected = false;
+    m_currentBrightness = 50;
+    m_nightLightEnabled = false;
+    m_nightLightSupported = false;
+
+    emit monitorDetectedChanged();
+    emit brightnessChanged();
+    emit nightLightEnabledChanged();
+    emit nightLightSupportedChanged();
+
+    LogManager::instance()->sendLog(LogManager::MonitorManager, "MonitorManager cleanup complete");
 }
 
 MonitorWorker* MonitorManager::getWorker()
@@ -678,7 +717,6 @@ void MonitorManager::toggleNightLight()
     toggleNightLightAsync();
 }
 
-// Private methods
 void MonitorManager::updateCache(const QList<Monitor>& monitors)
 {
     QMutexLocker locker(&s_cacheMutex);

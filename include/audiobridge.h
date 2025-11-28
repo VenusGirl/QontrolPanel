@@ -250,6 +250,10 @@ public:
     Q_INVOKABLE void startAudioLevelMonitoring();
     Q_INVOKABLE void stopAudioLevelMonitoring();
 
+    // Lifecycle methods
+    Q_INVOKABLE void initialize();
+    Q_INVOKABLE void cleanup();
+
     Q_INVOKABLE QString getDisplayNameForApplication(const QString& appName, int streamIndex) const;
     Q_INVOKABLE void setCustomApplicationName(const QString& originalName, int streamIndex, const QString& customName);
     Q_INVOKABLE QString getCustomApplicationName(const QString& originalName, int streamIndex) const;

@@ -33,6 +33,7 @@ public:
     ~MonitorWorker();
 
 public slots:
+    void init();
     void enumerateMonitors();
     void setBrightness(const QString& monitorId, int brightness);
     void setBrightnessAll(int brightness);
@@ -77,11 +78,13 @@ class MonitorManager : public QObject
     Q_PROPERTY(bool nightLightSupported READ nightLightSupported NOTIFY nightLightSupportedChanged)
 
 public:
-    static void initialize();
-    static void cleanup();
     static MonitorWorker* getWorker();
     static MonitorManager* create(QQmlEngine* qmlEngine, QJSEngine* jsEngine);
     static MonitorManager* instance();
+
+    // Q_INVOKABLE methods for QML
+    Q_INVOKABLE void initialize();
+    Q_INVOKABLE void cleanup();
 
     // Async methods (thread-safe)
     static void enumerateMonitorsAsync();
