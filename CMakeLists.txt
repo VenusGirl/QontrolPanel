@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
-project(QontrolPanel VERSION 1.9.8 LANGUAGES C CXX)
+project(QontrolPanel VERSION 1.10.0 LANGUAGES C CXX)
 
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Installation directory" FORCE)
 set(CMAKE_CXX_STANDARD 20)
@@ -199,10 +199,6 @@ target_compile_definitions(QontrolPanel PRIVATE
     NOMINMAX
     _CRT_SECURE_NO_WARNINGS
 )
-
-if(WIN32 AND MSVC)
-    target_compile_options(QontrolPanel PRIVATE "/await")
-endif()
 
 get_ts_files(TS_FILES ${CMAKE_PROJECT_NAME})
 get_qm_files(QM_FILES ${CMAKE_PROJECT_NAME})
