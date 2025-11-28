@@ -27,6 +27,7 @@ include(cmake/languages.cmake)
 set(SOURCES
     src/audiomanager.cpp
     src/audiobridge.cpp
+    src/audiomodels.cpp
     src/QontrolPanel.cpp
     src/shortcutmanager.cpp
     src/soundpanelbridge.cpp
@@ -44,6 +45,7 @@ set(SOURCES
 set(HEADERS
     include/audiomanager.h
     include/audiobridge.h
+    include/audiomodels.h
     include/policyconfig.h
     include/qontrolpanel.h
     include/shortcutmanager.h
