@@ -117,11 +117,11 @@
     </message>
     <message>
         <source>Avoid applications overflow</source>
-        <translation>Evita sovrapposizione applicazioni</translation>
+        <translation type="vanished">Evita sovrapposizione applicazioni</translation>
     </message>
     <message>
         <source>Wrap applications in ScrollView when more than 4 applications are displayed</source>
-        <translation>In Vista scorrimento a capo automatico applicazioni quando vengono visualizzate più di 4 applicazioni</translation>
+        <translation type="vanished">In Vista scorrimento a capo automatico applicazioni quando vengono visualizzate più di 4 applicazioni</translation>
     </message>
 </context>
 <context>
@@ -360,6 +360,14 @@
     <message>
         <source>Sign Out</source>
         <translation>Logoff</translation>
+    </message>
+    <message>
+        <source>Restart to UEFI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System will restart to UEFI in %1 seconds</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>OK</source>
@@ -836,6 +844,10 @@ Puoi abilitarlo nella scheda Generale.</translation>
     <message>
         <source>Restart</source>
         <translation>Riavvia</translation>
+    </message>
+    <message>
+        <source>Restart UEFI</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Shutdown</source>

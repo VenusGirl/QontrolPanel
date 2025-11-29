@@ -173,11 +173,11 @@
     </message>
     <message>
         <source>Avoid applications overflow</source>
-        <translation>避免应用程序过界</translation>
+        <translation type="vanished">避免应用程序过界</translation>
     </message>
     <message>
         <source>Wrap applications in ScrollView when more than 4 applications are displayed</source>
-        <translation>滚动显示应用程序如果超过 4 个</translation>
+        <translation type="vanished">滚动显示应用程序如果超过 4 个</translation>
     </message>
 </context>
 <context>
@@ -416,6 +416,14 @@
     <message>
         <source>Sign Out</source>
         <translation>注销</translation>
+    </message>
+    <message>
+        <source>Restart to UEFI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System will restart to UEFI in %1 seconds</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>OK</source>
@@ -950,6 +958,10 @@ You can enable it in the General tab.</source>
     <message>
         <source>Restart</source>
         <translation>重启</translation>
+    </message>
+    <message>
+        <source>Restart UEFI</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Shutdown</source>

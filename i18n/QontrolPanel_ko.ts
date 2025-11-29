@@ -161,7 +161,7 @@
     </message>
     <message>
         <source>Avoid applications overflow</source>
-        <translation>응용 프로그램 오버플로 방지</translation>
+        <translation type="vanished">응용 프로그램 오버플로 방지</translation>
     </message>
     <message>
         <source>Wrap applications in scrollview when more than 4 applications are displayed</source>
@@ -173,7 +173,7 @@
     </message>
     <message>
         <source>Wrap applications in ScrollView when more than 4 applications are displayed</source>
-        <translation>4개 이상의 응용 프로그램이 표시될 때 응용 프로그램을 스크롤 보기로 감싸기</translation>
+        <translation type="vanished">4개 이상의 응용 프로그램이 표시될 때 응용 프로그램을 스크롤 보기로 감싸기</translation>
     </message>
 </context>
 <context>
@@ -412,6 +412,14 @@
     <message>
         <source>Sign Out</source>
         <translation>로그아웃</translation>
+    </message>
+    <message>
+        <source>Restart to UEFI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System will restart to UEFI in %1 seconds</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>OK</source>
@@ -1016,6 +1024,10 @@ You can enable it in the General tab.</source>
     <message>
         <source>Restart</source>
         <translation>다시 시작</translation>
+    </message>
+    <message>
+        <source>Restart UEFI</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Shutdown</source>

@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>Avoid applications overflow</source>
-        <translation>Éviter les débordements d&apos;applications</translation>
+        <translation type="vanished">Éviter les débordements d&apos;applications</translation>
     </message>
     <message>
         <source>Right</source>
@@ -142,10 +142,6 @@
     <message>
         <source>Taskbar offset</source>
         <translation>Compensation de la barre des taches</translation>
-    </message>
-    <message>
-        <source>Wrap applications in ScrollView when more than 4 applications are displayed</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -364,6 +360,10 @@
         <translation>Action</translation>
     </message>
     <message>
+        <source>System will restart to UEFI in %1 seconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
@@ -378,6 +378,10 @@
     <message>
         <source>Restart</source>
         <translation>Redémarrer</translation>
+    </message>
+    <message>
+        <source>Restart to UEFI</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>System will hibernate in %1 seconds</source>
@@ -867,6 +871,10 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     <message>
         <source>Restart</source>
         <translation>Redémarrer</translation>
+    </message>
+    <message>
+        <source>Restart UEFI</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Switch User</source>

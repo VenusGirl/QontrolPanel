@@ -86,6 +86,7 @@ public:
     Q_INVOKABLE bool hasMultipleUsers();
     Q_INVOKABLE bool isSleepSupported();
     Q_INVOKABLE bool isHibernateSupported();
+    Q_INVOKABLE bool isUEFISupported();
     Q_INVOKABLE bool shutdown();
     Q_INVOKABLE bool restart();
     Q_INVOKABLE bool sleep();
@@ -94,6 +95,8 @@ public:
     Q_INVOKABLE bool signOut();
     Q_INVOKABLE bool switchAccount();
     Q_INVOKABLE void setStyle(int style);
+
+    Q_INVOKABLE void restartToUEFI();
 
 private slots:
     void checkForTranslationUpdates();
@@ -151,4 +154,5 @@ private:
     QTimer* m_autoUpdateCheckTimer;
 
     bool enableShutdownPrivilege();
+    bool enableSystemEnvironmentPrivilege();
 };

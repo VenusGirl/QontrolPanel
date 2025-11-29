@@ -39,6 +39,19 @@ Menu {
     }
 
     MenuItem {
+        icon.source: "qrc:/icons/restart.svg"
+        text: qsTr("Restart UEFI")
+        enabled: SoundPanelBridge.isUEFISupported
+        onTriggered: {
+            if (UserSettings.showPowerDialogConfirmation) {
+                powerMenu.setPowerAction(4)
+            } else {
+                SoundPanelBridge.restartToUEFI()
+            }
+        }
+    }
+
+    MenuItem {
         icon.source: "qrc:/icons/shutdown.svg"
         text: qsTr("Shutdown")
         onTriggered: {

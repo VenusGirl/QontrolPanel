@@ -16,6 +16,8 @@ Dialog {
             return qsTr("Shutdown")
         case 3:
             return qsTr("Sign Out")
+        case 4:
+            return qsTr("Restart to UEFI")
         default:
             return qsTr("Action")
         }
@@ -32,6 +34,8 @@ Dialog {
             return qsTr("System will shutdown in %1 seconds").arg(countdownTimer.remaining)
         case 3:
             return qsTr("You will be signed out in %1 seconds").arg(countdownTimer.remaining)
+        case 4:
+            return qsTr("System will restart to UEFI in %1 seconds").arg(countdownTimer.remaining)
         default:
             return ""
         }
@@ -107,6 +111,9 @@ Dialog {
             break
         case 3:
             SoundPanelBridge.signOut()
+            break
+        case 4:
+            SoundPanelBridge.restartToUEFI()
             break
         default:
             break

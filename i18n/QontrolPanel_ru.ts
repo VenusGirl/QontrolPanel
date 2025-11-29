@@ -163,14 +163,6 @@
         <source>Battery</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Avoid applications overflow</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Wrap applications in ScrollView when more than 4 applications are displayed</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ApplicationsListView</name>
@@ -407,6 +399,14 @@
     </message>
     <message>
         <source>Sign Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restart to UEFI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System will restart to UEFI in %1 seconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -933,6 +933,10 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restart UEFI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

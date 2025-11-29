@@ -23,6 +23,9 @@
 #pragma comment(lib, "netapi32.lib")
 #pragma comment(lib, "user32.lib")
 
+#define VARIABLE_ATTRIBUTE_NON_VOLATILE 0x00000001
+#define VARIABLE_ATTRIBUTE_BOOTSERVICE_ACCESS 0x00000002
+#define VARIABLE_ATTRIBUTE_RUNTIME_ACCESS 0x00000004
 
 SoundPanelBridge* SoundPanelBridge::m_instance = nullptr;
 
@@ -683,6 +686,29 @@ bool SoundPanelBridge::enableShutdownPrivilege()
     return true;
 }
 
+bool SoundPanelBridge::enableSystemEnvironmentPrivilege()
+{
+    HANDLE hToken;
+    TOKEN_PRIVILEGES tkp;
+
+    if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken)) {
+        return false;
+    }
+
+    LookupPrivilegeValue(NULL, SE_SYSTEM_ENVIRONMENT_NAME, &tkp.Privileges[0].Luid);
+    tkp.PrivilegeCount = 1;
+    tkp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+
+    AdjustTokenPrivileges(hToken, FALSE, &tkp, 0, (PTOKEN_PRIVILEGES)NULL, 0);
+    if (GetLastError() != ERROR_SUCCESS) {
+        CloseHandle(hToken);
+        return false;
+    }
+
+    CloseHandle(hToken);
+    return true;
+}
+
 bool SoundPanelBridge::shutdown()
 {
     if (!enableShutdownPrivilege()) {
@@ -738,4 +764,20 @@ void SoundPanelBridge::setStyle(int style) {
         QGuiApplication::styleHints()->setColorScheme(Qt::ColorScheme::Light);
         break;
     }
+}
+
+bool SoundPanelBridge::isUEFISupported() {
+    FIRMWARE_TYPE fwType = FirmwareTypeUnknown;
+    GetFirmwareType(&fwType);
+    return fwType == FirmwareTypeUefi;
+}
+
+void SoundPanelBridge::restartToUEFI()
+{
+    if (!isUEFISupported()) {
+        return;
+    }
+
+    // Launch elevated shutdown command via ShellExecute
+    ShellExecuteW(NULL, L"runas", L"shutdown", L"/r /fw /t 0", NULL, SW_HIDE);
 }
