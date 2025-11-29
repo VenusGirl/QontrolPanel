@@ -8,11 +8,6 @@
 #include <QGuiApplication>
 #include <QTranslator>
 #include <QTimer>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QUrl>
-#include <QJsonObject>
 
 class SoundPanelBridge : public QObject
 {
@@ -20,7 +15,6 @@ class SoundPanelBridge : public QObject
     QML_ELEMENT
     QML_SINGLETON
 
-    Q_PROPERTY(int panelMode READ panelMode NOTIFY panelModeChanged)
     Q_PROPERTY(QString taskbarPosition READ taskbarPosition NOTIFY taskbarPositionChanged)
 
 public:
@@ -30,10 +24,8 @@ public:
     static SoundPanelBridge* create(QQmlEngine* qmlEngine, QJSEngine* jsEngine);
     static SoundPanelBridge* instance();
 
-    int panelMode() const;
     QString taskbarPosition() const;
 
-    Q_INVOKABLE void refreshPanelModeState();
     Q_INVOKABLE bool getShortcutState();
     Q_INVOKABLE void setStartupShortcut(bool enabled);
     Q_INVOKABLE QString getAppVersion() const;
@@ -50,71 +42,25 @@ public:
     Q_INVOKABLE void resumeGlobalShortcuts();
     bool areGlobalShortcutsSuspended() const;
     void requestChatMixNotification(QString message);
-
-    Q_INVOKABLE void downloadLatestTranslations();
-    Q_INVOKABLE void cancelTranslationDownload();
     Q_INVOKABLE QStringList getLanguageNativeNames() const;
     Q_INVOKABLE QStringList getLanguageCodes() const;
-
     Q_INVOKABLE void openLegacySoundSettings();
     Q_INVOKABLE void openModernSoundSettings();
-
     Q_INVOKABLE int getAvailableDesktopWidth() const;
     Q_INVOKABLE int getAvailableDesktopHeight() const;
-
     Q_INVOKABLE void playFeedbackSound();
-
-    Q_INVOKABLE int getTranslationProgress(const QString& languageCode);
-    Q_INVOKABLE bool hasTranslationProgressData();
-
     Q_INVOKABLE void setStyle(int style);
 
-private slots:
-    void checkForTranslationUpdates();
-    void checkForAppUpdates();
-
 signals:
-    void panelModeChanged();
     void taskbarPositionChanged();
     void languageChanged();
     void chatMixEnabledChanged(bool enabled);
     void chatMixNotificationRequested(QString message);
-    void translationDownloadStarted();
-    void translationDownloadProgress(const QString& language, int bytesReceived, int bytesTotal);
-    void translationDownloadFinished(bool success, const QString& message);
-    void translationDownloadError(const QString& errorMessage);
-    void translationFileCompleted(const QString& language, int completed, int total);
-    void translationProgressDataLoaded();
-    void updateAvailableNotification(const QString& version);
 
 private:
     static SoundPanelBridge* m_instance;
     QSettings settings;
-
-    int m_currentPanelMode = 0;
-
     QString detectTaskbarPosition() const;
-
     QTranslator *translator;
-
     bool m_globalShortcutsSuspended = false;
-
-    QNetworkAccessManager* m_networkManager;
-    QList<QNetworkReply*> m_activeDownloads;
-    int m_totalDownloads;
-    int m_completedDownloads;
-    int m_failedDownloads;
-
-    void downloadTranslationFile(const QString& languageCode, const QString& githubUrl);
-    void onTranslationFileDownloaded();
-    QString getTranslationDownloadPath() const;
-
-    QTimer* m_autoUpdateTimer;
-
-    QJsonObject m_translationProgress;
-    QString getTranslationProgressPath() const;
-    void loadTranslationProgressData();
-    void downloadTranslationProgressFile();
-
-    QTimer* m_autoUpdateCheckTimer;
 };

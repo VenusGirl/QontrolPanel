@@ -492,7 +492,10 @@ ApplicationWindow {
                 AudioBridge.restoreOriginalVolumes()
             }
         }
+    }
 
+    Connections {
+        target: Updater
         function onUpdateAvailableNotification(version) {
             systemTray.showMessage(
                         qsTr("Update Available"),
