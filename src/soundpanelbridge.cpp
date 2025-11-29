@@ -10,7 +10,6 @@
 #include <Windows.h>
 #include <mmsystem.h>
 #include "version.h"
-#include "mediasessionmanager.h"
 #include "languages.h"
 #include "updater.h"
 #include "logmanager.h"
@@ -44,17 +43,6 @@ SoundPanelBridge::SoundPanelBridge(QObject* parent)
     m_instance = this;
     changeApplicationLanguage(settings.value("languageIndex", 0).toInt());
     loadTranslationProgressData();
-
-    if (MediaSessionManager::getWorker()) {
-        connect(MediaSessionManager::getWorker(), &MediaWorker::mediaInfoChanged,
-                this, [this](const MediaInfo& info) {
-                    m_mediaTitle = info.title;
-                    m_mediaArtist = info.artist;
-                    m_mediaArt = info.albumArt;
-                    m_isMediaPlaying = info.isPlaying;
-                    emit mediaInfoChanged();
-                });
-    }
 
     m_autoUpdateTimer->setInterval(4 * 60 * 60 * 1000);
     m_autoUpdateTimer->setSingleShot(false);
@@ -159,42 +147,6 @@ QString SoundPanelBridge::getAppVersion() const
 QString SoundPanelBridge::getQtVersion() const
 {
     return QT_VERSION_STRING;
-}
-
-QString SoundPanelBridge::mediaTitle() const {
-    return m_mediaTitle;
-}
-
-QString SoundPanelBridge::mediaArtist() const {
-    return m_mediaArtist;
-}
-
-bool SoundPanelBridge::isMediaPlaying() const {
-    return m_isMediaPlaying;
-}
-
-QString SoundPanelBridge::mediaArt() const {
-    return m_mediaArt;
-}
-
-void SoundPanelBridge::playPause() {
-    MediaSessionManager::playPauseAsync();
-}
-
-void SoundPanelBridge::nextTrack() {
-    MediaSessionManager::nextTrackAsync();
-}
-
-void SoundPanelBridge::previousTrack() {
-    MediaSessionManager::previousTrackAsync();
-}
-
-void SoundPanelBridge::startMediaMonitoring() {
-    MediaSessionManager::startMonitoringAsync();
-}
-
-void SoundPanelBridge::stopMediaMonitoring() {
-    MediaSessionManager::stopMonitoringAsync();
 }
 
 QString SoundPanelBridge::getCurrentLanguageCode() const {

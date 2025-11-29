@@ -99,7 +99,7 @@ ApplicationWindow {
     Component.onCompleted: {
         SoundPanelBridge.setStyle(UserSettings.panelStyle)
         if (UserSettings.enableMediaSessionManager) {
-            SoundPanelBridge.startMediaMonitoring()
+            MediaSessionBridge.startMediaMonitoring()
         }
         if (UserSettings.allowBrightnessControl) {
             MonitorManager.setDDCCIBrightness(Math.round(UserSettings.ddcciBrightness), UserSettings.ddcciQueueDelay)
@@ -114,9 +114,9 @@ ApplicationWindow {
         target: UserSettings
         function onEnableMediaSessionManagerChanged() {
             if (UserSettings.enableMediaSessionManager) {
-                SoundPanelBridge.startMediaMonitoring()
+                MediaSessionBridge.startMediaMonitoring()
             } else {
-                SoundPanelBridge.stopMediaMonitoring()
+                MediaSessionBridge.stopMediaMonitoring()
             }
         }
         function onOpacityAnimationsChanged() {
@@ -664,7 +664,7 @@ ApplicationWindow {
                     anchors.rightMargin: 15
                     anchors.bottomMargin: 0
                     opacity: 0
-                    visible: UserSettings.enableMediaSessionManager && (SoundPanelBridge.mediaTitle !== "")
+                    visible: UserSettings.enableMediaSessionManager && (MediaSessionBridge.mediaTitle !== "")
                     onVisibleChanged: {
                         if (panel.visible) {
                             opacity = 1

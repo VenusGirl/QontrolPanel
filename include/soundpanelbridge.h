@@ -23,11 +23,6 @@ class SoundPanelBridge : public QObject
     Q_PROPERTY(int panelMode READ panelMode NOTIFY panelModeChanged)
     Q_PROPERTY(QString taskbarPosition READ taskbarPosition NOTIFY taskbarPositionChanged)
 
-    Q_PROPERTY(QString mediaTitle READ mediaTitle NOTIFY mediaInfoChanged)
-    Q_PROPERTY(QString mediaArtist READ mediaArtist NOTIFY mediaInfoChanged)
-    Q_PROPERTY(bool isMediaPlaying READ isMediaPlaying NOTIFY mediaInfoChanged)
-    Q_PROPERTY(QString mediaArt READ mediaArt NOTIFY mediaInfoChanged)
-
 public:
     explicit SoundPanelBridge(QObject* parent = nullptr);
     ~SoundPanelBridge() override;
@@ -45,17 +40,6 @@ public:
     Q_INVOKABLE QString getQtVersion() const;
     Q_INVOKABLE QString getCommitHash() const;
     Q_INVOKABLE QString getBuildTimestamp() const;
-
-    QString mediaTitle() const;
-    QString mediaArtist() const;
-    bool isMediaPlaying() const;
-    QString mediaArt() const;
-
-    Q_INVOKABLE void playPause();
-    Q_INVOKABLE void nextTrack();
-    Q_INVOKABLE void previousTrack();
-    Q_INVOKABLE void startMediaMonitoring();
-    Q_INVOKABLE void stopMediaMonitoring();
 
     Q_INVOKABLE QString getCurrentLanguageCode() const;
     Q_INVOKABLE void changeApplicationLanguage(int languageIndex);
@@ -124,11 +108,6 @@ private:
     int m_currentPanelMode = 0;
 
     QString detectTaskbarPosition() const;
-
-    QString m_mediaTitle;
-    QString m_mediaArtist;
-    bool m_isMediaPlaying = false;
-    QString m_mediaArt;
 
     QTranslator *translator;
 

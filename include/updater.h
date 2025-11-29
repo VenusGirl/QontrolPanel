@@ -13,6 +13,7 @@ class Updater : public QObject
     Q_OBJECT
     QML_ELEMENT
     QML_SINGLETON
+
     Q_PROPERTY(bool updateAvailable READ updateAvailable NOTIFY updateAvailableChanged)
     Q_PROPERTY(QString latestVersion READ latestVersion NOTIFY latestVersionChanged)
     Q_PROPERTY(QString currentVersion READ currentVersion CONSTANT)
