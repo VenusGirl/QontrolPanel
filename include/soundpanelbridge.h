@@ -67,20 +67,7 @@ public:
     Q_INVOKABLE int getTranslationProgress(const QString& languageCode);
     Q_INVOKABLE bool hasTranslationProgressData();
 
-    Q_INVOKABLE bool hasMultipleUsers();
-    Q_INVOKABLE bool isSleepSupported();
-    Q_INVOKABLE bool isHibernateSupported();
-    Q_INVOKABLE bool isUEFISupported();
-    Q_INVOKABLE bool shutdown();
-    Q_INVOKABLE bool restart();
-    Q_INVOKABLE bool sleep();
-    Q_INVOKABLE bool hibernate();
-    Q_INVOKABLE bool lockAccount();
-    Q_INVOKABLE bool signOut();
-    Q_INVOKABLE bool switchAccount();
     Q_INVOKABLE void setStyle(int style);
-
-    Q_INVOKABLE void restartToUEFI();
 
 private slots:
     void checkForTranslationUpdates();
@@ -89,7 +76,6 @@ private slots:
 signals:
     void panelModeChanged();
     void taskbarPositionChanged();
-    void mediaInfoChanged();
     void languageChanged();
     void chatMixEnabledChanged(bool enabled);
     void chatMixNotificationRequested(QString message);
@@ -131,7 +117,4 @@ private:
     void downloadTranslationProgressFile();
 
     QTimer* m_autoUpdateCheckTimer;
-
-    bool enableShutdownPrivilege();
-    bool enableSystemEnvironmentPrivilege();
 };

@@ -176,6 +176,7 @@ qt_add_qml_module(QontrolPanel
     VERSION 1.0
     QML_FILES ${QML_FILES} ${QML_SINGLETONS}
     SOURCES include/mediasessionbridge.h src/mediasessionbridge.cpp
+    SOURCES include/powerbridge.h src/powerbridge.cpp
 )
 
 target_include_directories(QontrolPanel PRIVATE
