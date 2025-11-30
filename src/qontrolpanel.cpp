@@ -1,6 +1,7 @@
 #include "qontrolpanel.h"
 #include "soundpanelbridge.h"
 #include "mediasessionmanager.h"
+#include "LanguageBridge.h"
 #include "logmanager.h"
 #include <QMenu>
 #include <QApplication>
@@ -25,12 +26,9 @@ QontrolPanel::QontrolPanel(QWidget *parent)
     , settings("Odizinne", "QontrolPanel")
     , localServer(nullptr)
 {
-    // Check if media session manager is enabled in settings
     bool enableMediaSessionManager = settings.value("enableMediaSessionManager", true).toBool();
     if (enableMediaSessionManager) {
         MediaSessionManager::initialize();
-    } else {
-        LogManager::instance()->sendLog(LogManager::MediaSessionManager, "Media session manager disabled in settings, skipping initialization");
     }
 
     instance = this;
@@ -45,6 +43,8 @@ QontrolPanel::QontrolPanel(QWidget *parent)
         connect(SoundPanelBridge::instance(), &SoundPanelBridge::languageChanged,
                 this, &QontrolPanel::onLanguageChanged);
     }
+
+    LanguageBridge::instance()->changeApplicationLanguage(settings.value("languageIndex", 0).toInt());
 }
 
 QontrolPanel::~QontrolPanel()

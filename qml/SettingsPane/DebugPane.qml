@@ -114,7 +114,7 @@ ColumnLayout {
                         }
                     }
                     additionalControl: Label {
-                        text: SoundPanelBridge.getAppVersion()
+                        text: Updater.getAppVersion()
                         opacity: 0.5
                     }
                 }
@@ -125,7 +125,7 @@ ColumnLayout {
                     description: ""
 
                     additionalControl: Label {
-                        text: SoundPanelBridge.getQtVersion()
+                        text: Updater.getQtVersion()
                         opacity: 0.5
                     }
                 }
@@ -136,7 +136,7 @@ ColumnLayout {
                     description: ""
 
                     additionalControl: Label {
-                        text: SoundPanelBridge.getCommitHash()
+                        text: Updater.getCommitHash()
                         opacity: 0.5
                     }
                 }
@@ -147,7 +147,7 @@ ColumnLayout {
                     description: ""
 
                     additionalControl: Label {
-                        text: SoundPanelBridge.getBuildTimestamp()
+                        text: Updater.getBuildTimestamp()
                         opacity: 0.5
                     }
                 }

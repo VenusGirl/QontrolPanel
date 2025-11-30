@@ -35,6 +35,10 @@ public:
     Q_INVOKABLE void cancelTranslationDownload();
     Q_INVOKABLE int getTranslationProgress(const QString& languageCode);
     Q_INVOKABLE bool hasTranslationProgressData();
+    Q_INVOKABLE QString getAppVersion() const;
+    Q_INVOKABLE QString getQtVersion() const;
+    Q_INVOKABLE QString getCommitHash() const;
+    Q_INVOKABLE QString getBuildTimestamp() const;
 
     bool updateAvailable() const { return m_updateAvailable; }
     QString latestVersion() const { return m_latestVersion; }

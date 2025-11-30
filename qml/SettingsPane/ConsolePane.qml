@@ -47,8 +47,8 @@ ColumnLayout {
     }
 
     function copyAllLogs() {
-        let version = SoundPanelBridge.getAppVersion()
-        let commitHash = SoundPanelBridge.getCommitHash()
+        let version = Updater.getAppVersion()
+        let commitHash = Updater.getCommitHash()
         let currentDate = new Date().toISOString().split('T')[0]
         let header = "QontrolPanel Log Export\n"
         header += "========================\n"

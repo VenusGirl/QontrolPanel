@@ -557,3 +557,23 @@ void Updater::checkForAppUpdatesAuto()
 
     checkForUpdates();
 }
+
+QString Updater::getAppVersion() const
+{
+    return APP_VERSION_STRING;
+}
+
+QString Updater::getQtVersion() const
+{
+    return QT_VERSION_STRING;
+}
+
+QString Updater::getCommitHash() const
+{
+    return QString(GIT_COMMIT_HASH);
+}
+
+QString Updater::getBuildTimestamp() const
+{
+    return QString(BUILD_TIMESTAMP);
+}

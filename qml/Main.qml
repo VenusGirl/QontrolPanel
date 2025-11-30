@@ -50,7 +50,15 @@ ApplicationWindow {
 
     property bool isAnimatingIn: false
     property bool isAnimatingOut: false
-    property string taskbarPos: SoundPanelBridge.taskbarPosition
+    property string taskbarPos: {
+        switch (UserSettings.panelPosition) {
+            case 0: return "top";
+            case 1: return "bottom";
+            case 2: return "left";
+            case 3: return "right";
+            default: return "bottom";
+        }
+    }
     property real listCompensationOffset: maxDeviceListSpace - currentUsedListSpace
     property real maxDeviceListSpace: {
         let outputSpace = outputDevicesRect.expandedNeededHeight || 0
@@ -289,7 +297,6 @@ ApplicationWindow {
         }
 
         isAnimatingIn = true
-        panel.taskbarPos = SoundPanelBridge.taskbarPosition
         panel.visible = true
 
         positionPanelAtTarget()

@@ -189,7 +189,7 @@ ApplicationWindow {
     function positionWindow() {
         const screenWidth = SoundPanelBridge.getAvailableDesktopWidth()
         x = (screenWidth - width) / 2
-        y = SoundPanelBridge.taskbarPosition === "top" ? 60 : 12
+        y = UserSettings.panelPosition === 0 ? 60 : 12
     }
 
     Rectangle {

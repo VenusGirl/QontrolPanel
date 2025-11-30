@@ -61,7 +61,7 @@ ColumnLayout {
                             dlCard.downloadInProgress = false
                             if (success) {
                                 toastNotification.showToast(qsTr("Download completed successfully!"), true)
-                                SoundPanelBridge.changeApplicationLanguage(UserSettings.languageIndex)
+                                LanguageBridge.changeApplicationLanguage(UserSettings.languageIndex)
                             } else {
                                 toastNotification.showToast(qsTr("Download failed: %1").arg(message), false)
                             }
@@ -93,13 +93,13 @@ ColumnLayout {
                         Layout.preferredHeight: 35
                         model: {
                             let names = [qsTr("System")]
-                            names = names.concat(SoundPanelBridge.getLanguageNativeNames())
+                            names = names.concat(LanguageBridge.getLanguageNativeNames())
                             return names
                         }
                         currentIndex: UserSettings.languageIndex
                         onActivated: {
                             UserSettings.languageIndex = currentIndex
-                            SoundPanelBridge.changeApplicationLanguage(currentIndex)
+                            LanguageBridge.changeApplicationLanguage(currentIndex)
                             currentIndex = UserSettings.languageIndex
                         }
                     }
@@ -122,7 +122,7 @@ ColumnLayout {
                         property int progressPercentage: 0
 
                         function updateProgress() {
-                            let currentLangCode = SoundPanelBridge.getLanguageCodeFromIndex(UserSettings.languageIndex)
+                            let currentLangCode = LanguageBridge.getLanguageCodeFromIndex(UserSettings.languageIndex)
                             progressPercentage = Updater.getTranslationProgress(currentLangCode)
                             value = progressPercentage
                         }
