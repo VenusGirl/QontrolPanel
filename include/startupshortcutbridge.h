@@ -26,8 +26,3 @@ private:
     bool isShortcutPresent(QString shortcutName);
     void manageShortcut(bool state, QString shortcutName);
 };
-
-namespace ShortcutManager {
-
-
-}
