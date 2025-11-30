@@ -39,8 +39,8 @@ QontrolPanel::QontrolPanel(QWidget *parent)
         installKeyboardHook();
     }
 
-    if (SoundPanelBridge::instance()) {
-        connect(SoundPanelBridge::instance(), &SoundPanelBridge::languageChanged,
+    if (LanguageBridge::instance()) {
+        connect(LanguageBridge::instance(), &LanguageBridge::languageChanged,
                 this, &QontrolPanel::onLanguageChanged);
     }
 
@@ -368,10 +368,7 @@ void QontrolPanel::onNewConnection()
 
         if (message == "show_panel") {
             if (panelWindow) {
-                if (SoundPanelBridge::instance()) {
-                    QMetaObject::invokeMethod(panelWindow, "showPanel");
-                    LogManager::instance()->sendLog(LogManager::LocalServer, "Showing panel");
-                }
+                QMetaObject::invokeMethod(panelWindow, "showPanel");
             }
         }
 

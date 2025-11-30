@@ -1,5 +1,4 @@
 #include "soundpanelbridge.h"
-#include "shortcutmanager.h"
 #include <QBuffer>
 #include <QPixmap>
 #include <QProcess>
@@ -45,16 +44,6 @@ SoundPanelBridge* SoundPanelBridge::create(QQmlEngine* qmlEngine, QJSEngine* jsE
 SoundPanelBridge* SoundPanelBridge::instance()
 {
     return m_instance;
-}
-
-bool SoundPanelBridge::getShortcutState()
-{
-    return ShortcutManager::isShortcutPresent("QontrolPanel.lnk");
-}
-
-void SoundPanelBridge::setStartupShortcut(bool enabled)
-{
-    ShortcutManager::manageShortcut(enabled, "QontrolPanel.lnk");
 }
 
 void SoundPanelBridge::toggleChatMixFromShortcut(bool enabled)

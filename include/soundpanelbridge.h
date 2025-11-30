@@ -22,11 +22,6 @@ public:
     static SoundPanelBridge* create(QQmlEngine* qmlEngine, QJSEngine* jsEngine);
     static SoundPanelBridge* instance();
 
-    Q_INVOKABLE bool getShortcutState();
-    Q_INVOKABLE void setStartupShortcut(bool enabled);
-
-
-
     Q_INVOKABLE void toggleChatMixFromShortcut(bool enabled);
     Q_INVOKABLE void suspendGlobalShortcuts();
     Q_INVOKABLE void resumeGlobalShortcuts();
@@ -41,7 +36,6 @@ public:
     Q_INVOKABLE void setStyle(int style);
 
 signals:
-    void languageChanged();
     void chatMixEnabledChanged(bool enabled);
     void chatMixNotificationRequested(QString message);
 

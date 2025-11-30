@@ -29,7 +29,7 @@ set(SOURCES
     src/audiobridge.cpp
     src/audiomodels.cpp
     src/QontrolPanel.cpp
-    src/shortcutmanager.cpp
+    src/startupshortcutbridge.cpp
     src/soundpanelbridge.cpp
     src/main.cpp
     src/mediasessionmanager.cpp
@@ -48,7 +48,7 @@ set(HEADERS
     include/audiomodels.h
     include/policyconfig.h
     include/qontrolpanel.h
-    include/shortcutmanager.h
+    include/startupshortcutbridge.h
     include/soundpanelbridge.h
     include/mediasessionmanager.h
     include/windowfocusmanager.h

@@ -26,8 +26,8 @@ ColumnLayout {
                 description: qsTr("QSS will boot up when your computer starts")
 
                 additionalControl: LabeledSwitch {
-                    checked: SoundPanelBridge.getShortcutState()
-                    onClicked: SoundPanelBridge.setStartupShortcut(checked)
+                    checked: StartupShortcutBridge.getShortcutState()
+                    onClicked: StartupShortcutBridge.setStartupShortcut(checked)
                 }
             }
 
