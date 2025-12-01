@@ -80,7 +80,6 @@ ApplicationWindow {
     signal hideAnimationFinished()
     signal showAnimationFinished()
     signal hideAnimationStarted()
-    signal globalShortcutsToggled(bool enabled)
 
     onVisibleChanged: {
         if (!visible) {
@@ -119,6 +118,14 @@ ApplicationWindow {
     }
 
     Connections {
+        target: KeyboardShortcutManager
+
+        function onPanelToggleRequested() {
+            panel.togglePanel()
+        }
+    }
+
+    Connections {
         target: UserSettings
         function onEnableMediaSessionManagerChanged() {
             if (UserSettings.enableMediaSessionManager) {
@@ -137,10 +144,6 @@ ApplicationWindow {
                 mediaLayout.opacity = 1
                 mainLayout.opacity = 1
             }
-        }
-
-        function onGlobalShortcutsEnabledChanged() {
-            panel.globalShortcutsToggled(UserSettings.globalShortcutsEnabled)
         }
 
         function onAllowBrightnessControlChanged() {
@@ -288,6 +291,18 @@ ApplicationWindow {
                 duration: 150
                 easing.type: Easing.OutQuad
             }
+        }
+    }
+
+    function togglePanel() {
+        if (isAnimatingIn || isAnimatingOut) {
+            return
+        }
+
+        if (visible) {
+            hidePanel()
+        } else {
+            showPanel()
         }
     }
 

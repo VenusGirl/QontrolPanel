@@ -858,18 +858,6 @@ You can enable it in the General tab.</source>
         <source>Exit</source>
         <translation type="vanished">Beenden</translation>
     </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ChatMix %1</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SettingsWindow</name>

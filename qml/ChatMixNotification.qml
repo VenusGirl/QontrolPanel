@@ -41,15 +41,20 @@ ApplicationWindow {
     }
 
     Connections {
-        target: SoundPanelBridge
-        function onChatMixNotificationRequested(message) {
-            notificationWindow.showNotification(message)
+        target: KeyboardShortcutManager
 
-            if (!UserSettings.chatMixShortcutNotification) return
-            if (UserSettings.chatMixEnabled) {
-                chatMixOnEffect.play()
-            } else {
-                chatMixOffEffect.play()
+        function onChatMixToggleRequested() {
+            UserSettings.chatMixEnabled = !UserSettings.chatMixEnabled
+
+            if (UserSettings.chatMixShortcutNotification) {
+                var message = UserSettings.chatMixEnabled ? "ChatMix Enabled" : "ChatMix Disabled"
+                notificationWindow.showNotification(message)
+
+                if (UserSettings.chatMixEnabled) {
+                    chatMixOnEffect.play()
+                } else {
+                    chatMixOffEffect.play()
+                }
             }
         }
     }

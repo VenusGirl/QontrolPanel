@@ -854,15 +854,15 @@ Puoi abilitarlo nella scheda Generale.</translation>
     <name>QontrolPanel</name>
     <message>
         <source>Enabled</source>
-        <translation>Abilitato</translation>
+        <translation type="vanished">Abilitato</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>Disabilitato</translation>
+        <translation type="vanished">Disabilitato</translation>
     </message>
     <message>
         <source>ChatMix %1</source>
-        <translation>ChatMix %1</translation>
+        <translation type="vanished">ChatMix %1</translation>
     </message>
 </context>
 <context>

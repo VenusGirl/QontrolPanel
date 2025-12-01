@@ -980,15 +980,11 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Включено</translation>
+        <translation type="vanished">Включено</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>Отключено</translation>
-    </message>
-    <message>
-        <source>ChatMix %1</source>
-        <translation></translation>
+        <translation type="vanished">Отключено</translation>
     </message>
     <message>
         <source>Output</source>

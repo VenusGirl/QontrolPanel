@@ -893,15 +893,15 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     <name>QontrolPanel</name>
     <message>
         <source>Disabled</source>
-        <translation>Désactivé</translation>
+        <translation type="vanished">Désactivé</translation>
     </message>
     <message>
         <source>ChatMix %1</source>
-        <translation>ChatMix %1</translation>
+        <translation type="vanished">ChatMix %1</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Activé</translation>
+        <translation type="vanished">Activé</translation>
     </message>
 </context>
 <context>

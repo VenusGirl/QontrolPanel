@@ -33,7 +33,10 @@ ColumnLayout {
 
                     additionalControl: LabeledSwitch {
                         checked: UserSettings.globalShortcutsEnabled
-                        onClicked: UserSettings.globalShortcutsEnabled = checked
+                        onClicked: {
+                            UserSettings.globalShortcutsEnabled = checked
+                            KeyboardShortcutManager.globalShortcutsEnabled = checked
+                        }
                     }
                 }
 
@@ -93,7 +96,6 @@ ColumnLayout {
             }
         }
 
-        // Single reusable shortcut dialog
         Dialog {
             id: shortcutDialog
             modal: true
@@ -101,22 +103,21 @@ ColumnLayout {
             anchors.centerIn: parent
 
             property string dialogTitle: ""
-            property string shortcutType: "" // "panel" or "chatmix"
+            property string shortcutType: ""
             property int tempModifiers: Qt.ControlModifier | Qt.ShiftModifier
             property int tempKey: Qt.Key_S
 
             title: dialogTitle
 
             onOpened: {
-                SoundPanelBridge.suspendGlobalShortcuts()
-                // Focus the input rectangle when dialog opens
+                KeyboardShortcutManager.globalShortcutsSuspended = true
                 Qt.callLater(function() {
                     inputRect.forceActiveFocus()
                 })
             }
 
             onClosed: {
-                SoundPanelBridge.resumeGlobalShortcuts()
+                KeyboardShortcutManager.globalShortcutsSuspended = false
             }
 
             function openForPanel() {
@@ -214,10 +215,14 @@ ColumnLayout {
                         onClicked: {
                             if (shortcutDialog.shortcutType === "panel") {
                                 UserSettings.panelShortcutModifiers = shortcutDialog.tempModifiers
+                                KeyboardShortcutManager.panelShortcutModifiers = shortcutDialog.tempModifiers
                                 UserSettings.panelShortcutKey = shortcutDialog.tempKey
+                                KeyboardShortcutManager.panelShortcutKey =shortcutDialog.tempKey
                             } else if (shortcutDialog.shortcutType === "chatmix") {
                                 UserSettings.chatMixShortcutModifiers = shortcutDialog.tempModifiers
+                                KeyboardShortcutManager.chatMixShortcutModifiers = shortcutDialog.tempModifiers
                                 UserSettings.chatMixShortcutKey = shortcutDialog.tempKey
+                                KeyboardShortcutManager.chatMixShortcutKey = shortcutDialog.tempKey
                             }
                             shortcutDialog.close()
                         }

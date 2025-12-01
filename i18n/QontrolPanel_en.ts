@@ -849,21 +849,6 @@ You can enable it in the General tab.</source>
     </message>
 </context>
 <context>
-    <name>QontrolPanel</name>
-    <message>
-        <source>Enabled</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>ChatMix %1</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
     <name>SettingsWindow</name>
     <message>
         <source>QontrolPanel - Settings</source>

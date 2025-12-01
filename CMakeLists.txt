@@ -28,7 +28,7 @@ set(SOURCES
     src/audiomanager.cpp
     src/audiobridge.cpp
     src/audiomodels.cpp
-    src/QontrolPanel.cpp
+    src/panelengine.cpp
     src/startupshortcutbridge.cpp
     src/soundpanelbridge.cpp
     src/main.cpp
@@ -47,7 +47,7 @@ set(HEADERS
     include/audiobridge.h
     include/audiomodels.h
     include/policyconfig.h
-    include/qontrolpanel.h
+    include/panelengine.h
     include/startupshortcutbridge.h
     include/soundpanelbridge.h
     include/mediasessionmanager.h
@@ -178,6 +178,7 @@ qt_add_qml_module(QontrolPanel
     SOURCES include/mediasessionbridge.h src/mediasessionbridge.cpp
     SOURCES include/powerbridge.h src/powerbridge.cpp
     SOURCES include/languagebridge.h src/languagebridge.cpp
+    SOURCES include/keyboardshortcutmanager.h src/keyboardshortcutmanager.cpp
 )
 
 target_include_directories(QontrolPanel PRIVATE

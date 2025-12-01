@@ -1,4 +1,4 @@
-#include "qontrolpanel.h"
+#include "panelengine.h"
 #include "logmanager.h"
 #include <QApplication>
 #include <QProcess>
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    QontrolPanel w;
+    PanelEngine w;
 
     return a.exec();
 }

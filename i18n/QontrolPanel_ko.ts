@@ -1070,15 +1070,15 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>활성화됨</translation>
+        <translation type="vanished">활성화됨</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>비활성화됨</translation>
+        <translation type="vanished">비활성화됨</translation>
     </message>
     <message>
         <source>ChatMix %1</source>
-        <translation>채팅 믹스 %1</translation>
+        <translation type="vanished">채팅 믹스 %1</translation>
     </message>
     <message>
         <source>Output</source>

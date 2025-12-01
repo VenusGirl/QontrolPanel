@@ -1004,15 +1004,15 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>已启用</translation>
+        <translation type="vanished">已启用</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>已禁用</translation>
+        <translation type="vanished">已禁用</translation>
     </message>
     <message>
         <source>ChatMix %1</source>
-        <translation>ChatMix %1</translation>
+        <translation type="vanished">ChatMix %1</translation>
     </message>
     <message>
         <source>Output</source>
