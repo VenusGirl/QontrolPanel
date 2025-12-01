@@ -504,19 +504,6 @@ ApplicationWindow {
     }
 
     Connections {
-        target: SoundPanelBridge
-        function onChatMixEnabledChanged(enabled) {
-            UserSettings.chatMixEnabled = enabled
-
-            if (enabled) {
-                AudioBridge.applyChatMixToApplications(UserSettings.chatMixValue)
-            } else {
-                AudioBridge.restoreOriginalVolumes()
-            }
-        }
-    }
-
-    Connections {
         target: Updater
         function onUpdateAvailableNotification(version) {
             systemTray.showMessage(

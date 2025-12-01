@@ -1,14 +1,9 @@
 #include "soundpanelbridge.h"
-#include <QBuffer>
-#include <QPixmap>
 #include <QProcess>
-#include <QFile>
-#include <QDir>
-#include <QStandardPaths>
 #include <QStyleHints>
+#include <QGuiApplication>
+#include <QScreen>
 #include <Windows.h>
-#include <mmsystem.h>
-#include <wtsapi32.h>
 
 SoundPanelBridge* SoundPanelBridge::m_instance = nullptr;
 
@@ -39,30 +34,6 @@ SoundPanelBridge* SoundPanelBridge::create(QQmlEngine* qmlEngine, QJSEngine* jsE
 SoundPanelBridge* SoundPanelBridge::instance()
 {
     return m_instance;
-}
-
-void SoundPanelBridge::toggleChatMixFromShortcut(bool enabled)
-{
-    emit chatMixEnabledChanged(enabled);
-}
-
-void SoundPanelBridge::suspendGlobalShortcuts()
-{
-    m_globalShortcutsSuspended = true;
-}
-
-void SoundPanelBridge::resumeGlobalShortcuts()
-{
-    m_globalShortcutsSuspended = false;
-}
-
-bool SoundPanelBridge::areGlobalShortcutsSuspended() const
-{
-    return m_globalShortcutsSuspended;
-}
-
-void SoundPanelBridge::requestChatMixNotification(QString message) {
-    emit chatMixNotificationRequested(message);
 }
 
 void SoundPanelBridge::openLegacySoundSettings() {
