@@ -11,8 +11,6 @@
 #include <psapi.h>
 #include "logmanager.h"
 
-#pragma comment(lib, "psapi.lib")
-
 WindowFocusManager* WindowFocusManager::s_instance = nullptr;
 
 WindowFocusManager::WindowFocusManager(QObject *parent)

@@ -1,5 +1,5 @@
 #pragma once
-// Windows-only headers, no Qt
+
 #include <windows.h>
 #include <physicalmonitorenumerationapi.h>
 #include <lowlevelmonitorconfigurationapi.h>
@@ -11,10 +11,6 @@
 #include <mutex>
 #include <atomic>
 #include <chrono>
-
-#pragma comment(lib, "dxva2.lib")
-#pragma comment(lib, "user32.lib")
-#pragma comment(lib, "wbemuuid.lib")
 
 class MonitorManagerImpl
 {

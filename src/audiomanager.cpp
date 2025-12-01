@@ -14,9 +14,6 @@
 #include <Shlobj.h>
 #include <winver.h>
 #include <Functiondiscoverykeys_devpkey.h>
-#pragma comment(lib, "version.lib")
-#pragma comment(lib, "psapi.lib")
-#pragma comment(lib, "shell32.lib")
 
 SIZE_T getProcessMemoryUsage(DWORD processId) {
     HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, processId);

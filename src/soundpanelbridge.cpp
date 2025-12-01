@@ -10,11 +10,6 @@
 #include <mmsystem.h>
 #include <wtsapi32.h>
 
-#pragma comment(lib, "powrprof.lib")
-#pragma comment(lib, "wtsapi32.lib")
-#pragma comment(lib, "netapi32.lib")
-#pragma comment(lib, "user32.lib")
-
 SoundPanelBridge* SoundPanelBridge::m_instance = nullptr;
 
 SoundPanelBridge::SoundPanelBridge(QObject* parent)

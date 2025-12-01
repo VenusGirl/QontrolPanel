@@ -193,9 +193,14 @@ target_link_libraries(QontrolPanel PRIVATE
     Qt::Widgets
     Qt::Multimedia
     Qt::Network
-    gdi32
-    winmm
-    windowsapp
+    Gdi32
+    Winmm
+    WindowsApp
+    Netapi32
+    PowrProf
+    Dxva2
+    Wbemuuid
+    Version
 )
 
 target_compile_definitions(QontrolPanel PRIVATE

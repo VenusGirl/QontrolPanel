@@ -161,7 +161,6 @@ void HeadsetControlMonitor::executeHeadsetControlCommand(const QStringList& argu
                 commandProcess->deleteLater();
             });
 
-    // Add error handling for command startup failures
     connect(commandProcess, &QProcess::errorOccurred, this,
             [commandProcess](QProcess::ProcessError error) {
                 LogManager::instance()->sendCritical(LogManager::HeadsetControlManager,
@@ -174,12 +173,10 @@ void HeadsetControlMonitor::executeHeadsetControlCommand(const QStringList& argu
 
 void HeadsetControlMonitor::fetchHeadsetInfo()
 {
-    // Early return if monitoring is stopped
     if (!m_isMonitoring) {
         return;
     }
 
-    // Don't start new process if one is already running
     if (m_process && m_process->state() != QProcess::NotRunning) {
         return;
     }
@@ -196,7 +193,6 @@ void HeadsetControlMonitor::fetchHeadsetInfo()
     connect(m_process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
             this, &HeadsetControlMonitor::onProcessFinished);
 
-    // Add error handling for startup failures
     connect(m_process, &QProcess::errorOccurred, this,
             [this](QProcess::ProcessError error) {
                 LogManager::instance()->sendCritical(LogManager::HeadsetControlManager,

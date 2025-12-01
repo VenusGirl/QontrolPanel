@@ -1,5 +1,4 @@
-#ifndef LOGMANAGER_H
-#define LOGMANAGER_H
+#pragma once
 
 #include <QObject>
 #include <QString>
@@ -85,5 +84,3 @@ private:
     bool m_headsetControlManagerLogging;
     bool m_windowFocusManagerLogging;
 };
-
-#endif // LOGMANAGER_H
