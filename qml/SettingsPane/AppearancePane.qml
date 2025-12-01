@@ -143,7 +143,7 @@ ColumnLayout {
                     currentIndex: UserSettings.panelStyle
                     onActivated: {
                         UserSettings.panelStyle = currentIndex
-                        SoundPanelBridge.setStyle(currentIndex)
+                        Utils.setStyle(currentIndex)
                     }
                 }
             }

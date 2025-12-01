@@ -40,11 +40,11 @@ Platform.SystemTrayIcon {
         Platform.MenuSeparator {}
         Platform.MenuItem {
             text: qsTr("Windows sound settings (Legacy)")
-            onTriggered: SoundPanelBridge.openLegacySoundSettings()
+            onTriggered: Utils.openLegacySoundSettings()
         }
         Platform.MenuItem {
             text: qsTr("Windows sound settings (Modern)")
-            onTriggered: SoundPanelBridge.openModernSoundSettings()
+            onTriggered: Utils.openModernSoundSettings()
         }
         Platform.MenuItem {
             text: qsTr("QontrolPanel settings")

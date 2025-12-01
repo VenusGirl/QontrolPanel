@@ -1,50 +1,50 @@
-#include "soundpanelbridge.h"
+#include "utils.h"
 #include <QProcess>
 #include <QStyleHints>
 #include <QGuiApplication>
 #include <QScreen>
 #include <Windows.h>
 
-SoundPanelBridge* SoundPanelBridge::m_instance = nullptr;
+Utils* Utils::m_instance = nullptr;
 
-SoundPanelBridge::SoundPanelBridge(QObject* parent)
+Utils::Utils(QObject* parent)
     : QObject(parent)
 {
     m_instance = this;
 }
 
-SoundPanelBridge::~SoundPanelBridge()
+Utils::~Utils()
 {
     if (m_instance == this) {
         m_instance = nullptr;
     }
 }
 
-SoundPanelBridge* SoundPanelBridge::create(QQmlEngine* qmlEngine, QJSEngine* jsEngine)
+Utils* Utils::create(QQmlEngine* qmlEngine, QJSEngine* jsEngine)
 {
     Q_UNUSED(qmlEngine)
     Q_UNUSED(jsEngine)
 
     if (!m_instance) {
-        m_instance = new SoundPanelBridge();
+        m_instance = new Utils();
     }
     return m_instance;
 }
 
-SoundPanelBridge* SoundPanelBridge::instance()
+Utils* Utils::instance()
 {
     return m_instance;
 }
 
-void SoundPanelBridge::openLegacySoundSettings() {
+void Utils::openLegacySoundSettings() {
     QProcess::startDetached("control", QStringList() << "mmsys.cpl");
 }
 
-void SoundPanelBridge::openModernSoundSettings() {
+void Utils::openModernSoundSettings() {
     QProcess::startDetached("explorer", QStringList() << "ms-settings:sound");
 }
 
-int SoundPanelBridge::getAvailableDesktopWidth() const
+int Utils::getAvailableDesktopWidth() const
 {
     if (QGuiApplication::primaryScreen()) {
         return QGuiApplication::primaryScreen()->availableGeometry().width();
@@ -52,7 +52,7 @@ int SoundPanelBridge::getAvailableDesktopWidth() const
     return 1920;
 }
 
-int SoundPanelBridge::getAvailableDesktopHeight() const
+int Utils::getAvailableDesktopHeight() const
 {
     if (QGuiApplication::primaryScreen()) {
         return QGuiApplication::primaryScreen()->availableGeometry().height();
@@ -60,12 +60,12 @@ int SoundPanelBridge::getAvailableDesktopHeight() const
     return 1080;
 }
 
-void SoundPanelBridge::playFeedbackSound()
+void Utils::playFeedbackSound()
 {
     PlaySound(TEXT("SystemDefault"), NULL, SND_ALIAS | SND_ASYNC);
 }
 
-void SoundPanelBridge::setStyle(int style) {
+void Utils::setStyle(int style) {
     switch (style) {
     case 0:
         QGuiApplication::styleHints()->setColorScheme(Qt::ColorScheme::Unknown);

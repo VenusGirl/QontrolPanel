@@ -192,7 +192,7 @@ ApplicationWindow {
     }
 
     function positionWindow() {
-        const screenWidth = SoundPanelBridge.getAvailableDesktopWidth()
+        const screenWidth = Utils.getAvailableDesktopWidth()
         x = (screenWidth - width) / 2
         y = UserSettings.panelPosition === 0 ? 60 : 12
     }

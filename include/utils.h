@@ -3,18 +3,18 @@
 #include <QObject>
 #include <QQmlEngine>
 
-class SoundPanelBridge : public QObject
+class Utils : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
     QML_SINGLETON
 
 public:
-    explicit SoundPanelBridge(QObject* parent = nullptr);
-    ~SoundPanelBridge() override;
+    explicit Utils(QObject* parent = nullptr);
+    ~Utils() override;
 
-    static SoundPanelBridge* create(QQmlEngine* qmlEngine, QJSEngine* jsEngine);
-    static SoundPanelBridge* instance();
+    static Utils* create(QQmlEngine* qmlEngine, QJSEngine* jsEngine);
+    static Utils* instance();
 
     Q_INVOKABLE void openLegacySoundSettings();
     Q_INVOKABLE void openModernSoundSettings();
@@ -24,5 +24,5 @@ public:
     Q_INVOKABLE void setStyle(int style);
 
 private:
-    static SoundPanelBridge* m_instance;
+    static Utils* m_instance;
 };

@@ -30,7 +30,7 @@ set(SOURCES
     src/audiomodels.cpp
     src/panelengine.cpp
     src/startupshortcutbridge.cpp
-    src/soundpanelbridge.cpp
+    src/utils.cpp
     src/main.cpp
     src/mediasessionmanager.cpp
     src/windowfocusmanager.cpp
@@ -49,7 +49,7 @@ set(HEADERS
     include/policyconfig.h
     include/panelengine.h
     include/startupshortcutbridge.h
-    include/soundpanelbridge.h
+    include/utils.h
     include/mediasessionmanager.h
     include/windowfocusmanager.h
     include/updater.h

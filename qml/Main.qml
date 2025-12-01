@@ -104,7 +104,7 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-        SoundPanelBridge.setStyle(UserSettings.panelStyle)
+        Utils.setStyle(UserSettings.panelStyle)
         if (UserSettings.enableMediaSessionManager) {
             MediaSessionBridge.startMediaMonitoring()
         }
@@ -345,8 +345,8 @@ ApplicationWindow {
     }
 
     function positionPanelAtTarget() {
-        const screenWidth = SoundPanelBridge.getAvailableDesktopWidth()
-        const screenHeight = SoundPanelBridge.getAvailableDesktopHeight()
+        const screenWidth = Utils.getAvailableDesktopWidth()
+        const screenHeight = Utils.getAvailableDesktopHeight()
 
         switch (panel.taskbarPos) {
         case "top":
@@ -777,7 +777,7 @@ ApplicationWindow {
                                     onPressedChanged: {
                                         if (!pressed) {
                                             AudioBridge.setOutputVolume(value)
-                                            SoundPanelBridge.playFeedbackSound()
+                                            Utils.playFeedbackSound()
                                         }
                                     }
                                 }
