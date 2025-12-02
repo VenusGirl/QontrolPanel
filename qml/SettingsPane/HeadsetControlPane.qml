@@ -91,6 +91,23 @@ ColumnLayout {
                         }
                     }
                 }
+
+                Card {
+                    visible: HeadsetControlBridge.anyDeviceFound
+                    Layout.fillWidth: true
+                    title: qsTr("Fetch rate (seconds)")
+                    additionalControl: SpinBox {
+                        from: 5
+                        to: 60
+                        value: UserSettings.headsetcontrolFetchRate
+                        editable: true
+                        stepSize: 5
+                        onValueModified: {
+                            UserSettings.headsetcontrolFetchRate = (value)
+                            HeadsetControlBridge.setFetchRate(value)
+                        }
+                    }
+                }
             }
         }
 

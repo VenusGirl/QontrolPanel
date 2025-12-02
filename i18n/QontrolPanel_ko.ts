@@ -777,6 +777,10 @@ You can enable it in the General tab.</source>
         <translation>음성 피드백 수준 조정</translation>
     </message>
     <message>
+        <source>Fetch rate (seconds)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Device battery</source>
         <translation>장치 배터리</translation>
     </message>

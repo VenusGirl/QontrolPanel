@@ -689,6 +689,10 @@ Si vous souhaitez soutenir mon travail, toute contribution serait grandement app
         <translation>Ajustez le niveau de votre retour vocal</translation>
     </message>
     <message>
+        <source>Fetch rate (seconds)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>HeadsetControl monitoring is disabled
 You can enable it in the General tab.</source>
         <translatorcomment>ne pas traduire &quot;HeadsetControl&quot;</translatorcomment>

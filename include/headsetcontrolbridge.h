@@ -28,6 +28,7 @@ public:
     Q_INVOKABLE void setMonitoringEnabled(bool enabled);
     Q_INVOKABLE void setLights(bool enabled);
     Q_INVOKABLE void setSidetone(int value);
+    Q_INVOKABLE void setFetchRate(int seconds);
 
     bool hasSidetoneCapability() const;
     bool hasLightsCapability() const;

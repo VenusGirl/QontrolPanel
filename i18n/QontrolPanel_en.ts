@@ -655,6 +655,10 @@ You can enable it in the General tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Fetch rate (seconds)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Device battery</source>
         <translation type="unfinished"></translation>
     </message>

@@ -657,6 +657,10 @@ Puoi abilitarlo nella scheda Generale.</translation>
         <translation>Regola il livello di feedback vocale</translation>
     </message>
     <message>
+        <source>Fetch rate (seconds)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Device battery</source>
         <translation>Batteria dispositivo</translation>
     </message>

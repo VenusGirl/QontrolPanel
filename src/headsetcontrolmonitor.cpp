@@ -10,6 +10,7 @@ HeadsetControlMonitor::HeadsetControlMonitor(QObject *parent)
     , m_process(nullptr)
     , m_settings("Odizinne", "QontrolPanel")
     , m_isMonitoring(false)
+    , m_fetchIntervalMs(30000)
     , m_hasSidetoneCapability(false)
     , m_hasLightsCapability(false)
     , m_deviceName("")
@@ -19,15 +20,10 @@ HeadsetControlMonitor::HeadsetControlMonitor(QObject *parent)
 {
     LogManager::instance()->sendLog(LogManager::HeadsetControlManager, "HeadsetControlMonitor initialized");
 
-    m_fetchTimer->setInterval(FETCH_INTERVAL_MS);
+    m_fetchTimer->setInterval(m_fetchIntervalMs);
     m_fetchTimer->setSingleShot(false);
 
     connect(m_fetchTimer, &QTimer::timeout, this, &HeadsetControlMonitor::fetchHeadsetInfo);
-
-    if (m_settings.value("headsetcontrolMonitoring", false).toBool()) {
-        LogManager::instance()->sendLog(LogManager::HeadsetControlManager, "Auto-starting headset monitoring from saved settings");
-        startMonitoring();
-    }
 }
 
 HeadsetControlMonitor::~HeadsetControlMonitor()
@@ -44,7 +40,7 @@ void HeadsetControlMonitor::startMonitoring()
     }
 
     LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
-                                    QString("Starting headset monitoring (fetch interval: %1ms)").arg(FETCH_INTERVAL_MS));
+                                    QString("Starting headset monitoring (fetch interval: %1ms)").arg(m_fetchIntervalMs));
 
     m_isMonitoring = true;
 
@@ -415,4 +411,10 @@ void HeadsetControlMonitor::updateCapabilities()
 QString HeadsetControlMonitor::getExecutablePath() const
 {
     return QCoreApplication::applicationDirPath() + "/dependencies/headsetcontrol.exe";
+}
+
+void HeadsetControlMonitor::setFetchInterval(int intervalMs)
+{
+    m_fetchIntervalMs = intervalMs;
+    m_fetchTimer->setInterval(m_fetchIntervalMs);
 }

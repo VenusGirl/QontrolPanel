@@ -43,6 +43,7 @@ public slots:
     void stopMonitoring();
     void setLights(bool enabled);
     void setSidetone(int value);
+    void setFetchInterval(int intervalMs);
 
 signals:
     void headsetDataUpdated(const QList<HeadsetControlDevice>& devices);
@@ -68,6 +69,7 @@ private:
     QSettings m_settings;
     QList<HeadsetControlDevice> m_cachedDevices;  // Cached last successful result
     bool m_isMonitoring;
+    int m_fetchIntervalMs;
 
     bool m_hasSidetoneCapability;
     bool m_hasLightsCapability;
@@ -75,6 +77,4 @@ private:
     QString m_batteryStatus;
     int m_batteryLevel;
     bool m_anyDeviceFound;
-
-    static const int FETCH_INTERVAL_MS = 30000;
 };

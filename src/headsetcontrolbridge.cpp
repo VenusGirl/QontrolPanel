@@ -2,6 +2,7 @@
 #include "headsetcontrolmonitor.h"
 #include "audiomanager.h"
 #include <QTimer>
+#include <QSettings>
 
 HeadsetControlBridge* HeadsetControlBridge::m_instance = nullptr;
 
@@ -10,7 +11,6 @@ HeadsetControlBridge::HeadsetControlBridge(QObject *parent)
 {
     m_instance = this;
 
-    // Connect to monitor with a slight delay to ensure AudioWorker is initialized
     QTimer::singleShot(100, this, &HeadsetControlBridge::connectToMonitor);
 }
 
@@ -54,6 +54,19 @@ void HeadsetControlBridge::connectToMonitor()
                 this, &HeadsetControlBridge::onMonitorBatteryLevelChanged);
         connect(monitor, &HeadsetControlMonitor::anyDeviceFoundChanged,
                 this, &HeadsetControlBridge::onMonitorAnyDeviceFoundChanged);
+
+        // Load settings and initialize monitor
+        QSettings settings("Odizinne", "QontrolPanel");
+
+        // Set fetch rate from settings (value is in milliseconds)
+        int fetchRateMs = settings.value("headsetcontrolFetchRate", 20000).toInt();
+        QMetaObject::invokeMethod(monitor, "setFetchInterval", Qt::QueuedConnection,
+                                  Q_ARG(int, fetchRateMs));
+
+        // Start monitoring if enabled in settings
+        if (settings.value("headsetcontrolMonitoring", false).toBool()) {
+            QMetaObject::invokeMethod(monitor, "startMonitoring", Qt::QueuedConnection);
+        }
 
         // Emit signals to notify QML of current monitor values
         emit capabilitiesChanged();
@@ -166,4 +179,14 @@ void HeadsetControlBridge::onMonitorBatteryLevelChanged()
 void HeadsetControlBridge::onMonitorAnyDeviceFoundChanged()
 {
     emit anyDeviceFoundChanged();
+}
+
+void HeadsetControlBridge::setFetchRate(int seconds)
+{
+    HeadsetControlMonitor* monitor = findMonitor();
+    if (monitor) {
+        int intervalMs = seconds * 1000;
+        QMetaObject::invokeMethod(monitor, "setFetchInterval", Qt::QueuedConnection,
+                                  Q_ARG(int, intervalMs));
+    }
 }
