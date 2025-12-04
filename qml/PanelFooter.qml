@@ -51,7 +51,7 @@ Rectangle {
                     Layout.preferredHeight: 16
                     fillMode: Image.PreserveAspectFit
                     source: (HeadsetControlBridge.batteryStatus === "BATTERY_CHARGING")
-                            ? Constants.getBatteryChargingIconStatic(HeadsetControlBridge.batteryLevel)
+                            ? Constants.getBatteryChargingIcon()
                             : Constants.getBatteryIcon(HeadsetControlBridge.batteryLevel)
                 }
 
