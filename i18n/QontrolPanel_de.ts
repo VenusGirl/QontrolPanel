@@ -169,11 +169,19 @@
 <context>
     <name>ChatMixNotification</name>
     <message>
-        <source>ChatMix Enabled</source>
+        <source>Microphone Muted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ChatMix Disabled</source>
+        <source>Microphone Unmuted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone Disabled</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -949,7 +957,19 @@ You can enable it in the General tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Toggle Microphone Mute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut to mute/unmute microphone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Set Panel Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set Microphone Mute Shortcut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

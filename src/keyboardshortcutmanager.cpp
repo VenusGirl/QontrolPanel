@@ -23,13 +23,15 @@ KeyboardShortcutManager* KeyboardShortcutManager::create(QQmlEngine *qmlEngine, 
 KeyboardShortcutManager::KeyboardShortcutManager(QObject *parent)
     : QObject(parent)
 {
-    QSettings settings("Odizinne", "QontronPanel");
+    QSettings settings("Odizinne", "QontrolPanel");
 
     setGlobalShortcutsEnabled(settings.value("globalShortcutsEnabled", true).toBool());
     setPanelShortcutKey(settings.value("panelShortcutKey", 83).toInt());
     setPanelShortcutModifiers(settings.value("panelShortcutModifiers", 117440512).toInt());
     setChatMixShortcutKey(settings.value("chatMixShortcutKey", 77).toInt());
     setChatMixShortcutModifiers(settings.value("chatMixShortcutModifiers", 117440512).toInt());
+    setMicMuteShortcutKey(settings.value("micMuteShortcutKey", 75).toInt());
+    setMicMuteShortcutModifiers(settings.value("micMuteShortcutModifiers", 117440512).toInt());
 }
 
 KeyboardShortcutManager::~KeyboardShortcutManager()
@@ -136,6 +138,34 @@ void KeyboardShortcutManager::setChatMixShortcutModifiers(int modifiers)
     emit chatMixShortcutModifiersChanged();
 }
 
+int KeyboardShortcutManager::micMuteShortcutKey() const
+{
+    return m_micMuteShortcutKey;
+}
+
+void KeyboardShortcutManager::setMicMuteShortcutKey(int key)
+{
+    if (m_micMuteShortcutKey == key)
+        return;
+
+    m_micMuteShortcutKey = key;
+    emit micMuteShortcutKeyChanged();
+}
+
+int KeyboardShortcutManager::micMuteShortcutModifiers() const
+{
+    return m_micMuteShortcutModifiers;
+}
+
+void KeyboardShortcutManager::setMicMuteShortcutModifiers(int modifiers)
+{
+    if (m_micMuteShortcutModifiers == modifiers)
+        return;
+
+    m_micMuteShortcutModifiers = modifiers;
+    emit micMuteShortcutModifiersChanged();
+}
+
 void KeyboardShortcutManager::installKeyboardHook()
 {
     if (keyboardHook == NULL) {
@@ -234,6 +264,12 @@ bool KeyboardShortcutManager::handleCustomShortcut(DWORD vkCode)
         return false;
     }
 
+    // Windows key detection for closing panel (no modifiers needed)
+    if (vkCode == VK_LWIN || vkCode == VK_RWIN) {
+        emit panelCloseRequested();
+        return false; // Don't block the Windows key
+    }
+
     int panelKey = qtKeyToVirtualKey(m_panelShortcutKey);
     if (vkCode == panelKey && isModifierPressed(m_panelShortcutModifiers)) {
         emit panelToggleRequested();
@@ -243,6 +279,12 @@ bool KeyboardShortcutManager::handleCustomShortcut(DWORD vkCode)
     int chatMixKey = qtKeyToVirtualKey(m_chatMixShortcutKey);
     if (vkCode == chatMixKey && isModifierPressed(m_chatMixShortcutModifiers)) {
         emit chatMixToggleRequested();
+        return true;
+    }
+
+    int micMuteKey = qtKeyToVirtualKey(m_micMuteShortcutKey);
+    if (vkCode == micMuteKey && isModifierPressed(m_micMuteShortcutModifiers)) {
+        emit micMuteToggleRequested();
         return true;
     }
 

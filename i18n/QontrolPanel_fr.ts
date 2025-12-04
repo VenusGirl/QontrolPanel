@@ -197,12 +197,28 @@
 <context>
     <name>ChatMixNotification</name>
     <message>
+        <source>Microphone Muted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone Unmuted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone Disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>ChatMix Enabled</source>
-        <translation>ChatMix Activé</translation>
+        <translation type="vanished">ChatMix Activé</translation>
     </message>
     <message>
         <source>ChatMix Disabled</source>
-        <translation>ChatMix Désactivé</translation>
+        <translation type="vanished">ChatMix Désactivé</translation>
     </message>
 </context>
 <context>
@@ -971,6 +987,10 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
         <translation>Notification au raccourci de ChatMix</translation>
     </message>
     <message>
+        <source>Set Microphone Mute Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
@@ -1005,6 +1025,14 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     <message>
         <source>Shortcut to toggle the main panel visibility</source>
         <translation>Raccourci pour faire apparaître ou masquer le panneau</translation>
+    </message>
+    <message>
+        <source>Toggle Microphone Mute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut to mute/unmute microphone</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Set Panel Shortcut</source>

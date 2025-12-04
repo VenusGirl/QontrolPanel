@@ -14,6 +14,8 @@ class KeyboardShortcutManager : public QObject
     Q_PROPERTY(int panelShortcutModifiers READ panelShortcutModifiers WRITE setPanelShortcutModifiers NOTIFY panelShortcutModifiersChanged)
     Q_PROPERTY(int chatMixShortcutKey READ chatMixShortcutKey WRITE setChatMixShortcutKey NOTIFY chatMixShortcutKeyChanged)
     Q_PROPERTY(int chatMixShortcutModifiers READ chatMixShortcutModifiers WRITE setChatMixShortcutModifiers NOTIFY chatMixShortcutModifiersChanged)
+    Q_PROPERTY(int micMuteShortcutKey READ micMuteShortcutKey WRITE setMicMuteShortcutKey NOTIFY micMuteShortcutKeyChanged)
+    Q_PROPERTY(int micMuteShortcutModifiers READ micMuteShortcutModifiers WRITE setMicMuteShortcutModifiers NOTIFY micMuteShortcutModifiersChanged)
 
 public:
     static KeyboardShortcutManager* instance();
@@ -38,6 +40,12 @@ public:
     int chatMixShortcutModifiers() const;
     void setChatMixShortcutModifiers(int modifiers);
 
+    int micMuteShortcutKey() const;
+    void setMicMuteShortcutKey(int key);
+
+    int micMuteShortcutModifiers() const;
+    void setMicMuteShortcutModifiers(int modifiers);
+
 signals:
     void panelToggleRequested();
     void globalShortcutsEnabledChanged();
@@ -49,6 +57,10 @@ signals:
     void chatMixEnabledChanged(bool enabled);
     void chatMixNotificationRequested(QString message);
     void chatMixToggleRequested();
+    void micMuteShortcutKeyChanged();
+    void micMuteShortcutModifiersChanged();
+    void micMuteToggleRequested();
+    void panelCloseRequested();
 
 private:
     explicit KeyboardShortcutManager(QObject *parent = nullptr);
@@ -64,6 +76,8 @@ private:
     int m_panelShortcutModifiers = Qt::ControlModifier | Qt::ShiftModifier;
     int m_chatMixShortcutKey = Qt::Key_M;
     int m_chatMixShortcutModifiers = Qt::ControlModifier | Qt::ShiftModifier;
+    int m_micMuteShortcutKey = Qt::Key_K;
+    int m_micMuteShortcutModifiers = Qt::ControlModifier | Qt::ShiftModifier;
 
     void installKeyboardHook();
     void uninstallKeyboardHook();

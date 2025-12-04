@@ -233,12 +233,28 @@
 <context>
     <name>ChatMixNotification</name>
     <message>
+        <source>Microphone Muted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone Unmuted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone Disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>ChatMix Enabled</source>
-        <translation>ChatMix 已启用</translation>
+        <translation type="vanished">ChatMix 已启用</translation>
     </message>
     <message>
         <source>ChatMix Disabled</source>
-        <translation>ChatMix 已禁用</translation>
+        <translation type="vanished">ChatMix 已禁用</translation>
     </message>
 </context>
 <context>
@@ -1113,8 +1129,20 @@ You can enable it in the General tab.</source>
         <translation>切换 ChatMix 使能快捷键</translation>
     </message>
     <message>
+        <source>Toggle Microphone Mute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut to mute/unmute microphone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Set Panel Shortcut</source>
         <translation>设置主面板快捷键</translation>
+    </message>
+    <message>
+        <source>Set Microphone Mute Shortcut</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Press the desired key combination</source>

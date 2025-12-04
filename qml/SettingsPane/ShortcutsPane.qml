@@ -93,6 +93,28 @@ ColumnLayout {
                         }
                     }
                 }
+
+                Card {
+                    enabled: UserSettings.globalShortcutsEnabled
+                    Layout.fillWidth: true
+                    title: qsTr("Toggle Microphone Mute")
+                    description: qsTr("Shortcut to mute/unmute microphone")
+
+                    additionalControl: RowLayout {
+                        spacing: 15
+                        Label {
+                            text: Context.micMuteShortcut
+                            opacity: 0.7
+                        }
+
+                        Button {
+                            text: qsTr("Change")
+                            onClicked: {
+                                shortcutDialog.openForMicMute()
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -133,6 +155,14 @@ ColumnLayout {
                 shortcutType = "chatmix"
                 tempModifiers = UserSettings.chatMixShortcutModifiers
                 tempKey = UserSettings.chatMixShortcutKey
+                open()
+            }
+
+            function openForMicMute() {
+                dialogTitle = qsTr("Set Microphone Mute Shortcut")
+                shortcutType = "micmute"
+                tempModifiers = UserSettings.micMuteShortcutModifiers
+                tempKey = UserSettings.micMuteShortcutKey
                 open()
             }
 
@@ -223,6 +253,11 @@ ColumnLayout {
                                 KeyboardShortcutManager.chatMixShortcutModifiers = shortcutDialog.tempModifiers
                                 UserSettings.chatMixShortcutKey = shortcutDialog.tempKey
                                 KeyboardShortcutManager.chatMixShortcutKey = shortcutDialog.tempKey
+                            } else if (shortcutDialog.shortcutType === "micmute") {
+                                UserSettings.micMuteShortcutModifiers = shortcutDialog.tempModifiers
+                                KeyboardShortcutManager.micMuteShortcutModifiers = shortcutDialog.tempModifiers
+                                UserSettings.micMuteShortcutKey = shortcutDialog.tempKey
+                                KeyboardShortcutManager.micMuteShortcutKey = shortcutDialog.tempKey
                             }
                             shortcutDialog.close()
                         }

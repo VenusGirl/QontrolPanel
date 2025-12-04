@@ -123,6 +123,16 @@ ApplicationWindow {
         function onPanelToggleRequested() {
             panel.togglePanel()
         }
+
+        function onPanelCloseRequested() {
+            if (panel.visible) {
+                panel.hidePanel()
+            }
+        }
+
+        function onMicMuteToggleRequested() {
+            AudioBridge.setInputMute(!AudioBridge.inputMuted)
+        }
     }
 
     Connections {

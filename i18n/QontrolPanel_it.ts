@@ -169,12 +169,28 @@
 <context>
     <name>ChatMixNotification</name>
     <message>
+        <source>Microphone Muted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone Unmuted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone Disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>ChatMix Enabled</source>
-        <translation>ChatMix abilitato</translation>
+        <translation type="vanished">ChatMix abilitato</translation>
     </message>
     <message>
         <source>ChatMix Disabled</source>
-        <translation>ChatMix disabilitato</translation>
+        <translation type="vanished">ChatMix disabilitato</translation>
     </message>
 </context>
 <context>
@@ -940,8 +956,20 @@ Puoi abilitarlo nella scheda Generale.</translation>
         <translation>Abilita/disabilita funzione ChatMix</translation>
     </message>
     <message>
+        <source>Toggle Microphone Mute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut to mute/unmute microphone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Set Panel Shortcut</source>
         <translation>Imposta combinazione tasti pannello</translation>
+    </message>
+    <message>
+        <source>Set Microphone Mute Shortcut</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Press the desired key combination</source>

@@ -27,6 +27,8 @@ Settings {
     property int chatMixShortcutKey: 77      // Qt.Key_M
     property int chatMixShortcutModifiers: 117440512  // Qt.ControlModifier | Qt.ShiftModifier
     property bool chatMixShortcutNotification: true
+    property int micMuteShortcutKey: 75      // Qt.Key_K
+    property int micMuteShortcutModifiers: 117440512  // Qt.ControlModifier | Qt.ShiftModifier
     property bool autoUpdateTranslations: false
     property bool opacityAnimations: true
     property bool firstRun: true

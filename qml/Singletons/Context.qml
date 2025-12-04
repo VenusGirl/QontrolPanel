@@ -7,6 +7,7 @@ QtObject {
     signal easterEggRequested()
     property string toggleShortcut: getShortcutText(UserSettings.panelShortcutModifiers, UserSettings.panelShortcutKey)
     property string chatMixShortcut: getShortcutText(UserSettings.chatMixShortcutModifiers, UserSettings.chatMixShortcutKey)
+    property string micMuteShortcut: getShortcutText(UserSettings.micMuteShortcutModifiers, UserSettings.micMuteShortcutKey)
 
     function getKeyText(key) {
         const keyMap = {

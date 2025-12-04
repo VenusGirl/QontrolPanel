@@ -17,6 +17,8 @@ ApplicationWindow {
     property string message: ""
     property bool isAnimatingIn: false
     property bool isAnimatingOut: false
+    property string notificationType: "chatmix" // "chatmix" or "micmute"
+    property bool isMuted: false
 
     transientParent: null
 
@@ -47,6 +49,7 @@ ApplicationWindow {
             UserSettings.chatMixEnabled = !UserSettings.chatMixEnabled
 
             if (UserSettings.chatMixShortcutNotification) {
+                notificationType = "chatmix"
                 var message = UserSettings.chatMixEnabled ? "ChatMix Enabled" : "ChatMix Disabled"
                 notificationWindow.showNotification(message)
 
@@ -56,6 +59,21 @@ ApplicationWindow {
                     chatMixOffEffect.play()
                 }
             }
+        }
+
+        function onMicMuteToggleRequested() {
+            Qt.callLater(function() {
+                notificationType = "micmute"
+                isMuted = AudioBridge.inputMuted
+                var message = isMuted ? qsTr("Microphone Muted") : qsTr("Microphone Unmuted")
+                notificationWindow.showNotification(message)
+
+                if (isMuted) {
+                    chatMixOffEffect.play()
+                } else {
+                    chatMixOnEffect.play()
+                }
+            })
         }
     }
 
@@ -129,14 +147,14 @@ ApplicationWindow {
 
     Text {
         id: enabledMeasure
-        text: qsTr("ChatMix Enabled")
+        text: qsTr("Microphone Enabled")
         font.pixelSize: 14
         visible: false
     }
 
     Text {
         id: disabledMeasure
-        text: qsTr("ChatMix Disabled")
+        text: qsTr("Microphone Disabled")
         font.pixelSize: 14
         visible: false
     }
@@ -225,13 +243,30 @@ ApplicationWindow {
             spacing: 12
 
             IconImage {
-                source: "qrc:/icons/headset.svg"
+                source: {
+                    if (notificationType === "micmute") {
+                        return isMuted ? "qrc:/icons/mic_muted.svg" : "qrc:/icons/mic.svg"
+                    } else {
+                        return "qrc:/icons/headset.svg"
+                    }
+                }
                 sourceSize.width: 20
                 sourceSize.height: 20
-                color: enabled ? palette.accent : palette.text
-                opacity: enabled ? 1.0 : 0.5
+                color: {
+                    if (notificationType === "micmute") {
+                        return isMuted ? palette.text : palette.accent
+                    } else {
+                        return UserSettings.chatMixEnabled ? palette.accent : palette.text
+                    }
+                }
+                opacity: {
+                    if (notificationType === "micmute") {
+                        return isMuted ? 0.5 : 1.0
+                    } else {
+                        return UserSettings.chatMixEnabled ? 1.0 : 0.5
+                    }
+                }
                 Layout.alignment: Qt.AlignVCenter
-                enabled: UserSettings.chatMixEnabled
 
                 Behavior on color {
                     ColorAnimation {
