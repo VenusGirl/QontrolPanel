@@ -58,8 +58,9 @@ void HeadsetControlBridge::connectToMonitor()
         // Load settings and initialize monitor
         QSettings settings("Odizinne", "QontrolPanel");
 
-        // Set fetch rate from settings (value is in milliseconds)
-        int fetchRateMs = settings.value("headsetcontrolFetchRate", 20000).toInt();
+        // Set fetch rate from settings (value is in seconds, convert to milliseconds)
+        int fetchRateSeconds = settings.value("headsetcontrolFetchRate", 20).toInt();
+        int fetchRateMs = fetchRateSeconds * 1000;
         QMetaObject::invokeMethod(monitor, "setFetchInterval", Qt::QueuedConnection,
                                   Q_ARG(int, fetchRateMs));
 
