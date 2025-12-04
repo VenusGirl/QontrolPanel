@@ -38,11 +38,11 @@ Rectangle {
         NFToolButton {
             Layout.preferredHeight: 38
             onClicked: footer.showHeadsetcontrolPane()
+            visible: UserSettings.displayBatteryFooter &&
+                     HeadsetControlBridge.anyDeviceFound &&
+                     HeadsetControlBridge.batteryStatus !== "BATTERY_UNAVAILABLE"
             contentItem: RowLayout {
                 id: batteryIndicator
-                visible: UserSettings.displayBatteryFooter &&
-                         HeadsetControlBridge.anyDeviceFound &&
-                         HeadsetControlBridge.batteryStatus !== "BATTERY_UNAVAILABLE"
                 spacing: 5
 
                 Image {
