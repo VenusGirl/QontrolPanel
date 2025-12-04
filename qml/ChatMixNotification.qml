@@ -64,7 +64,7 @@ ApplicationWindow {
         function onMicMuteToggleRequested() {
             Qt.callLater(function() {
                 notificationType = "micmute"
-                isMuted = AudioBridge.inputMuted
+                isMuted = !AudioBridge.inputMuted
                 var message = isMuted ? qsTr("Microphone Muted") : qsTr("Microphone Unmuted")
                 notificationWindow.showNotification(message)
 
