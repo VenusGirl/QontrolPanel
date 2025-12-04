@@ -61,6 +61,7 @@ Rectangle {
                     font.pixelSize: 12
                     opacity: 0.8
                     text: HeadsetControlBridge.batteryLevel + "%"
+                    visible: HeadsetControlBridge.batteryStatus === "BATTERY_AVAILABLE"
                 }
             }
         }
