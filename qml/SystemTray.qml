@@ -30,12 +30,12 @@ Platform.SystemTrayIcon {
         Platform.MenuItem {
             enabled: false
             text: systemTray.truncateText(qsTr("Output: ") + (AudioBridge.isReady ?
-                  systemTray.getOutputDeviceInfo() : "Loading..."), 50)
+                                                                  systemTray.getOutputDeviceInfo() : "Loading..."), 50)
         }
         Platform.MenuItem {
             enabled: false
             text: systemTray.truncateText(qsTr("Input: ") + (AudioBridge.isReady ?
-                  systemTray.getInputDeviceInfo() : "Loading..."), 50)
+                                                                 systemTray.getInputDeviceInfo() : "Loading..."), 50)
         }
         Platform.MenuSeparator {}
         Platform.MenuItem {
@@ -71,19 +71,19 @@ Platform.SystemTrayIcon {
     }
 
     function getTooltip() {
-            var baseTooltip = "QontrolPanel";
-            var isWirelessHeadsetAvailable = !qsTr("") &&
-                    HeadsetControlBridge.anyDeviceFound &&
-                    HeadsetControlBridge.batteryStatus !== "BATTERY_UNAVAILABLE";
-            if (!isWirelessHeadsetAvailable) {
-                return baseTooltip;
-            }
-
-            var batteryText = "\n\n";
-            batteryText += "🔋";
-            if (HeadsetControlBridge.batteryStatus === "BATTERY_CHARGING")
-                batteryText += "⚡︎";
-            batteryText += HeadsetControlBridge.batteryLevel + "%";
-            return baseTooltip + batteryText;
+        var baseTooltip = "QontrolPanel";
+        var isWirelessHeadsetAvailable = !qsTr("") &&
+                HeadsetControlBridge.anyDeviceFound &&
+                HeadsetControlBridge.batteryStatus !== "BATTERY_UNAVAILABLE";
+        if (!isWirelessHeadsetAvailable) {
+            return baseTooltip;
         }
+
+        var batteryText = "\n\n";
+        batteryText += "🔋";
+        if (HeadsetControlBridge.batteryStatus === "BATTERY_CHARGING")
+            batteryText += "⚡︎";
+        batteryText += HeadsetControlBridge.batteryLevel + "%";
+        return baseTooltip + batteryText;
+    }
 }

@@ -705,6 +705,10 @@ Si vous souhaitez soutenir mon travail, toute contribution serait grandement app
         <translation>Ajustez le niveau de votre retour vocal</translation>
     </message>
     <message>
+        <source>Notification on low battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Fetch rate (seconds)</source>
         <translation type="unfinished"></translation>
     </message>

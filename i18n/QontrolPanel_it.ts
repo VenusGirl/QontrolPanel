@@ -673,6 +673,10 @@ Puoi abilitarlo nella scheda Generale.</translation>
         <translation>Regola il livello di feedback vocale</translation>
     </message>
     <message>
+        <source>Notification on low battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Fetch rate (seconds)</source>
         <translation>Frequenza recupero (secondi)</translation>
     </message>

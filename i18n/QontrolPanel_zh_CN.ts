@@ -779,6 +779,10 @@ You can enable it in the General tab.</source>
         <translation>调整语音返听音量</translation>
     </message>
     <message>
+        <source>Notification on low battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Fetch rate (seconds)</source>
         <translation type="unfinished"></translation>
     </message>

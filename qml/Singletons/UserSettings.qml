@@ -66,4 +66,5 @@ Settings {
     property bool displayBatteryFooter: true
     property int panelStyle: 0
     property int headsetcontrolFetchRate: 20
+    property bool enableNotifications: false
 }

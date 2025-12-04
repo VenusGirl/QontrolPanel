@@ -514,6 +514,13 @@ ApplicationWindow {
     }
 
     Connections {
+        target: HeadsetControlBridge
+        function onLowHeadsetBattery() {
+            systemTray.showMessage("Low Battery", "Headset battery is getting low")
+        }
+    }
+
+    Connections {
         target: Updater
         function onUpdateAvailableNotification(version) {
             systemTray.showMessage(

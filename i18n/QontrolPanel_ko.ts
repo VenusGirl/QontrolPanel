@@ -793,6 +793,10 @@ You can enable it in the General tab.</source>
         <translation>음성 피드백 수준 조정</translation>
     </message>
     <message>
+        <source>Notification on low battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Fetch rate (seconds)</source>
         <translation>가져오기 속도 (초)</translation>
     </message>

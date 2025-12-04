@@ -11,6 +11,9 @@ HeadsetControlBridge::HeadsetControlBridge(QObject *parent)
 {
     m_instance = this;
 
+    QSettings settings("Odizinne", "QontrolPanel");
+    m_notificationsEnabled = settings.value("enableNotifications", false).toBool();
+
     QTimer::singleShot(100, this, &HeadsetControlBridge::connectToMonitor);
 }
 
@@ -174,6 +177,17 @@ void HeadsetControlBridge::onMonitorBatteryStatusChanged()
 
 void HeadsetControlBridge::onMonitorBatteryLevelChanged()
 {
+    int level = batteryLevel();
+
+    if (level < 20 && level >= 0) {
+        if (!m_lowBatteryNotificationSent && m_notificationsEnabled) {
+            emit lowHeadsetBattery();
+            m_lowBatteryNotificationSent = true;
+        }
+    } else if (level >= 20 && m_notificationsEnabled) {
+        m_lowBatteryNotificationSent = false;
+    }
+
     emit batteryLevelChanged();
 }
 
@@ -189,5 +203,18 @@ void HeadsetControlBridge::setFetchRate(int seconds)
         int intervalMs = seconds * 1000;
         QMetaObject::invokeMethod(monitor, "setFetchInterval", Qt::QueuedConnection,
                                   Q_ARG(int, intervalMs));
+    }
+}
+
+bool HeadsetControlBridge::notificationsEnabled() const
+{
+    return m_notificationsEnabled;
+}
+
+void HeadsetControlBridge::setNotificationsEnabled(bool enabled)
+{
+    if (m_notificationsEnabled != enabled) {
+        m_notificationsEnabled = enabled;
+        emit notificationsEnabledChanged();
     }
 }

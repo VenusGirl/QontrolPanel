@@ -91,6 +91,18 @@ ColumnLayout {
                         }
                     }
                 }
+                Card {
+                    visible: HeadsetControlBridge.anyDeviceFound
+                    Layout.fillWidth: true
+                    title: qsTr("Notification on low battery")
+                    additionalControl: Switch {
+                        checked: UserSettings.enableNotifications
+                        onClicked: {
+                            UserSettings.enableNotifications = checked
+                            HeadsetControlBridge.notificationsEnabled = checked
+                        }
+                    }
+                }
 
                 Card {
                     visible: HeadsetControlBridge.anyDeviceFound
