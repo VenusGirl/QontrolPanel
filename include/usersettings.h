@@ -281,6 +281,7 @@ private:
     explicit UserSettings(QObject *parent = nullptr);
     static UserSettings* m_instance;
 
+    void initProperties();
     void saveValue(const QString &key, const QVariant &value);
 
     bool m_enableDeviceManager;

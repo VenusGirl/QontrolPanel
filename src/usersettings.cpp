@@ -6,6 +6,32 @@ UserSettings* UserSettings::m_instance = nullptr;
 UserSettings::UserSettings(QObject *parent)
     : QObject(parent)
 {
+    initProperties();
+}
+
+UserSettings* UserSettings::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+{
+    Q_UNUSED(qmlEngine)
+    Q_UNUSED(jsEngine)
+    return instance();
+}
+
+UserSettings* UserSettings::instance()
+{
+    if (!m_instance) {
+        m_instance = new UserSettings();
+    }
+    return m_instance;
+}
+
+void UserSettings::saveValue(const QString &key, const QVariant &value)
+{
+    QSettings settings("Odizinne", "QontrolPanel");
+    settings.setValue(key, value);
+}
+
+void UserSettings::initProperties()
+{
     QSettings settings("Odizinne", "QontrolPanel");
 
     m_enableDeviceManager = settings.value("enableDeviceManager", true).toBool();
@@ -72,27 +98,6 @@ UserSettings::UserSettings(QObject *parent)
     m_panelStyle = settings.value("panelStyle", 0).toInt();
     m_headsetcontrolFetchRate = settings.value("headsetcontrolFetchRate", 20).toInt();
     m_enableNotifications = settings.value("enableNotifications", false).toBool();
-}
-
-UserSettings* UserSettings::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
-{
-    Q_UNUSED(qmlEngine)
-    Q_UNUSED(jsEngine)
-    return instance();
-}
-
-UserSettings* UserSettings::instance()
-{
-    if (!m_instance) {
-        m_instance = new UserSettings();
-    }
-    return m_instance;
-}
-
-void UserSettings::saveValue(const QString &key, const QVariant &value)
-{
-    QSettings settings("Odizinne", "QontrolPanel");
-    settings.setValue(key, value);
 }
 
 // Setters
