@@ -149,7 +149,7 @@
     </message>
     <message>
         <source>Normal</source>
-        <translation>정상</translation>
+        <translation>일반</translation>
     </message>
     <message>
         <source>Filled</source>
@@ -230,19 +230,19 @@
     <name>ChatMixNotification</name>
     <message>
         <source>Microphone Muted</source>
-        <translation type="unfinished"></translation>
+        <translation>마이크 음소거됨</translation>
     </message>
     <message>
         <source>Microphone Unmuted</source>
-        <translation type="unfinished"></translation>
+        <translation>마이크 음소거 해제됨</translation>
     </message>
     <message>
         <source>Microphone Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>마이크 사용함</translation>
     </message>
     <message>
         <source>Microphone Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>마이크 사용 안 함</translation>
     </message>
     <message>
         <source>ChatMix Enabled</source>
@@ -729,7 +729,7 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Normal</source>
-        <translation>정상</translation>
+        <translation>일반</translation>
     </message>
     <message>
         <source>Fast</source>
@@ -794,7 +794,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Notification on low battery</source>
-        <translation type="unfinished"></translation>
+        <translation>배터리 부족 알림</translation>
     </message>
     <message>
         <source>Fetch rate (seconds)</source>
@@ -1200,11 +1200,11 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Toggle Microphone Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>마이크 음소거 전환</translation>
     </message>
     <message>
         <source>Shortcut to mute/unmute microphone</source>
-        <translation type="unfinished"></translation>
+        <translation>마이크 음소거/음소거 해제 단축키</translation>
     </message>
     <message>
         <source>Set Panel Shortcut</source>
@@ -1212,7 +1212,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Set Microphone Mute Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>마이크 음소거 단축키 설정</translation>
     </message>
     <message>
         <source>Press the desired key combination</source>
