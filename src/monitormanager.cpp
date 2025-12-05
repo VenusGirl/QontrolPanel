@@ -3,8 +3,9 @@
 #include <QApplication>
 #include <QDebug>
 #include <QTimer>
-#include <QSettings>
 #include "logmanager.h"
+#include "usersettings.h"
+
 MonitorWorker* MonitorManager::s_worker = nullptr;
 QThread* MonitorManager::s_workerThread = nullptr;
 MonitorManager* MonitorManager::s_instance = nullptr;
@@ -354,8 +355,7 @@ MonitorManager::MonitorManager(QObject *parent)
     s_instance = this;
 
     // Check if brightness control is enabled in settings
-    QSettings settings("Odizinne", "QontrolPanel");
-    bool allowBrightnessControl = settings.value("allowBrightnessControl", true).toBool();
+    bool allowBrightnessControl = UserSettings::instance()->allowBrightnessControl();
 
     if (allowBrightnessControl) {
         initialize();

@@ -1,5 +1,6 @@
 #include "headsetcontrolmonitor.h"
 #include "logmanager.h"
+#include "usersettings.h"
 #include <QStandardPaths>
 #include <QCoreApplication>
 #include <QDir>
@@ -8,7 +9,6 @@ HeadsetControlMonitor::HeadsetControlMonitor(QObject *parent)
     : QObject(parent)
     , m_fetchTimer(new QTimer(this))
     , m_process(nullptr)
-    , m_settings("Odizinne", "QontrolPanel")
     , m_isMonitoring(false)
     , m_fetchIntervalMs(30000)
     , m_hasSidetoneCapability(false)
@@ -393,13 +393,13 @@ void HeadsetControlMonitor::updateCapabilities()
                                             "New headset device detected, applying saved settings");
 
             if (newLightsCapability) {
-                bool lightsEnabled = m_settings.value("headsetcontrolLights", false).toBool();
+                bool lightsEnabled = UserSettings::instance()->headsetcontrolLights();
                 LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
                                                 QString("Applying saved lights setting: %1").arg(lightsEnabled ? "ON" : "OFF"));
                 setLights(lightsEnabled);
             }
             if (newSidetoneCapability) {
-                int sidetoneValue = m_settings.value("headsetcontrolSidetone", 0).toInt();
+                int sidetoneValue = UserSettings::instance()->headsetcontrolSidetone();
                 LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
                                                 QString("Applying saved sidetone setting: %1").arg(sidetoneValue));
                 setSidetone(sidetoneValue);

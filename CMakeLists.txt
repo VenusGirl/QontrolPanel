@@ -40,6 +40,7 @@ set(SOURCES
     src/monitormanager.cpp
     src/monitormanagerimpl.cpp
     src/logmanager.cpp
+    src/usersettings.cpp
 )
 
 set(HEADERS
@@ -58,6 +59,7 @@ set(HEADERS
     include/monitormanager.h
     include/monitormanagerimpl.h
     include/logmanager.h
+    include/usersettings.h
 )
 
 # Get git commit hash
@@ -161,7 +163,6 @@ set(QML_FILES
 )
 
 set(QML_SINGLETONS
-    qml/Singletons/UserSettings.qml
     qml/Singletons/Constants.qml
     qml/Singletons/Context.qml
     qml/Singletons/LogBridge.qml

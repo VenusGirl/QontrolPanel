@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QQmlEngine>
 #include <QTranslator>
+
 class LanguageBridge : public QObject
 {
     Q_OBJECT

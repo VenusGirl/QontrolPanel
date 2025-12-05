@@ -1,26 +1,25 @@
 #include "logmanager.h"
+#include "usersettings.h"
 #include <QDebug>
 #include <QDateTime>
-#include <QSettings>
 
 LogManager* LogManager::m_instance = nullptr;
 
 LogManager::LogManager(QObject *parent)
     : QObject(parent)
 {
-    QSettings settings("Odizinne", "QontrolPanel");
-    m_audioManagerLogging = settings.value("audioManagerLogging", true).toBool();
-    m_mediaSessionManagerLogging = settings.value("mediaSessionManagerLogging", true).toBool();
-    m_monitorManagerLogging = settings.value("monitorManagerLogging", true).toBool();
-    m_soundPanelBridgeLogging = settings.value("soundPanelBridgeLogging", true).toBool();
-    m_updaterLogging = settings.value("updaterLogging", true).toBool();
-    m_shortcutManagerLogging = settings.value("shortcutManagerLogging", true).toBool();
-    m_coreLogging = settings.value("coreLogging", true).toBool();
-    m_localServerLogging = settings.value("localServerLogging", true).toBool();
-    m_uiLogging = settings.value("uiLogging", true).toBool();
-    m_powerManagerLogging = settings.value("powerManagerLogging", true).toBool();
-    m_headsetControlManagerLogging = settings.value("headsetControlManagerLogging", true).toBool();
-    m_windowFocusManagerLogging = settings.value("windowFocusManagerLogging", true).toBool();
+    m_audioManagerLogging = UserSettings::instance()->audioManagerLogging();
+    m_mediaSessionManagerLogging = UserSettings::instance()->mediaSessionManagerLogging();
+    m_monitorManagerLogging = UserSettings::instance()->monitorManagerLogging();
+    m_soundPanelBridgeLogging = UserSettings::instance()->soundPanelBridgeLogging();
+    m_updaterLogging = UserSettings::instance()->updaterLogging();
+    m_shortcutManagerLogging = UserSettings::instance()->shortcutManagerLogging();
+    m_coreLogging = UserSettings::instance()->coreLogging();
+    m_localServerLogging = UserSettings::instance()->localServerLogging();
+    m_uiLogging = UserSettings::instance()->uiLogging();
+    m_powerManagerLogging = UserSettings::instance()->powerManagerLogging();
+    m_headsetControlManagerLogging = UserSettings::instance()->headsetControlManagerLogging();
+    m_windowFocusManagerLogging = UserSettings::instance()->windowFocusManagerLogging();
 }
 
 LogManager* LogManager::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)

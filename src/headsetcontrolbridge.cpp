@@ -1,8 +1,8 @@
 #include "headsetcontrolbridge.h"
 #include "headsetcontrolmonitor.h"
 #include "audiomanager.h"
+#include "usersettings.h"
 #include <QTimer>
-#include <QSettings>
 
 HeadsetControlBridge* HeadsetControlBridge::m_instance = nullptr;
 
@@ -11,8 +11,7 @@ HeadsetControlBridge::HeadsetControlBridge(QObject *parent)
 {
     m_instance = this;
 
-    QSettings settings("Odizinne", "QontrolPanel");
-    m_notificationsEnabled = settings.value("enableNotifications", false).toBool();
+    m_notificationsEnabled = UserSettings::instance()->enableNotifications();
 
     QTimer::singleShot(100, this, &HeadsetControlBridge::connectToMonitor);
 }
@@ -58,17 +57,14 @@ void HeadsetControlBridge::connectToMonitor()
         connect(monitor, &HeadsetControlMonitor::anyDeviceFoundChanged,
                 this, &HeadsetControlBridge::onMonitorAnyDeviceFoundChanged);
 
-        // Load settings and initialize monitor
-        QSettings settings("Odizinne", "QontrolPanel");
-
         // Set fetch rate from settings (value is in seconds, convert to milliseconds)
-        int fetchRateSeconds = settings.value("headsetcontrolFetchRate", 20).toInt();
+        int fetchRateSeconds = UserSettings::instance()->headsetcontrolFetchRate();
         int fetchRateMs = fetchRateSeconds * 1000;
         QMetaObject::invokeMethod(monitor, "setFetchInterval", Qt::QueuedConnection,
                                   Q_ARG(int, fetchRateMs));
 
         // Start monitoring if enabled in settings
-        if (settings.value("headsetcontrolMonitoring", false).toBool()) {
+        if (UserSettings::instance()->headsetcontrolMonitoring()) {
             QMetaObject::invokeMethod(monitor, "startMonitoring", Qt::QueuedConnection);
         }
 

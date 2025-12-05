@@ -1,5 +1,5 @@
 #include "keyboardshortcutmanager.h"
-#include <QSettings>
+#include "usersettings.h"
 
 HHOOK KeyboardShortcutManager::keyboardHook = NULL;
 
@@ -23,15 +23,13 @@ KeyboardShortcutManager* KeyboardShortcutManager::create(QQmlEngine *qmlEngine, 
 KeyboardShortcutManager::KeyboardShortcutManager(QObject *parent)
     : QObject(parent)
 {
-    QSettings settings("Odizinne", "QontrolPanel");
-
-    setGlobalShortcutsEnabled(settings.value("globalShortcutsEnabled", true).toBool());
-    setPanelShortcutKey(settings.value("panelShortcutKey", 83).toInt());
-    setPanelShortcutModifiers(settings.value("panelShortcutModifiers", 117440512).toInt());
-    setChatMixShortcutKey(settings.value("chatMixShortcutKey", 77).toInt());
-    setChatMixShortcutModifiers(settings.value("chatMixShortcutModifiers", 117440512).toInt());
-    setMicMuteShortcutKey(settings.value("micMuteShortcutKey", 75).toInt());
-    setMicMuteShortcutModifiers(settings.value("micMuteShortcutModifiers", 117440512).toInt());
+    setGlobalShortcutsEnabled(UserSettings::instance()->globalShortcutsEnabled());
+    setPanelShortcutKey(UserSettings::instance()->panelShortcutKey());
+    setPanelShortcutModifiers(UserSettings::instance()->panelShortcutModifiers());
+    setChatMixShortcutKey(UserSettings::instance()->chatMixShortcutKey());
+    setChatMixShortcutModifiers(UserSettings::instance()->chatMixShortcutModifiers());
+    setMicMuteShortcutKey(UserSettings::instance()->micMuteShortcutKey());
+    setMicMuteShortcutModifiers(UserSettings::instance()->micMuteShortcutModifiers());
 }
 
 KeyboardShortcutManager::~KeyboardShortcutManager()

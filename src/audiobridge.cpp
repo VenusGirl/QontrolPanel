@@ -1,15 +1,10 @@
-// src/audiobridge.cpp
 #include "audiobridge.h"
 #include "audiomanager.h"
 #include "audiomodels.h"
+#include "usersettings.h"
 #include "logmanager.h"
 #include <QDebug>
 #include <QQmlContext>
-#include <QSettings>
-
-// ============================================================================
-// AudioBridge implementation
-// ============================================================================
 
 AudioBridge::AudioBridge(QObject *parent)
     : QObject(parent)
@@ -62,10 +57,8 @@ AudioBridge::AudioBridge(QObject *parent)
     loadDeviceRenamesFromFile();
     loadDeviceIconsFromFile();
 
-    // Check if audio components are enabled in settings
-    QSettings settings("Odizinne", "QontrolPanel");
-    bool enableDeviceManager = settings.value("enableDeviceManager", true).toBool();
-    bool enableApplicationMixer = settings.value("enableApplicationMixer", true).toBool();
+    bool enableDeviceManager = UserSettings::instance()->enableDeviceManager();
+    bool enableApplicationMixer = UserSettings::instance()->enableApplicationMixer();
 
     if (enableDeviceManager || enableApplicationMixer) {
         manager->initialize();
@@ -75,9 +68,8 @@ AudioBridge::AudioBridge(QObject *parent)
 }
 
 AudioBridge::~AudioBridge() {
-    QSettings settings("Odizinne", "QontrolPanel");
-    bool activateChatMix = settings.value("activateChatmix").toBool();
-    bool chatMixEnabled = settings.value("chatMixEnabled").toBool();
+    bool activateChatMix = UserSettings::instance()->activateChatmix();
+    bool chatMixEnabled = UserSettings::instance()->chatMixEnabled();
 
     if (activateChatMix && chatMixEnabled) {
         restoreOriginalVolumesSync();
@@ -381,8 +373,7 @@ void AudioBridge::applyChatMixToApplications(int value)
 
 void AudioBridge::restoreOriginalVolumes()
 {
-    QSettings settings("Odizinne", "QontrolPanel");
-    int restoreVolume = settings.value("chatmixRestoreVolume").toInt();
+    int restoreVolume = UserSettings::instance()->chatmixRestoreVolume();
 
     if (!m_isReady) {
         return;
@@ -409,13 +400,11 @@ void AudioBridge::restoreOriginalVolumes()
 
 void AudioBridge::applyChatMixIfEnabled()
 {
-    QSettings settings("Odizinne", "QontrolPanel");
-    bool activateChatMix = settings.value("activateChatmix").toBool();
-    bool chatMixEnabled = settings.value("chatMixEnabled").toBool();
+    bool activateChatMix = UserSettings::instance()->activateChatmix();
+    bool chatMixEnabled = UserSettings::instance()->chatMixEnabled();
 
     if (activateChatMix && chatMixEnabled) {
-        QSettings settings("Odizinne", "QontrolPanel");
-        applyChatMixToApplications(settings.value("chatMixValue").toInt());
+        applyChatMixToApplications(UserSettings::instance()->chatMixValue());
     }
 }
 
@@ -650,8 +639,7 @@ void AudioBridge::onInitializationComplete()
 
 void AudioBridge::restoreOriginalVolumesSync()
 {
-    QSettings settings("Odizinne", "QontrolPanel");
-    int restoreVolume = settings.value("chatmixRestoreVolume").toInt();
+    int restoreVolume = UserSettings::instance()->chatmixRestoreVolume();
 
     if (!m_isReady) {
         return;

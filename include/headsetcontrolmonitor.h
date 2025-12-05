@@ -5,7 +5,6 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonArray>
-#include <QSettings>
 
 struct HeadsetControlDevice {
     QString deviceName;
@@ -66,7 +65,6 @@ private:
 
     QTimer* m_fetchTimer;
     QProcess* m_process;
-    QSettings m_settings;
     QList<HeadsetControlDevice> m_cachedDevices;  // Cached last successful result
     bool m_isMonitoring;
     int m_fetchIntervalMs;

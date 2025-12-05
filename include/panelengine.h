@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QMainWindow>
-#include <QSettings>
 #include <QQmlApplicationEngine>
 #include <QWindow>
 #include <Windows.h>
@@ -26,7 +25,6 @@ private slots:
 private:
     QQmlApplicationEngine* engine;
     QWindow* panelWindow;
-    QSettings settings;
 
     void initializeQMLEngine();
     void destroyQMLEngine();

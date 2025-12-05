@@ -1,6 +1,7 @@
 #include "panelengine.h"
 #include "mediasessionmanager.h"
 #include "LanguageBridge.h"
+#include "usersettings.h"
 #include <QMenu>
 #include <QApplication>
 #include <QScreen>
@@ -20,10 +21,10 @@ PanelEngine::PanelEngine(QWidget *parent)
     : QWidget(parent)
     , engine(nullptr)
     , panelWindow(nullptr)
-    , settings("Odizinne", "QontrolPanel")
     , localServer(nullptr)
 {
-    bool enableMediaSessionManager = settings.value("enableMediaSessionManager", true).toBool();
+    UserSettings::instance();
+    bool enableMediaSessionManager = UserSettings::instance()->enableMediaSessionManager();
     if (enableMediaSessionManager) {
         MediaSessionManager::initialize();
     }
@@ -37,7 +38,7 @@ PanelEngine::PanelEngine(QWidget *parent)
                 this, &PanelEngine::onLanguageChanged);
     }
 
-    LanguageBridge::instance()->changeApplicationLanguage(settings.value("languageIndex", 0).toInt());
+    LanguageBridge::instance()->changeApplicationLanguage(UserSettings::instance()->languageIndex());
 }
 
 PanelEngine::~PanelEngine()

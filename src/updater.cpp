@@ -10,10 +10,10 @@
 #include <QStandardPaths>
 #include <QUrl>
 #include <QDebug>
-#include <QSettings>
 #include "version.h"
 #include "logmanager.h"
 #include "languages.h"
+#include "usersettings.h"
 
 Updater* Updater::m_instance = nullptr;
 
@@ -57,14 +57,13 @@ Updater::Updater(QObject *parent)
     connect(m_appUpdateCheckTimer, &QTimer::timeout, this, &Updater::checkForAppUpdatesTimer);
     m_appUpdateCheckTimer->start();
 
-    QSettings settings("Odizinne", "QontrolPanel");
-    if (settings.value("autoUpdateTranslations", false).toBool()) {
+    if (UserSettings::instance()->autoUpdateTranslations()) {
         QTimer::singleShot(5000, this, [this]() {
             downloadLatestTranslations();
         });
     }
 
-    if (settings.value("autoFetchForAppUpdates", false).toBool()) {
+    if (UserSettings::instance()->autoFetchForAppUpdates()) {
         QTimer::singleShot(5000, this, [this]() {
             checkForAppUpdatesAuto();
         });
@@ -292,8 +291,7 @@ void Updater::setReleaseNotes(const QString& notes)
 
 void Updater::checkForTranslationUpdates()
 {
-    QSettings settings("Odizinne", "QontrolPanel");
-    if (!settings.value("autoUpdateTranslations", false).toBool()) {
+    if (UserSettings::instance()->autoUpdateTranslations()) {
         m_translationAutoUpdateTimer->stop();
         return;
     }
@@ -526,8 +524,7 @@ bool Updater::hasTranslationProgressData()
 
 void Updater::checkForAppUpdatesTimer()
 {
-    QSettings settings("Odizinne", "QontrolPanel");
-    if (!settings.value("autoFetchForAppUpdates", false).toBool()) {
+    if (UserSettings::instance()->autoFetchForAppUpdates()) {
         m_appUpdateCheckTimer->stop();
         return;
     }
@@ -537,8 +534,7 @@ void Updater::checkForAppUpdatesTimer()
 
 void Updater::checkForAppUpdatesAuto()
 {
-    QSettings settings("Odizinne", "QontrolPanel");
-    if (!settings.value("autoFetchForAppUpdates", false).toBool()) {
+    if (UserSettings::instance()->autoFetchForAppUpdates()) {
         return;
     }
 
