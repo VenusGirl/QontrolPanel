@@ -2,12 +2,13 @@
 # Format: "code|English name|native name"
 set(SUPPORTED_LANGUAGES
     "en|English|english"
-    "fr|French|français" 
+    "fr|French|français"
     "de|German|deutsch"
     "it|Italian|italiano"
     "ko|Korean|한국어"
     "ru|Russian|pусский"
     "zh_CN|Chinese (Simplified)|简体中文"
+    "pl|Polish|polski"
 )
 
 # Function to extract language codes only
