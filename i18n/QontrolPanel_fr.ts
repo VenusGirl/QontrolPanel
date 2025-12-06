@@ -694,7 +694,7 @@ Si vous souhaitez soutenir mon travail, toute contribution serait grandement app
     </message>
     <message>
         <source>Show battery status in panel footer</source>
-        <translation>Voir l'état de la batterie dans le pied de page du panneau</translation>
+        <translation>Voir l&apos;état de la batterie dans le pied de page du panneau</translation>
     </message>
     <message>
         <source>Headset Lighting</source>
