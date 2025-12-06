@@ -194,6 +194,14 @@ ApplicationWindow {
 
     IntroWindow {
         id: introWindow
+        Component.onCompleted: {
+            if (UserSettings.firstRun) {
+                Qt.callLater(function() {
+                    showIntro()
+                    panel.showPanel()
+                })
+            }
+        }
     }
 
     SystemTray {
@@ -204,10 +212,6 @@ ApplicationWindow {
             } else {
                 panel.showPanel()
             }
-        }
-
-        onShowIntroRequested: {
-            introWindow.showIntro()
         }
     }
 

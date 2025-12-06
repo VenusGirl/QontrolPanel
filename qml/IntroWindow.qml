@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.FluentWinUI3
-import QtMultimedia
 import Odizinne.QontrolPanel
 
 ApplicationWindow {
@@ -13,16 +12,13 @@ ApplicationWindow {
     color: "#00000000"
     x: (Screen.width - width) / 2
     y: (Screen.height - height) / 2
-
     transientParent: null
 
     function showIntro() {
         visible = true
-        videoPlayer.play()
     }
 
     function closeIntro() {
-        videoPlayer.stop()
         visible = false
         UserSettings.firstRun = false
     }
@@ -56,49 +52,13 @@ ApplicationWindow {
                 Layout.fillWidth: true
             }
 
-            Label {
-                text: qsTr("The tray icon is probably hidden and can be added to the tray area by dragging it as shown in the video below.")
-                font.pixelSize: 12
-                opacity: 0.8
-                horizontalAlignment: Text.AlignHCenter
-                Layout.alignment: Qt.AlignCenter
-                wrapMode: Text.WordWrap
-                Layout.fillWidth: true
-                Layout.maximumWidth: parent.width - 40
-            }
-
-            Video {
-                id: videoPlayer
-                Layout.alignment: Qt.AlignCenter
-                source: "qrc:/videos/intro.mp4"
-                fillMode: VideoOutput.PreserveAspectFit
-                loops: MediaPlayer.Infinite
-
-                Rectangle {
-                    anchors.fill: parent
-                    color: "black"
-                    radius: 8
-                    z: -1
-                }
-            }
-
-            Label {
-                text: qsTr("You can then click on the tray icon to reveal the panel.")
-                font.pixelSize: 12
-                opacity: 0.8
-                horizontalAlignment: Text.AlignHCenter
-                Layout.alignment: Qt.AlignCenter
-                wrapMode: Text.WordWrap
-                Layout.fillWidth: true
-                Layout.maximumWidth: parent.width - 40
-            }
-
             MenuSeparator { Layout.fillWidth: true }
 
             RowLayout {
                 Layout.fillWidth: true
+                spacing: 40
                 Label {
-                    text: qsTr("Automatic application update fetching")
+                    text: qsTr("Automatic application update")
                     Layout.fillWidth: true
                 }
 
@@ -110,6 +70,7 @@ ApplicationWindow {
 
             RowLayout {
                 Layout.fillWidth: true
+                spacing: 40
                 Label {
                     text: qsTr("Automatic translations update")
                     Layout.fillWidth: true
@@ -128,7 +89,6 @@ ApplicationWindow {
                 highlighted: true
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 120
-
                 onClicked: introWindow.closeIntro()
             }
         }

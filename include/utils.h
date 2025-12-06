@@ -21,8 +21,12 @@ public:
     Q_INVOKABLE int getAvailableDesktopWidth() const;
     Q_INVOKABLE int getAvailableDesktopHeight() const;
     Q_INVOKABLE void playFeedbackSound();
+    Q_INVOKABLE void playNotificationSound(bool enabled);
     Q_INVOKABLE void setStyle(int style);
 
 private:
     static Utils* m_instance;
+
+    QByteArray m_successSound;
+    QByteArray m_failureSound;
 };

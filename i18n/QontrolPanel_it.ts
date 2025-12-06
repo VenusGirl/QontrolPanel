@@ -692,20 +692,24 @@ Puoi abilitarlo nella scheda Generale.</translation>
 <context>
     <name>IntroWindow</name>
     <message>
+        <source>Automatic application update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Get Started</source>
         <translation>Iniziamo</translation>
     </message>
     <message>
         <source>The tray icon is probably hidden and can be added to the tray area by dragging it as shown in the video below.</source>
-        <translation>L&apos;icona nella barra sistema è probabilmente nascosta e può essere aggiunta all&apos;area della barra sistema trascinandola come mostrato nel video qui sotto.</translation>
+        <translation type="vanished">L&apos;icona nella barra sistema è probabilmente nascosta e può essere aggiunta all&apos;area della barra sistema trascinandola come mostrato nel video qui sotto.</translation>
     </message>
     <message>
         <source>You can then click on the tray icon to reveal the panel.</source>
-        <translation>Per visualizzare il pannello puoi fare clic sull&apos;icona nella barra sistema.</translation>
+        <translation type="vanished">Per visualizzare il pannello puoi fare clic sull&apos;icona nella barra sistema.</translation>
     </message>
     <message>
         <source>Automatic application update fetching</source>
-        <translation>Aggiornamento automatico applicazione</translation>
+        <translation type="vanished">Aggiornamento automatico applicazione</translation>
     </message>
     <message>
         <source>Automatic translations update</source>
@@ -1005,10 +1009,6 @@ Puoi abilitarlo nella scheda Generale.</translation>
     <message>
         <source>Exit</source>
         <translation>Esci da QuickSoundSwitcher</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Windows sound settings (Legacy)</source>

@@ -4,7 +4,6 @@ import QtQuick.Controls.FluentWinUI3
 import QtQuick.Controls.impl
 import QtQuick.Window
 import Odizinne.QontrolPanel
-import QtMultimedia
 
 ApplicationWindow {
     id: notificationWindow
@@ -32,16 +31,6 @@ ApplicationWindow {
         positionWindow()
     }
 
-    SoundEffect {
-        id: chatMixOffEffect
-        source: "qrc:/sounds/outcome-failure.wav"
-    }
-
-    SoundEffect {
-        id: chatMixOnEffect
-        source: "qrc:/sounds/outcome-success.wav"
-    }
-
     Connections {
         target: KeyboardShortcutManager
 
@@ -54,9 +43,9 @@ ApplicationWindow {
                 notificationWindow.showNotification(message)
 
                 if (UserSettings.chatMixEnabled) {
-                    chatMixOnEffect.play()
+                    Utils.playNotificationSound(true)
                 } else {
-                    chatMixOffEffect.play()
+                    Utils.playNotificationSound(false)
                 }
             }
         }
@@ -69,9 +58,9 @@ ApplicationWindow {
                 notificationWindow.showNotification(message)
 
                 if (isMuted) {
-                    chatMixOffEffect.play()
+                    Utils.playNotificationSound(false)
                 } else {
-                    chatMixOnEffect.play()
+                    Utils.playNotificationSound(true)
                 }
             })
         }

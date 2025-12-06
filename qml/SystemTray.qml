@@ -9,16 +9,7 @@ Platform.SystemTrayIcon {
     signal showIntroRequested()
     signal settingsWindowRequested()
     icon.source: Constants.getTrayIcon(AudioBridge.outputVolume, AudioBridge.outputMuted)
-    tooltip: "QontrolPanel"
-
-    Component.onCompleted: {
-        if (UserSettings.firstRun === undefined || UserSettings.firstRun === true) {
-            Qt.callLater(function() {
-                showIntroRequested()
-            })
-        }
-        tooltip = Qt.binding(getTooltip);
-    }
+    tooltip: getTooltip()
 
     onActivated: function(reason) {
         if (reason === Platform.SystemTrayIcon.Trigger) {
@@ -72,18 +63,21 @@ Platform.SystemTrayIcon {
 
     function getTooltip() {
         var baseTooltip = "QontrolPanel";
-        var isWirelessHeadsetAvailable = !qsTr("") &&
-                HeadsetControlBridge.anyDeviceFound &&
+        var isWirelessHeadsetAvailable = HeadsetControlBridge.anyDeviceFound &&
                 HeadsetControlBridge.batteryStatus !== "BATTERY_UNAVAILABLE";
         if (!isWirelessHeadsetAvailable) {
             return baseTooltip;
         }
 
         var batteryText = "\n\n";
-        batteryText += "🔋";
-        if (HeadsetControlBridge.batteryStatus === "BATTERY_CHARGING")
-            batteryText += "⚡︎";
-        batteryText += HeadsetControlBridge.batteryLevel + "%";
+
+        if (HeadsetControlBridge.batteryStatus === "BATTERY_CHARGING") {
+            batteryText += "⚡︎"
+        } else {
+            batteryText += "🔋";
+            batteryText += HeadsetControlBridge.batteryLevel + "%";
+        }
+
         return baseTooltip + batteryText;
     }
 }

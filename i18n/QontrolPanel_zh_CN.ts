@@ -810,20 +810,24 @@ You can enable it in the General tab.</source>
         <translation type="obsolete">退出</translation>
     </message>
     <message>
+        <source>Automatic application update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Get Started</source>
         <translation>开始</translation>
     </message>
     <message>
         <source>The tray icon is probably hidden and can be added to the tray area by dragging it as shown in the video below.</source>
-        <translation>任务栏图标可能被隐藏了,可根据下图所示拉出</translation>
+        <translation type="vanished">任务栏图标可能被隐藏了,可根据下图所示拉出</translation>
     </message>
     <message>
         <source>You can then click on the tray icon to reveal the panel.</source>
-        <translation>即刻点击任务栏图标访问面板</translation>
+        <translation type="vanished">即刻点击任务栏图标访问面板</translation>
     </message>
     <message>
         <source>Automatic application update fetching</source>
-        <translation>自动更新信息拉取中</translation>
+        <translation type="vanished">自动更新信息拉取中</translation>
     </message>
     <message>
         <source>Automatic translations update</source>
@@ -1204,10 +1208,6 @@ You can enable it in the General tab.</source>
     <message>
         <source>Exit</source>
         <translation>退出</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Windows sound settings (Legacy)</source>

@@ -736,7 +736,11 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     </message>
     <message>
         <source>You can then click on the tray icon to reveal the panel.</source>
-        <translation>Vous pouvez ensuite cliquer sur l&apos;icône pour afficher le panneau.</translation>
+        <translation type="vanished">Vous pouvez ensuite cliquer sur l&apos;icône pour afficher le panneau.</translation>
+    </message>
+    <message>
+        <source>Automatic application update</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Automatic translations update</source>
@@ -748,11 +752,11 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     </message>
     <message>
         <source>The tray icon is probably hidden and can be added to the tray area by dragging it as shown in the video below.</source>
-        <translation>L&apos;icône de la barre des tâches est probablement masquée et peut être ajoutée à la zone de notification en la faisant glisser comme indiqué dans la vidéo ci-dessous.</translation>
+        <translation type="vanished">L&apos;icône de la barre des tâches est probablement masquée et peut être ajoutée à la zone de notification en la faisant glisser comme indiqué dans la vidéo ci-dessous.</translation>
     </message>
     <message>
         <source>Automatic application update fetching</source>
-        <translation>Recherche automatique de mise à jour</translation>
+        <translation type="vanished">Recherche automatique de mise à jour</translation>
     </message>
 </context>
 <context>
@@ -1087,10 +1091,6 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     <message>
         <source>QontrolPanel settings</source>
         <translation>Paramètres de QontrolPanel</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

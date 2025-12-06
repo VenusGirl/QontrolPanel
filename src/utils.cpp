@@ -3,6 +3,7 @@
 #include <QStyleHints>
 #include <QGuiApplication>
 #include <QScreen>
+#include <QFile>
 #include <Windows.h>
 
 Utils* Utils::m_instance = nullptr;
@@ -11,6 +12,18 @@ Utils::Utils(QObject* parent)
     : QObject(parent)
 {
     m_instance = this;
+
+    QFile successFile(":/sounds/outcome-success.wav");
+    if (successFile.open(QIODevice::ReadOnly)) {
+        m_successSound = successFile.readAll();
+        successFile.close();
+    }
+
+    QFile failureFile(":/sounds/outcome-failure.wav");
+    if (failureFile.open(QIODevice::ReadOnly)) {
+        m_failureSound = failureFile.readAll();
+        failureFile.close();
+    }
 }
 
 Utils::~Utils()
@@ -63,6 +76,19 @@ int Utils::getAvailableDesktopHeight() const
 void Utils::playFeedbackSound()
 {
     PlaySound(TEXT("SystemDefault"), NULL, SND_ALIAS | SND_ASYNC);
+}
+
+void Utils::playNotificationSound(bool enabled)
+{
+    const QByteArray& soundData = enabled ? m_successSound : m_failureSound;
+
+    if (soundData.isEmpty()) {
+        return;
+    }
+
+    PlaySoundA(reinterpret_cast<LPCSTR>(soundData.constData()),
+               NULL,
+               SND_MEMORY | SND_ASYNC);
 }
 
 void Utils::setStyle(int style) {

@@ -686,15 +686,7 @@ You can enable it in the General tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The tray icon is probably hidden and can be added to the tray area by dragging it as shown in the video below.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You can then click on the tray icon to reveal the panel.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Automatic application update fetching</source>
+        <source>Automatic application update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1006,10 +998,6 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source></source>
         <translation type="unfinished"></translation>
     </message>
 </context>

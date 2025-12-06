@@ -828,20 +828,24 @@ You can enable it in the General tab.</source>
         <translation type="vanished">Quick Sound Switcher에 오신 것을 환영합니다!</translation>
     </message>
     <message>
+        <source>Automatic application update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Get Started</source>
         <translation>시작하기</translation>
     </message>
     <message>
         <source>The tray icon is probably hidden and can be added to the tray area by dragging it as shown in the video below.</source>
-        <translation>트레이 아이콘이 숨겨져 있을 수 있으며, 아래 동영상에서 보여주는 대로 드래그하여 트레이 영역에 추가할 수 있습니다.</translation>
+        <translation type="vanished">트레이 아이콘이 숨겨져 있을 수 있으며, 아래 동영상에서 보여주는 대로 드래그하여 트레이 영역에 추가할 수 있습니다.</translation>
     </message>
     <message>
         <source>You can then click on the tray icon to reveal the panel.</source>
-        <translation>그런 다음 트레이 아이콘을 클릭하여 패널을 표시할 수 있습니다.</translation>
+        <translation type="vanished">그런 다음 트레이 아이콘을 클릭하여 패널을 표시할 수 있습니다.</translation>
     </message>
     <message>
         <source>Automatic application update fetching</source>
-        <translation>자동 응용 프로그램 업데이트 가져오기</translation>
+        <translation type="vanished">자동 응용 프로그램 업데이트 가져오기</translation>
     </message>
     <message>
         <source>Automatic translations update</source>
@@ -1270,10 +1274,6 @@ You can enable it in the General tab.</source>
     <message>
         <source>Exit</source>
         <translation>종료</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Windows sound settings (Legacy)</source>

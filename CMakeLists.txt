@@ -16,7 +16,6 @@ find_package(Qt6 REQUIRED COMPONENTS
     Quick
     Widgets
     LinguistTools
-    Multimedia
     Network
 )
 
@@ -41,6 +40,10 @@ set(SOURCES
     src/monitormanagerimpl.cpp
     src/logmanager.cpp
     src/usersettings.cpp
+    src/mediasessionbridge.cpp
+    src/powerbridge.cpp
+    src/languagebridge.cpp
+    src/keyboardshortcutmanager.cpp
 )
 
 set(HEADERS
@@ -60,6 +63,10 @@ set(HEADERS
     include/monitormanagerimpl.h
     include/logmanager.h
     include/usersettings.h
+    include/mediasessionbridge.h
+    include/powerbridge.h
+    include/languagebridge.h
+    include/keyboardshortcutmanager.h
 )
 
 # Get git commit hash
@@ -117,7 +124,6 @@ qt_add_executable(QontrolPanel WIN32
     ${HEADERS}
     resources/icons/icons.qrc
     resources/sounds/sounds.qrc
-    resources/videos/videos.qrc
     "${CMAKE_CURRENT_BINARY_DIR}/windows_metadata.rc"
 )
 
@@ -176,10 +182,6 @@ qt_add_qml_module(QontrolPanel
     URI Odizinne.QontrolPanel
     VERSION 1.0
     QML_FILES ${QML_FILES} ${QML_SINGLETONS}
-    SOURCES include/mediasessionbridge.h src/mediasessionbridge.cpp
-    SOURCES include/powerbridge.h src/powerbridge.cpp
-    SOURCES include/languagebridge.h src/languagebridge.cpp
-    SOURCES include/keyboardshortcutmanager.h src/keyboardshortcutmanager.cpp
 )
 
 target_include_directories(QontrolPanel PRIVATE
@@ -193,7 +195,6 @@ target_link_libraries(QontrolPanel PRIVATE
     Qt::Qml
     Qt::Quick
     Qt::Widgets
-    Qt::Multimedia
     Qt::Network
     Gdi32
     Winmm
