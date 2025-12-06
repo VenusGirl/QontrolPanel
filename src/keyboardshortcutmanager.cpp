@@ -23,13 +23,9 @@ KeyboardShortcutManager* KeyboardShortcutManager::create(QQmlEngine *qmlEngine, 
 KeyboardShortcutManager::KeyboardShortcutManager(QObject *parent)
     : QObject(parent)
 {
-    setGlobalShortcutsEnabled(UserSettings::instance()->globalShortcutsEnabled());
-    setPanelShortcutKey(UserSettings::instance()->panelShortcutKey());
-    setPanelShortcutModifiers(UserSettings::instance()->panelShortcutModifiers());
-    setChatMixShortcutKey(UserSettings::instance()->chatMixShortcutKey());
-    setChatMixShortcutModifiers(UserSettings::instance()->chatMixShortcutModifiers());
-    setMicMuteShortcutKey(UserSettings::instance()->micMuteShortcutKey());
-    setMicMuteShortcutModifiers(UserSettings::instance()->micMuteShortcutModifiers());
+    if (UserSettings::instance()->globalShortcutsEnabled()) {
+        installKeyboardHook();
+    }
 }
 
 KeyboardShortcutManager::~KeyboardShortcutManager()
@@ -41,20 +37,9 @@ KeyboardShortcutManager::~KeyboardShortcutManager()
     }
 }
 
-bool KeyboardShortcutManager::globalShortcutsEnabled() const
+void KeyboardShortcutManager::manageKeyboardHook(bool enabled)
 {
-    return m_globalShortcutsEnabled;
-}
-
-void KeyboardShortcutManager::setGlobalShortcutsEnabled(bool enabled)
-{
-    if (m_globalShortcutsEnabled == enabled)
-        return;
-
-    m_globalShortcutsEnabled = enabled;
-    emit globalShortcutsEnabledChanged();
-
-    if (m_globalShortcutsEnabled) {
+    if (enabled) {
         installKeyboardHook();
     } else {
         uninstallKeyboardHook();
@@ -78,90 +63,6 @@ void KeyboardShortcutManager::setGlobalShortcutsSuspended(bool suspended)
 void KeyboardShortcutManager::toggleChatMixFromShortcut(bool enabled)
 {
     emit chatMixEnabledChanged(enabled);
-}
-
-int KeyboardShortcutManager::panelShortcutKey() const
-{
-    return m_panelShortcutKey;
-}
-
-void KeyboardShortcutManager::setPanelShortcutKey(int key)
-{
-    if (m_panelShortcutKey == key)
-        return;
-
-    m_panelShortcutKey = key;
-    emit panelShortcutKeyChanged();
-}
-
-int KeyboardShortcutManager::panelShortcutModifiers() const
-{
-    return m_panelShortcutModifiers;
-}
-
-void KeyboardShortcutManager::setPanelShortcutModifiers(int modifiers)
-{
-    if (m_panelShortcutModifiers == modifiers)
-        return;
-
-    m_panelShortcutModifiers = modifiers;
-    emit panelShortcutModifiersChanged();
-}
-
-int KeyboardShortcutManager::chatMixShortcutKey() const
-{
-    return m_chatMixShortcutKey;
-}
-
-void KeyboardShortcutManager::setChatMixShortcutKey(int key)
-{
-    if (m_chatMixShortcutKey == key)
-        return;
-
-    m_chatMixShortcutKey = key;
-    emit chatMixShortcutKeyChanged();
-}
-
-int KeyboardShortcutManager::chatMixShortcutModifiers() const
-{
-    return m_chatMixShortcutModifiers;
-}
-
-void KeyboardShortcutManager::setChatMixShortcutModifiers(int modifiers)
-{
-    if (m_chatMixShortcutModifiers == modifiers)
-        return;
-
-    m_chatMixShortcutModifiers = modifiers;
-    emit chatMixShortcutModifiersChanged();
-}
-
-int KeyboardShortcutManager::micMuteShortcutKey() const
-{
-    return m_micMuteShortcutKey;
-}
-
-void KeyboardShortcutManager::setMicMuteShortcutKey(int key)
-{
-    if (m_micMuteShortcutKey == key)
-        return;
-
-    m_micMuteShortcutKey = key;
-    emit micMuteShortcutKeyChanged();
-}
-
-int KeyboardShortcutManager::micMuteShortcutModifiers() const
-{
-    return m_micMuteShortcutModifiers;
-}
-
-void KeyboardShortcutManager::setMicMuteShortcutModifiers(int modifiers)
-{
-    if (m_micMuteShortcutModifiers == modifiers)
-        return;
-
-    m_micMuteShortcutModifiers = modifiers;
-    emit micMuteShortcutModifiersChanged();
 }
 
 void KeyboardShortcutManager::installKeyboardHook()
@@ -245,7 +146,7 @@ LRESULT CALLBACK KeyboardShortcutManager::KeyboardProc(int nCode, WPARAM wParam,
         PKBDLLHOOKSTRUCT pKeyboard = reinterpret_cast<PKBDLLHOOKSTRUCT>(lParam);
 
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) {
-            if (m_instance->m_globalShortcutsEnabled) {
+            if (UserSettings::instance()->globalShortcutsEnabled()) {
                 if (m_instance->handleCustomShortcut(pKeyboard->vkCode)) {
                     return 1;
                 }
@@ -262,26 +163,25 @@ bool KeyboardShortcutManager::handleCustomShortcut(DWORD vkCode)
         return false;
     }
 
-    // Windows key detection for closing panel (no modifiers needed)
     if (vkCode == VK_LWIN || vkCode == VK_RWIN) {
         emit panelCloseRequested();
-        return false; // Don't block the Windows key
+        return false;
     }
 
-    int panelKey = qtKeyToVirtualKey(m_panelShortcutKey);
-    if (vkCode == panelKey && isModifierPressed(m_panelShortcutModifiers)) {
+    int panelKey = qtKeyToVirtualKey(UserSettings::instance()->panelShortcutKey());
+    if (vkCode == panelKey && isModifierPressed(UserSettings::instance()->panelShortcutModifiers())) {
         emit panelToggleRequested();
         return true;
     }
 
-    int chatMixKey = qtKeyToVirtualKey(m_chatMixShortcutKey);
-    if (vkCode == chatMixKey && isModifierPressed(m_chatMixShortcutModifiers)) {
+    int chatMixKey = qtKeyToVirtualKey(UserSettings::instance()->chatMixShortcutKey());
+    if (vkCode == chatMixKey && isModifierPressed(UserSettings::instance()->chatMixShortcutModifiers())) {
         emit chatMixToggleRequested();
         return true;
     }
 
-    int micMuteKey = qtKeyToVirtualKey(m_micMuteShortcutKey);
-    if (vkCode == micMuteKey && isModifierPressed(m_micMuteShortcutModifiers)) {
+    int micMuteKey = qtKeyToVirtualKey(UserSettings::instance()->micMuteShortcutKey());
+    if (vkCode == micMuteKey && isModifierPressed(UserSettings::instance()->micMuteShortcutModifiers())) {
         emit micMuteToggleRequested();
         return true;
     }

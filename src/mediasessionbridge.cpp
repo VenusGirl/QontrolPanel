@@ -1,5 +1,6 @@
 #include "mediasessionbridge.h"
 #include "mediasessionmanager.h"
+#include "usersettings.h"
 
 MediaSessionBridge* MediaSessionBridge::m_instance = nullptr;
 
@@ -15,6 +16,10 @@ MediaSessionBridge::MediaSessionBridge(QObject* parent)
                     m_isMediaPlaying = info.isPlaying;
                     emit mediaInfoChanged();
                 });
+    }
+
+    if (UserSettings::instance()->enableMediaSessionManager()) {
+        startMediaMonitoring();
     }
 }
 

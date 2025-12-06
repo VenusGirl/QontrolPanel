@@ -10,9 +10,6 @@ HeadsetControlBridge::HeadsetControlBridge(QObject *parent)
     : QObject(parent)
 {
     m_instance = this;
-
-    m_notificationsEnabled = UserSettings::instance()->enableNotifications();
-
     QTimer::singleShot(100, this, &HeadsetControlBridge::connectToMonitor);
 }
 
@@ -57,25 +54,21 @@ void HeadsetControlBridge::connectToMonitor()
         connect(monitor, &HeadsetControlMonitor::anyDeviceFoundChanged,
                 this, &HeadsetControlBridge::onMonitorAnyDeviceFoundChanged);
 
-        // Set fetch rate from settings (value is in seconds, convert to milliseconds)
         int fetchRateSeconds = UserSettings::instance()->headsetcontrolFetchRate();
         int fetchRateMs = fetchRateSeconds * 1000;
         QMetaObject::invokeMethod(monitor, "setFetchInterval", Qt::QueuedConnection,
                                   Q_ARG(int, fetchRateMs));
 
-        // Start monitoring if enabled in settings
         if (UserSettings::instance()->headsetcontrolMonitoring()) {
             QMetaObject::invokeMethod(monitor, "startMonitoring", Qt::QueuedConnection);
         }
 
-        // Emit signals to notify QML of current monitor values
         emit capabilitiesChanged();
         emit deviceNameChanged();
         emit batteryStatusChanged();
         emit batteryLevelChanged();
         emit anyDeviceFoundChanged();
     } else {
-        // Retry connection after a delay if monitor not found
         QTimer::singleShot(200, this, &HeadsetControlBridge::connectToMonitor);
     }
 }
@@ -176,11 +169,11 @@ void HeadsetControlBridge::onMonitorBatteryLevelChanged()
     int level = batteryLevel();
 
     if (level < 20 && level >= 0) {
-        if (!m_lowBatteryNotificationSent && m_notificationsEnabled) {
+        if (!m_lowBatteryNotificationSent && UserSettings::instance()->enableNotifications()) {
             emit lowHeadsetBattery();
             m_lowBatteryNotificationSent = true;
         }
-    } else if (level >= 20 && m_notificationsEnabled) {
+    } else if (level >= 20 && UserSettings::instance()->enableNotifications()) {
         m_lowBatteryNotificationSent = false;
     }
 
@@ -199,18 +192,5 @@ void HeadsetControlBridge::setFetchRate(int seconds)
         int intervalMs = seconds * 1000;
         QMetaObject::invokeMethod(monitor, "setFetchInterval", Qt::QueuedConnection,
                                   Q_ARG(int, intervalMs));
-    }
-}
-
-bool HeadsetControlBridge::notificationsEnabled() const
-{
-    return m_notificationsEnabled;
-}
-
-void HeadsetControlBridge::setNotificationsEnabled(bool enabled)
-{
-    if (m_notificationsEnabled != enabled) {
-        m_notificationsEnabled = enabled;
-        emit notificationsEnabledChanged();
     }
 }

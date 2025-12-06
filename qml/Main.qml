@@ -105,12 +105,6 @@ ApplicationWindow {
 
     Component.onCompleted: {
         Utils.setStyle(UserSettings.panelStyle)
-        if (UserSettings.enableMediaSessionManager) {
-            MediaSessionBridge.startMediaMonitoring()
-        }
-        if (UserSettings.allowBrightnessControl) {
-            MonitorManager.setDDCCIBrightness(Math.round(UserSettings.ddcciBrightness), UserSettings.ddcciQueueDelay)
-        }
     }
 
     PowerConfirmationWindow {

@@ -35,7 +35,7 @@ ColumnLayout {
                         checked: UserSettings.globalShortcutsEnabled
                         onClicked: {
                             UserSettings.globalShortcutsEnabled = checked
-                            KeyboardShortcutManager.globalShortcutsEnabled = checked
+                            KeyboardShortcutManager.manageKeyboardHook(checked)
                         }
                     }
                 }
@@ -245,19 +245,13 @@ ColumnLayout {
                         onClicked: {
                             if (shortcutDialog.shortcutType === "panel") {
                                 UserSettings.panelShortcutModifiers = shortcutDialog.tempModifiers
-                                KeyboardShortcutManager.panelShortcutModifiers = shortcutDialog.tempModifiers
                                 UserSettings.panelShortcutKey = shortcutDialog.tempKey
-                                KeyboardShortcutManager.panelShortcutKey =shortcutDialog.tempKey
                             } else if (shortcutDialog.shortcutType === "chatmix") {
                                 UserSettings.chatMixShortcutModifiers = shortcutDialog.tempModifiers
-                                KeyboardShortcutManager.chatMixShortcutModifiers = shortcutDialog.tempModifiers
                                 UserSettings.chatMixShortcutKey = shortcutDialog.tempKey
-                                KeyboardShortcutManager.chatMixShortcutKey = shortcutDialog.tempKey
                             } else if (shortcutDialog.shortcutType === "micmute") {
                                 UserSettings.micMuteShortcutModifiers = shortcutDialog.tempModifiers
-                                KeyboardShortcutManager.micMuteShortcutModifiers = shortcutDialog.tempModifiers
                                 UserSettings.micMuteShortcutKey = shortcutDialog.tempKey
-                                KeyboardShortcutManager.micMuteShortcutKey = shortcutDialog.tempKey
                             }
                             shortcutDialog.close()
                         }

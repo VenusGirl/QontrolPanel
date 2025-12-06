@@ -30,11 +30,14 @@ MonitorWorker::MonitorWorker(QObject *parent)
             setDDCCIBrightness(brightness, 16);
         }
     });
+
+    if (UserSettings::instance()->allowBrightnessControl()) {
+        setDDCCIBrightness(UserSettings::instance()->ddcciBrightness(), UserSettings::instance()->ddcciQueueDelay());
+    }
 }
 
 void MonitorWorker::init()
 {
-    // This runs on the worker thread after moveToThread()
     LogManager::instance()->sendLog(LogManager::MonitorManager, "Initializing MonitorWorker on worker thread");
 
     m_impl = new MonitorManagerImpl();

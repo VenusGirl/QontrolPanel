@@ -17,7 +17,6 @@ class HeadsetControlBridge : public QObject
     Q_PROPERTY(QString batteryStatus READ batteryStatus NOTIFY batteryStatusChanged)
     Q_PROPERTY(int batteryLevel READ batteryLevel NOTIFY batteryLevelChanged)
     Q_PROPERTY(bool anyDeviceFound READ anyDeviceFound NOTIFY anyDeviceFoundChanged)
-    Q_PROPERTY(bool notificationsEnabled READ notificationsEnabled WRITE setNotificationsEnabled NOTIFY notificationsEnabledChanged)
 
 public:
     explicit HeadsetControlBridge(QObject *parent = nullptr);
@@ -37,8 +36,6 @@ public:
     QString batteryStatus() const;
     int batteryLevel() const;
     bool anyDeviceFound() const;
-    bool notificationsEnabled() const;
-    void setNotificationsEnabled(bool enabled);
 
 signals:
     void capabilitiesChanged();
@@ -47,7 +44,6 @@ signals:
     void batteryLevelChanged();
     void anyDeviceFoundChanged();
     void lowHeadsetBattery();
-    void notificationsEnabledChanged();
 
 private slots:
     void onMonitorCapabilitiesChanged();
@@ -62,5 +58,4 @@ private:
     void connectToMonitor();
 
     bool m_lowBatteryNotificationSent = false;
-    bool m_notificationsEnabled = false;
 };
