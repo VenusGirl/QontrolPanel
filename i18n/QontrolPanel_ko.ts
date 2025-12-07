@@ -829,7 +829,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Automatic application update</source>
-        <translation type="unfinished"></translation>
+        <translation>자동 응용 프로그램 업데이트</translation>
     </message>
     <message>
         <source>Get Started</source>
