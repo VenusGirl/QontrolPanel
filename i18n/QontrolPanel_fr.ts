@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Panel theme</source>
-        <translation>Thème du panel</translation>
+        <translation>Thème du panneau</translation>
     </message>
     <message>
         <source>Avoid applications overflow</source>
@@ -198,11 +198,11 @@
     <name>ChatMixNotification</name>
     <message>
         <source>Microphone Muted</source>
-        <translation type="unfinished"></translation>
+        <translation>Microphone Désactivé</translation>
     </message>
     <message>
         <source>Microphone Unmuted</source>
-        <translation type="unfinished"></translation>
+        <translation>Microphone Activé</translation>
     </message>
     <message>
         <source>Microphone Enabled</source>
@@ -706,7 +706,7 @@ Si vous souhaitez soutenir mon travail, toute contribution serait grandement app
     </message>
     <message>
         <source>Notification on low battery</source>
-        <translation type="unfinished"></translation>
+        <translation>Notification quand batterie faible</translation>
     </message>
     <message>
         <source>Fetch rate (seconds)</source>
@@ -740,7 +740,7 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     </message>
     <message>
         <source>Automatic application update</source>
-        <translation type="unfinished"></translation>
+        <translation>Mise à jour automatiques</translation>
     </message>
     <message>
         <source>Automatic translations update</source>
@@ -996,7 +996,7 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     </message>
     <message>
         <source>Set Microphone Mute Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Raccourci d&apos;activation microphone</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1036,11 +1036,11 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     </message>
     <message>
         <source>Toggle Microphone Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterner microphone</translation>
     </message>
     <message>
         <source>Shortcut to mute/unmute microphone</source>
-        <translation type="unfinished"></translation>
+        <translation>Raccourci pour activer/désactiver le microphone</translation>
     </message>
     <message>
         <source>Set Panel Shortcut</source>
@@ -1109,15 +1109,15 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     </message>
     <message>
         <source>No translation files to download</source>
-        <translation type="unfinished">Aucune mise à jour disponible</translation>
+        <translation>Aucune mise à jour disponible</translation>
     </message>
     <message>
         <source>All translations downloaded successfully</source>
-        <translation type="unfinished">Toutes les traductions ont été téléchargées avec succès</translation>
+        <translation>Toutes les traductions ont été téléchargées avec succès</translation>
     </message>
     <message>
         <source>Downloaded %1 of %2 translation files</source>
-        <translation type="unfinished">Téléchargé %1 sur %2 fichiers de traduction</translation>
+        <translation>Téléchargé %1 sur %2 fichiers de traduction</translation>
     </message>
 </context>
 </TS>
