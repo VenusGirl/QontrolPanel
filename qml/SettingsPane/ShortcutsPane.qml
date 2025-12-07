@@ -35,7 +35,7 @@ ColumnLayout {
                         checked: UserSettings.globalShortcutsEnabled
                         onClicked: {
                             UserSettings.globalShortcutsEnabled = checked
-                            KeyboardShortcutManager.manageKeyboardHook(checked)
+                            KeyboardShortcutManager.manageGlobalShortcuts(checked)
                         }
                     }
                 }
@@ -252,6 +252,10 @@ ColumnLayout {
                             } else if (shortcutDialog.shortcutType === "micmute") {
                                 UserSettings.micMuteShortcutModifiers = shortcutDialog.tempModifiers
                                 UserSettings.micMuteShortcutKey = shortcutDialog.tempKey
+                            }
+                            // Re-register hotkeys with new settings
+                            if (UserSettings.globalShortcutsEnabled) {
+                                KeyboardShortcutManager.manageGlobalShortcuts(true)
                             }
                             shortcutDialog.close()
                         }

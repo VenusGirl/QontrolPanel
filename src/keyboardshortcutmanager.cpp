@@ -1,7 +1,7 @@
 #include "keyboardshortcutmanager.h"
 #include "usersettings.h"
-
-HHOOK KeyboardShortcutManager::keyboardHook = NULL;
+#include <QCoreApplication>
+#include <QWindow>
 
 KeyboardShortcutManager* KeyboardShortcutManager::m_instance = nullptr;
 
@@ -23,26 +23,42 @@ KeyboardShortcutManager* KeyboardShortcutManager::create(QQmlEngine *qmlEngine, 
 KeyboardShortcutManager::KeyboardShortcutManager(QObject *parent)
     : QObject(parent)
 {
+    // Get a window handle - we'll use a message-only window
+    m_hwnd = CreateWindowEx(0, L"STATIC", L"QontrolPanelHotkeys",
+                            0, 0, 0, 0, 0, HWND_MESSAGE, NULL, NULL, NULL);
+
+    // Install the native event filter
+    QCoreApplication::instance()->installNativeEventFilter(this);
+
     if (UserSettings::instance()->globalShortcutsEnabled()) {
-        installKeyboardHook();
+        registerHotkeys();
     }
 }
 
 KeyboardShortcutManager::~KeyboardShortcutManager()
 {
-    uninstallKeyboardHook();
+    unregisterHotkeys();
+
+    // Remove the native event filter
+    QCoreApplication::instance()->removeNativeEventFilter(this);
+
+    // Destroy the message-only window
+    if (m_hwnd) {
+        DestroyWindow(m_hwnd);
+        m_hwnd = nullptr;
+    }
 
     if (m_instance == this) {
         m_instance = nullptr;
     }
 }
 
-void KeyboardShortcutManager::manageKeyboardHook(bool enabled)
+void KeyboardShortcutManager::manageGlobalShortcuts(bool enabled)
 {
     if (enabled) {
-        installKeyboardHook();
+        registerHotkeys();
     } else {
-        uninstallKeyboardHook();
+        unregisterHotkeys();
     }
 }
 
@@ -65,34 +81,101 @@ void KeyboardShortcutManager::toggleChatMixFromShortcut(bool enabled)
     emit chatMixEnabledChanged(enabled);
 }
 
-void KeyboardShortcutManager::installKeyboardHook()
+void KeyboardShortcutManager::registerHotkeys()
 {
-    if (keyboardHook == NULL) {
-        keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardProc, NULL, 0);
+    if (!m_hwnd) return;
+
+    // Unregister any existing hotkeys first
+    unregisterHotkeys();
+
+    // Register panel toggle hotkey
+    UINT panelMods = convertQtModifiers(UserSettings::instance()->panelShortcutModifiers());
+    UINT panelKey = qtKeyToVirtualKey(UserSettings::instance()->panelShortcutKey());
+    if (panelKey != 0 && RegisterHotKey(m_hwnd, HOTKEY_PANEL_TOGGLE, panelMods, panelKey)) {
+        m_registeredHotkeys[HOTKEY_PANEL_TOGGLE] = true;
+    }
+
+    // Register ChatMix toggle hotkey
+    UINT chatMixMods = convertQtModifiers(UserSettings::instance()->chatMixShortcutModifiers());
+    UINT chatMixKey = qtKeyToVirtualKey(UserSettings::instance()->chatMixShortcutKey());
+    if (chatMixKey != 0 && RegisterHotKey(m_hwnd, HOTKEY_CHATMIX_TOGGLE, chatMixMods, chatMixKey)) {
+        m_registeredHotkeys[HOTKEY_CHATMIX_TOGGLE] = true;
+    }
+
+    // Register mic mute hotkey
+    UINT micMuteMods = convertQtModifiers(UserSettings::instance()->micMuteShortcutModifiers());
+    UINT micMuteKey = qtKeyToVirtualKey(UserSettings::instance()->micMuteShortcutKey());
+    if (micMuteKey != 0 && RegisterHotKey(m_hwnd, HOTKEY_MIC_MUTE, micMuteMods, micMuteKey)) {
+        m_registeredHotkeys[HOTKEY_MIC_MUTE] = true;
     }
 }
 
-void KeyboardShortcutManager::uninstallKeyboardHook()
+void KeyboardShortcutManager::unregisterHotkeys()
 {
-    if (keyboardHook != NULL) {
-        UnhookWindowsHookEx(keyboardHook);
-        keyboardHook = NULL;
+    if (!m_hwnd) return;
+
+    for (auto it = m_registeredHotkeys.begin(); it != m_registeredHotkeys.end(); ++it) {
+        UnregisterHotKey(m_hwnd, it.key());
+    }
+    m_registeredHotkeys.clear();
+}
+
+void KeyboardShortcutManager::updateHotkey(HotkeyId id, int qtKey, int qtMods)
+{
+    if (!m_hwnd) return;
+
+    // Unregister the old hotkey
+    if (m_registeredHotkeys.contains(id)) {
+        UnregisterHotKey(m_hwnd, id);
+        m_registeredHotkeys.remove(id);
+    }
+
+    // Register the new hotkey
+    UINT mods = convertQtModifiers(qtMods);
+    UINT key = qtKeyToVirtualKey(qtKey);
+    if (key != 0 && RegisterHotKey(m_hwnd, id, mods, key)) {
+        m_registeredHotkeys[id] = true;
     }
 }
 
-bool KeyboardShortcutManager::isModifierPressed(int qtModifier)
+UINT KeyboardShortcutManager::convertQtModifiers(int qtMods)
 {
-    bool result = true;
-    if (qtModifier & Qt::ControlModifier) {
-        result &= (GetAsyncKeyState(VK_CONTROL) & 0x8000) != 0;
+    UINT winMods = 0;
+    if (qtMods & Qt::ControlModifier) winMods |= MOD_CONTROL;
+    if (qtMods & Qt::ShiftModifier) winMods |= MOD_SHIFT;
+    if (qtMods & Qt::AltModifier) winMods |= MOD_ALT;
+    return winMods;
+}
+
+bool KeyboardShortcutManager::nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)
+{
+    Q_UNUSED(result)
+
+    if (eventType == "windows_generic_MSG" || eventType == "windows_dispatcher_MSG") {
+        MSG* msg = static_cast<MSG*>(message);
+
+        if (msg->message == WM_HOTKEY) {
+            // Check if shortcuts are suspended
+            if (m_globalShortcutsSuspended) {
+                return false;
+            }
+
+            // Handle the hotkey based on its ID
+            switch (msg->wParam) {
+                case HOTKEY_PANEL_TOGGLE:
+                    emit panelToggleRequested();
+                    return true;
+                case HOTKEY_CHATMIX_TOGGLE:
+                    emit chatMixToggleRequested();
+                    return true;
+                case HOTKEY_MIC_MUTE:
+                    emit micMuteToggleRequested();
+                    return true;
+            }
+        }
     }
-    if (qtModifier & Qt::ShiftModifier) {
-        result &= (GetAsyncKeyState(VK_SHIFT) & 0x8000) != 0;
-    }
-    if (qtModifier & Qt::AltModifier) {
-        result &= (GetAsyncKeyState(VK_MENU) & 0x8000) != 0;
-    }
-    return result;
+
+    return false;
 }
 
 int KeyboardShortcutManager::qtKeyToVirtualKey(int qtKey)
@@ -138,53 +221,4 @@ int KeyboardShortcutManager::qtKeyToVirtualKey(int qtKey)
     case Qt::Key_F12: return VK_F12;
     default: return 0;
     }
-}
-
-LRESULT CALLBACK KeyboardShortcutManager::KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
-{
-    if (nCode == HC_ACTION) {
-        PKBDLLHOOKSTRUCT pKeyboard = reinterpret_cast<PKBDLLHOOKSTRUCT>(lParam);
-
-        if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) {
-            if (UserSettings::instance()->globalShortcutsEnabled()) {
-                if (m_instance->handleCustomShortcut(pKeyboard->vkCode)) {
-                    return 1;
-                }
-            }
-        }
-    }
-
-    return CallNextHookEx(keyboardHook, nCode, wParam, lParam);
-}
-
-bool KeyboardShortcutManager::handleCustomShortcut(DWORD vkCode)
-{
-    if (m_globalShortcutsSuspended) {
-        return false;
-    }
-
-    if (vkCode == VK_LWIN || vkCode == VK_RWIN) {
-        emit panelCloseRequested();
-        return false;
-    }
-
-    int panelKey = qtKeyToVirtualKey(UserSettings::instance()->panelShortcutKey());
-    if (vkCode == panelKey && isModifierPressed(UserSettings::instance()->panelShortcutModifiers())) {
-        emit panelToggleRequested();
-        return true;
-    }
-
-    int chatMixKey = qtKeyToVirtualKey(UserSettings::instance()->chatMixShortcutKey());
-    if (vkCode == chatMixKey && isModifierPressed(UserSettings::instance()->chatMixShortcutModifiers())) {
-        emit chatMixToggleRequested();
-        return true;
-    }
-
-    int micMuteKey = qtKeyToVirtualKey(UserSettings::instance()->micMuteShortcutKey());
-    if (vkCode == micMuteKey && isModifierPressed(UserSettings::instance()->micMuteShortcutModifiers())) {
-        emit micMuteToggleRequested();
-        return true;
-    }
-
-    return false;
 }
