@@ -118,12 +118,6 @@ ApplicationWindow {
             panel.togglePanel()
         }
 
-        function onPanelCloseRequested() {
-            if (panel.visible) {
-                panel.hidePanel()
-            }
-        }
-
         function onMicMuteToggleRequested() {
             AudioBridge.setInputMute(!AudioBridge.inputMuted)
         }
