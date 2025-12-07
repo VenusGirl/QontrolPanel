@@ -207,9 +207,7 @@ ApplicationWindow {
     SystemTray {
         id: systemTray
         onTogglePanelRequested: {
-            if (panel.visible) {
-                panel.hidePanel()
-            } else {
+            if (!panel.visible) {
                 panel.showPanel()
             }
         }
@@ -321,6 +319,7 @@ ApplicationWindow {
 
         isAnimatingIn = true
         panel.visible = true
+        panel.requestActivate()
 
         positionPanelAtTarget()
         setInitialTransform()

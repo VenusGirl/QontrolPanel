@@ -31,11 +31,12 @@ private:
     void showPanel();
     void hidePanel();
 
-    static LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam);
-    static HHOOK mouseHook;
-
-    void installGlobalMouseHook();
-    void uninstallGlobalMouseHook();
+    // Focus monitoring using Windows Event Hook
+    void startFocusMonitoring();
+    void stopFocusMonitoring();
+    static void CALLBACK WinEventProc(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd,
+                                       LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime);
+    static HWINEVENTHOOK focusHook;
 
     QLocalServer* localServer;
     void setupLocalServer();

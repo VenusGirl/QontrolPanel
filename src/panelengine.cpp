@@ -13,9 +13,8 @@
 #include <Windows.h>
 #include <QProcess>
 
-HHOOK PanelEngine::mouseHook = NULL;
+HWINEVENTHOOK PanelEngine::focusHook = NULL;
 PanelEngine* PanelEngine::instance = nullptr;
-static bool validMouseDown = false;
 
 PanelEngine::PanelEngine(QWidget *parent)
     : QWidget(parent)
@@ -43,8 +42,8 @@ PanelEngine::PanelEngine(QWidget *parent)
 
 PanelEngine::~PanelEngine()
 {
+    stopFocusMonitoring();
     MediaSessionManager::cleanup();
-    uninstallGlobalMouseHook();
     destroyQMLEngine();
     cleanupLocalServer();
     instance = nullptr;
@@ -73,9 +72,9 @@ void PanelEngine::onPanelVisibilityChanged(bool visible)
     isPanelVisible = visible;
 
     if (visible) {
-        installGlobalMouseHook();
+        startFocusMonitoring();
     } else {
-        uninstallGlobalMouseHook();
+        stopFocusMonitoring();
     }
 }
 
@@ -88,54 +87,44 @@ void PanelEngine::destroyQMLEngine()
     panelWindow = nullptr;
 }
 
-void PanelEngine::installGlobalMouseHook()
+void PanelEngine::startFocusMonitoring()
 {
-    if (mouseHook == NULL) {
-        mouseHook = SetWindowsHookEx(WH_MOUSE_LL, MouseProc, NULL, 0);
+    if (focusHook == NULL) {
+        focusHook = SetWinEventHook(
+            EVENT_SYSTEM_FOREGROUND, EVENT_SYSTEM_FOREGROUND,
+            NULL,
+            WinEventProc,
+            0, 0,
+            WINEVENT_OUTOFCONTEXT
+        );
     }
 }
 
-void PanelEngine::uninstallGlobalMouseHook()
+void PanelEngine::stopFocusMonitoring()
 {
-    if (mouseHook != NULL) {
-        UnhookWindowsHookEx(mouseHook);
-        mouseHook = NULL;
+    if (focusHook != NULL) {
+        UnhookWinEvent(focusHook);
+        focusHook = NULL;
     }
 }
 
-LRESULT CALLBACK PanelEngine::MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
+void CALLBACK PanelEngine::WinEventProc(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd,
+                                         LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime)
 {
-    if (nCode == HC_ACTION) {
-        if (wParam == WM_LBUTTONDOWN || wParam == WM_RBUTTONDOWN) {
-            QPoint cursorPos = QCursor::pos();
-            QRect soundPanelRect;
+    Q_UNUSED(hWinEventHook)
+    Q_UNUSED(idObject)
+    Q_UNUSED(idChild)
+    Q_UNUSED(dwEventThread)
+    Q_UNUSED(dwmsEventTime)
 
-            if (instance->panelWindow && instance->isPanelVisible) {
-                soundPanelRect = instance->panelWindow->geometry();
-            } else {
-                soundPanelRect = QRect();
-            }
+    if (event == EVENT_SYSTEM_FOREGROUND && instance && instance->panelWindow && instance->isPanelVisible) {
+        HWND panelWindow = (HWND)instance->panelWindow->winId();
 
-            validMouseDown = !soundPanelRect.contains(cursorPos);
-        }
-        else if ((wParam == WM_LBUTTONUP || wParam == WM_RBUTTONUP) && validMouseDown) {
-            QPoint cursorPos = QCursor::pos();
-            QRect soundPanelRect;
-
-            if (instance->panelWindow && instance->isPanelVisible) {
-                soundPanelRect = instance->panelWindow->geometry();
-            } else {
-                soundPanelRect = QRect();
-            }
-
-            validMouseDown = false;
-
-            if (!soundPanelRect.contains(cursorPos)) {
-                QMetaObject::invokeMethod(instance->panelWindow, "hidePanel");
-            }
+        if (hwnd != panelWindow) {
+            instance->stopFocusMonitoring();
+            QMetaObject::invokeMethod(instance->panelWindow, "hidePanel");
         }
     }
-    return CallNextHookEx(NULL, nCode, wParam, lParam);
 }
 
 void PanelEngine::onLanguageChanged()
