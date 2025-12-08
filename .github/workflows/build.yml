@@ -75,6 +75,15 @@ jobs:
           $new = $content -replace '(?<=#define AppVersion ")[^"]+', "${{ steps.cmake_version.outputs.version }}"
           Set-Content tools/installer.iss -Value $new
 
+      - name: Download VC++ Redistributable
+        shell: pwsh
+        run: |
+          $vcRedistUrl = "https://aka.ms/vs/17/release/vc_redist.x64.exe"
+          $vcRedistPath = "build/vc_redist.x64.exe"
+          Write-Host "Downloading VC++ Redistributable..."
+          Invoke-WebRequest -Uri $vcRedistUrl -OutFile $vcRedistPath
+          Write-Host "VC++ Redistributable downloaded successfully"
+
       - name: Create Installer
         shell: pwsh
         run: |
