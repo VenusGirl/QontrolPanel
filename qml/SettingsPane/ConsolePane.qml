@@ -101,7 +101,7 @@ ColumnLayout {
         spacing: 10
 
         Label {
-            text: "Filter by:"
+            text: qsTr("Filter by:")
         }
 
         CustomComboBox {
@@ -132,7 +132,7 @@ ColumnLayout {
         }
 
         Button {
-            text: "Configure"
+            text: qsTr("Configure")
             onClicked: loggingDialog.open()
         }
 
@@ -141,18 +141,18 @@ ColumnLayout {
         }
 
         CheckBox {
-            text: "Auto-scroll"
+            text: qsTr("Auto-scroll")
             checked: logViewer.autoScroll
             onCheckedChanged: logViewer.autoScroll = checked
         }
 
         Button {
-            text: "Copy All"
+            text: qsTr("Copy All")
             onClicked: logViewer.copyAllLogs()
         }
 
         Button {
-            text: "Clear"
+            text: qsTr("Clear")
             onClicked: LogBridge.clearLogs()
         }
     }
