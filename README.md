@@ -26,6 +26,12 @@ Translators should have a look [here](.github/TRANSLATIONS.md).
 
 ## Installation
 
+### Winget
+
+`winget install Odizinne.QontrolPanel`
+
+### Manual
+
 Download latest version [here](https://github.com/Odizinne/QontrolPanel/releases/latest).  
 Use the provided installer or download the archive, extract it, and run `bin/QontrolPanel.exe`.
 
