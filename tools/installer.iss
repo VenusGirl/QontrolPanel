@@ -55,6 +55,8 @@ OutputBaseFilename=QontrolPanel_installer
 Compression=lzma
 SolidCompression=yes
 UsedUserAreasWarning=no
+ArchitecturesAllowed=x64compatible
+ArchitecturesInstallIn64BitMode=x64compatible
 
 [Languages]
 Name: "english";    MessagesFile: "compiler:Default.isl"
