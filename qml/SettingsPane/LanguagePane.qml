@@ -113,48 +113,55 @@ ColumnLayout {
                                      qsTr("Current language completion") :
                                      qsTr("Fetch for new translation to get data")
 
-                    additionalControl: ProgressBar {
-                        id: progressBar
-                        from: 0
-                        to: 100
-                        visible: false  // Start as invisible
-                        value: progressPercentage
-                        property int progressPercentage: 0
+                    additionalControl: RowLayout {
+                        spacing: 10
+                        ProgressBar {
+                            id: progressBar
+                            from: 0
+                            to: 100
+                            visible: false  // Start as invisible
+                            value: progressPercentage
+                            Layout.topMargin: 2
+                            property int progressPercentage: 0
 
-                        function updateProgress() {
-                            let currentLangCode = LanguageBridge.getLanguageCodeFromIndex(UserSettings.languageIndex)
-                            progressPercentage = Updater.getTranslationProgress(currentLangCode)
-                            value = progressPercentage
-                        }
-
-                        function updateVisibilityAndProgress() {
-                            visible = Updater.hasTranslationProgressData()
-                            if (visible) {
-                                updateProgress()
-                            }
-                        }
-
-                        Component.onCompleted: {
-                            updateVisibilityAndProgress()
-                        }
-
-                        Connections {
-                            target: UserSettings
-
-                            function onLanguageIndexChanged() {
-                                progressBar.updateProgress()
-                            }
-                        }
-
-                        Connections {
-                            target: Updater
-                            function onTranslationDownloadFinished(success, message) {
-                                Qt.callLater(progressBar.updateVisibilityAndProgress)
+                            function updateProgress() {
+                                let currentLangCode = LanguageBridge.getLanguageCodeFromIndex(UserSettings.languageIndex)
+                                progressPercentage = Updater.getTranslationProgress(currentLangCode)
+                                value = progressPercentage
                             }
 
-                            function onTranslationProgressDataLoaded() {
-                                progressBar.updateVisibilityAndProgress()
+                            function updateVisibilityAndProgress() {
+                                visible = Updater.hasTranslationProgressData()
+                                if (visible) {
+                                    updateProgress()
+                                }
                             }
+
+                            Component.onCompleted: {
+                                updateVisibilityAndProgress()
+                            }
+
+                            Connections {
+                                target: UserSettings
+
+                                function onLanguageIndexChanged() {
+                                    progressBar.updateProgress()
+                                }
+                            }
+
+                            Connections {
+                                target: Updater
+                                function onTranslationDownloadFinished(success, message) {
+                                    Qt.callLater(progressBar.updateVisibilityAndProgress)
+                                }
+
+                                function onTranslationProgressDataLoaded() {
+                                    progressBar.updateVisibilityAndProgress()
+                                }
+                            }
+                        }
+                        Label {
+                            text: progressBar.value + "%"
                         }
                     }
                 }

@@ -957,7 +957,12 @@ ApplicationWindow {
                                             Layout.rightMargin: 25
                                             text: {
                                                 let name = appDelegateRoot.model.displayName
-                                                if (UserSettings.chatMixEnabled && AudioBridge.isCommApp(name)) {
+                                                if (name === "System sounds") {
+                                                    console.log("-----pass------")
+                                                    name = qsTr("System sounds")
+                                                }
+
+                                                if (UserSettings.chatMixEnabled && AudioBridge.isCommApp(name) && name !== "System sounds") {
                                                     name += " (Comm)"
                                                 }
                                                 return name
