@@ -1,5 +1,6 @@
 pragma Singleton
 import QtQuick
+import QtQuick.Controls.FluentWinUI3
 import Odizinne.QontrolPanel
 
 Item {
@@ -12,6 +13,9 @@ Item {
     property color cardBorderColor: darkMode ? "#1d1d1d" : "#e5e5e5"
     property color separatorColor: darkMode ? "#E3E3E3" : "#A0A0A0"
     property string systemIcon: darkMode ? "qrc:/icons/system_light.png" : "qrc:/icons/system_dark.png"
+    property color sliderTrackColor: darkMode
+        ? Qt.darker(palette.accent, 1.4)
+        : Qt.lighter(palette.accent, 1.4)
 
     // Battery charging animation timer
     property int chargingAnimationFrame: 20

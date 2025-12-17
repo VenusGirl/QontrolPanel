@@ -11,7 +11,7 @@ Slider {
     id: control
     focusPolicy: Qt.NoFocus
 
-    property int audioLevel: 0  // Add this property
+    property int audioLevel: 0
     property bool displayProgress: true
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -146,8 +146,6 @@ Slider {
                     height: control.horizontal ? parent.height : parent.height * control.position
                     radius: control.__config.track.height * 0.5
                     color: control.palette.accent
-                    opacity: control.displayProgress && UserSettings.showAudioLevel ? 0.4 : 1
-
                 }
 
                 // Audio level background (add this)
@@ -159,9 +157,8 @@ Slider {
                     width: control.horizontal ? parent.width * ((clampedAudioLevel / 100) * control.position) : parent.width
                     height: control.horizontal ? parent.height : parent.height * ((clampedAudioLevel / 100) * control.position)
                     radius: control.__config.track.height * 0.5
-                    color: control.palette.accent
+                    color: Constants.sliderTrackColor
 
-                    // Simple fix: if audio level is over 100, set to 0
                     property int clampedAudioLevel: control.audioLevel > 100 ? 0 : control.audioLevel
 
                     Behavior on width {
