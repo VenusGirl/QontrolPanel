@@ -458,23 +458,23 @@
     </message>
     <message>
         <source>Filter by:</source>
-        <translation type="unfinished"></translation>
+        <translation>필터 기준:</translation>
     </message>
     <message>
         <source>Configure</source>
-        <translation type="unfinished"></translation>
+        <translation>구성</translation>
     </message>
     <message>
         <source>Auto-scroll</source>
-        <translation type="unfinished"></translation>
+        <translation>자동 스크롤</translation>
     </message>
     <message>
         <source>Copy All</source>
-        <translation type="unfinished"></translation>
+        <translation>모두 복사</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>지우기</translation>
     </message>
 </context>
 <context>
