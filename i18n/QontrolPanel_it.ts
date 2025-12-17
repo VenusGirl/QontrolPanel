@@ -825,7 +825,7 @@ Puoi abilitarlo nella scheda Generale.</translation>
     </message>
     <message>
         <source>System sounds</source>
-        <translation>Suoni sistema</translation>
+        <translation type="vanished">Suoni sistema</translation>
     </message>
     <message>
         <source>ChatMix</source>

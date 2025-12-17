@@ -105,7 +105,7 @@ Rectangle {
                 ToolTip.delay: 1000
                 opacity: highlighted ? 0.3 : (enabled ? 1 : 0.5)
                 icon.color: "transparent"
-                icon.source: individualAppLayout.model.name == qsTr("System sounds") ? Constants.systemIcon : individualAppLayout.model.iconPath
+                icon.source: individualAppLayout.model.name === "System sounds" ? Constants.systemIcon : individualAppLayout.model.iconPath
 
                 onClicked: {
                     let newMutedState = !individualAppLayout.model.isMuted

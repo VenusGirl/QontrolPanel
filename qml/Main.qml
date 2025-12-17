@@ -940,7 +940,7 @@ ApplicationWindow {
                                         ToolTip.delay: 1000
                                         opacity: highlighted ? 0.3 : (enabled ? 1 : 0.5)
                                         icon.color: "transparent"
-                                        icon.source: appDelegateRoot.model.displayName === qsTr("System sounds") ? Constants.systemIcon : appDelegateRoot.model.iconPath
+                                        icon.source: appDelegateRoot.model.executableName === "System sounds" ? Constants.systemIcon : appDelegateRoot.model.iconPath
                                         onClicked: AudioBridge.setExecutableMute(appDelegateRoot.model.executableName, checked)
                                         Component.onCompleted: palette.accent = palette.button
                                     }
@@ -985,8 +985,8 @@ ApplicationWindow {
                                             enabled: !UserSettings.chatMixEnabled && !executableMuteButton.highlighted
                                             opacity: enabled ? 1 : 0.5
                                             Layout.fillWidth: true
-                                            displayProgress: appDelegateRoot.model.displayName !== qsTr("System sounds")
-                                            audioLevel: appDelegateRoot.model.displayName !== qsTr("System sounds")
+                                            displayProgress: appDelegateRoot.model.executableName !== "System sounds"
+                                            audioLevel: appDelegateRoot.model.executableName !== "System sounds"
                                                         ? (appDelegateRoot.model.averageAudioLevel || 0)
                                                         : 0
 

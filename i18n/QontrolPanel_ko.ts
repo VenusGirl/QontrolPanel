@@ -973,7 +973,7 @@ You can enable it in the General tab.</source>
     <name>Main</name>
     <message>
         <source>System sounds</source>
-        <translation>시스템 사운드</translation>
+        <translation type="vanished">시스템 사운드</translation>
     </message>
     <message>
         <source>ChatMix</source>

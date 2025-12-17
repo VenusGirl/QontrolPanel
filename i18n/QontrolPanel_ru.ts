@@ -942,10 +942,6 @@ You can enable it in the General tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>System sounds</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Brightness</source>
         <translation type="unfinished"></translation>
     </message>

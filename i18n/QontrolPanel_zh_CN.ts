@@ -979,7 +979,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>System sounds</source>
-        <translation>系统声音</translation>
+        <translation type="vanished">系统声音</translation>
     </message>
     <message>
         <source>Brightness</source>

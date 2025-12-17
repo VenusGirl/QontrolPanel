@@ -880,7 +880,7 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     </message>
     <message>
         <source>System sounds</source>
-        <translation>Sons système</translation>
+        <translation type="vanished">Sons système</translation>
     </message>
     <message>
         <source>Brightness</source>

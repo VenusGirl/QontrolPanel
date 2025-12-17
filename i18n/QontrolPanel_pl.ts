@@ -825,7 +825,7 @@ Można ją włączyć w zakładce Ogólne.</translation>
     </message>
     <message>
         <source>System sounds</source>
-        <translation type="unfinished">Dźwięki systemowe</translation>
+        <translation type="obsolete">Dźwięki systemowe</translation>
     </message>
     <message>
         <source>ChatMix</source>
