@@ -31,29 +31,53 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Clean up obsolete translations
+        run: |
+          echo "Cleaning up obsolete translations from changed .ts files..."
+          # Get list of changed .ts files in this push
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep 'i18n/.*\.ts$' || true)
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No .ts files changed in this push"
+          else
+            for ts_file in $CHANGED_FILES; do
+              if [ -f "$ts_file" ]; then
+                echo "Cleaning $ts_file"
+                lconvert -no-obsolete "$ts_file" -o "${ts_file}.tmp"
+                mv "${ts_file}.tmp" "$ts_file"
+              fi
+            done
+          fi
+          # Save changed files list for next step
+          echo "$CHANGED_FILES" > /tmp/changed_ts_files.txt
+
       - name: Compile changed translation files
         run: |
-          echo "Compiling .ts files to .qm files..."
+          echo "Compiling changed .ts files to .qm files..."
           mkdir -p i18n/compiled
-          for ts_file in i18n/*.ts; do
-            if [ -f "$ts_file" ]; then
-              filename=$(basename "$ts_file" .ts)
-              qm_file="i18n/compiled/${filename}.qm"
-              echo "Compiling $ts_file -> $qm_file"
-              lrelease "$ts_file" -qm "$qm_file"
-            fi
-          done
+          CHANGED_FILES=$(cat /tmp/changed_ts_files.txt)
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No .ts files to compile"
+          else
+            for ts_file in $CHANGED_FILES; do
+              if [ -f "$ts_file" ]; then
+                filename=$(basename "$ts_file" .ts)
+                qm_file="i18n/compiled/${filename}.qm"
+                echo "Compiling $ts_file -> $qm_file"
+                lrelease "$ts_file" -qm "$qm_file"
+              fi
+            done
+          fi
 
       - name: Generate translation progress JSON
         run: |
           echo "Generating translation progress data..."
           python3 tools/analyze_translations.py
 
-      - name: Commit compiled translations and progress data
+      - name: Commit cleaned translations and compiled files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add i18n/compiled/
+          git add i18n/*.ts i18n/compiled/
           if ! git diff --staged --quiet; then
             git commit -m "Auto-update compiled translations and progress data [skip ci]"
             git push
