@@ -34,6 +34,7 @@ public:
     Q_INVOKABLE void downloadLatestTranslations();
     Q_INVOKABLE void cancelTranslationDownload();
     Q_INVOKABLE int getTranslationProgress(const QString& languageCode);
+    Q_INVOKABLE QString getTranslationLastUpdated(const QString& languageCode);
     Q_INVOKABLE bool hasTranslationProgressData();
     Q_INVOKABLE QString getAppVersion() const;
     Q_INVOKABLE QString getQtVersion() const;

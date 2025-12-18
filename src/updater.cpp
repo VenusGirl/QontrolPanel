@@ -512,9 +512,29 @@ void Updater::downloadTranslationProgressFile()
 int Updater::getTranslationProgress(const QString& languageCode)
 {
     if (m_translationProgress.contains(languageCode)) {
-        return m_translationProgress[languageCode].toInt();
+        QJsonValue value = m_translationProgress[languageCode];
+        // Handle both old format (int) and new format (object with percentage)
+        if (value.isDouble()) {
+            return value.toInt();
+        } else if (value.isObject()) {
+            return value.toObject()["percentage"].toInt();
+        }
     }
     return 0;
+}
+
+QString Updater::getTranslationLastUpdated(const QString& languageCode)
+{
+    if (m_translationProgress.contains(languageCode)) {
+        QJsonValue value = m_translationProgress[languageCode];
+        if (value.isObject()) {
+            QString dateStr = value.toObject()["last_updated"].toString();
+            if (!dateStr.isEmpty()) {
+                return dateStr;
+            }
+        }
+    }
+    return QString();
 }
 
 bool Updater::hasTranslationProgressData()

@@ -178,13 +178,63 @@ ColumnLayout {
                 }
 
                 Card {
+                    id: lastUpdatedCard
                     Layout.fillWidth: true
                     title: qsTr("Translation last updated")
                     description: ""
 
                     additionalControl: Label {
-                        text: qsTr("Unknow date")
+                        id: lastUpdatedLabel
+                        text: {
+                            if (!Updater.hasTranslationProgressData()) {
+                                return qsTr("Unknown date")
+                            }
+                            let currentLangCode = LanguageBridge.getLanguageCodeFromIndex(UserSettings.languageIndex)
+                            let dateStr = Updater.getTranslationLastUpdated(currentLangCode)
+                            return dateStr ? dateStr : qsTr("Unknown date")
+                        }
                         opacity: 0.5
+
+                        Connections {
+                            target: UserSettings
+                            function onLanguageIndexChanged() {
+                                lastUpdatedLabel.text = Qt.binding(function() {
+                                    if (!Updater.hasTranslationProgressData()) {
+                                        return qsTr("Unknown date")
+                                    }
+                                    let currentLangCode = LanguageBridge.getLanguageCodeFromIndex(UserSettings.languageIndex)
+                                    let dateStr = Updater.getTranslationLastUpdated(currentLangCode)
+                                    return dateStr ? dateStr : qsTr("Unknown date")
+                                })
+                            }
+                        }
+
+                        Connections {
+                            target: Updater
+                            function onTranslationDownloadFinished(success, message) {
+                                if (success) {
+                                    lastUpdatedLabel.text = Qt.binding(function() {
+                                        if (!Updater.hasTranslationProgressData()) {
+                                            return qsTr("Unknown date")
+                                        }
+                                        let currentLangCode = LanguageBridge.getLanguageCodeFromIndex(UserSettings.languageIndex)
+                                        let dateStr = Updater.getTranslationLastUpdated(currentLangCode)
+                                        return dateStr ? dateStr : qsTr("Unknown date")
+                                    })
+                                }
+                            }
+
+                            function onTranslationProgressDataLoaded() {
+                                lastUpdatedLabel.text = Qt.binding(function() {
+                                    if (!Updater.hasTranslationProgressData()) {
+                                        return qsTr("Unknown date")
+                                    }
+                                    let currentLangCode = LanguageBridge.getLanguageCodeFromIndex(UserSettings.languageIndex)
+                                    let dateStr = Updater.getTranslationLastUpdated(currentLangCode)
+                                    return dateStr ? dateStr : qsTr("Unknown date")
+                                })
+                            }
+                        }
                     }
                 }
             }

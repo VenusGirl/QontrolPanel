@@ -3,6 +3,8 @@ import json
 import xml.etree.ElementTree as ET
 from pathlib import Path
 import sys
+import subprocess
+from datetime import datetime
 
 def analyze_ts_file(ts_file_path):
     try:
@@ -50,8 +52,26 @@ def analyze_ts_file(ts_file_path):
 def extract_language_code(filename):
     if filename.startswith('QontrolPanel_') and filename.endswith('.ts'):
         return filename[len('QontrolPanel_'):-len('.ts')]
-   
+
     return filename
+
+def get_last_commit_date(file_path):
+    """Get the last commit date for a specific file"""
+    try:
+        result = subprocess.run(
+            ['git', 'log', '-1', '--format=%ci', '--', str(file_path)],
+            capture_output=True,
+            text=True,
+            cwd=file_path.parent.parent
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            # Parse the git date format (YYYY-MM-DD HH:MM:SS +ZZZZ)
+            date_str = result.stdout.strip()
+            return date_str
+        return None
+    except Exception as e:
+        print(f"  Warning: Could not get git commit date: {e}")
+        return None
 
 def main():
     script_dir = Path(__file__).parent
@@ -77,23 +97,36 @@ def main():
    
     for ts_file in ts_files:
         print(f"Analyzing {ts_file.name}...")
-       
+
         language_code = extract_language_code(ts_file.name)
-        
+
+        # Get last commit date
+        last_commit = get_last_commit_date(ts_file)
+
         # Special case for English - always 100%
         if language_code.lower() in ['en', 'english', 'en_us', 'en_gb']:
-            translation_progress[language_code] = 100
+            translation_progress[language_code] = {
+                'percentage': 100,
+                'last_updated': last_commit
+            }
             print(f"  {language_code}: 100% (English - always complete)")
+            if last_commit:
+                print(f"    Last updated: {last_commit}")
             continue
-       
+
         stats = analyze_ts_file(ts_file)
         if stats is None:
             print(f"Skipping {ts_file.name} due to errors")
             continue
-       
-        translation_progress[language_code] = stats['percentage']
-       
+
+        translation_progress[language_code] = {
+            'percentage': stats['percentage'],
+            'last_updated': last_commit
+        }
+
         print(f"  {language_code}: {stats['translated_messages']}/{stats['total_messages']} = {stats['percentage']}%")
+        if last_commit:
+            print(f"    Last updated: {last_commit}")
    
     try:
         with open(output_file, 'w', encoding='utf-8') as f:
