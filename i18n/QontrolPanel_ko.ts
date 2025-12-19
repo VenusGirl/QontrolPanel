@@ -93,7 +93,7 @@
     </message>
     <message>
         <source>Applications and devices label</source>
-        <translation>응용 프로그램 및 장치 레이블</translation>
+        <translation type="vanished">응용 프로그램 및 장치 레이블</translation>
     </message>
     <message>
         <source>Show audio level</source>
@@ -105,11 +105,11 @@
     </message>
     <message>
         <source>Opacity animations</source>
-        <translation>불투명 애니메이션</translation>
+        <translation type="vanished">불투명 애니메이션</translation>
     </message>
     <message>
         <source>Display device icon</source>
-        <translation>장치 아이콘 표시</translation>
+        <translation type="vanished">장치 아이콘 표시</translation>
     </message>
     <message>
         <source>Tray icon theme</source>
@@ -717,11 +717,11 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Close device list automatically</source>
-        <translation>장치 목록 자동 닫기</translation>
+        <translation type="vanished">장치 목록 자동 닫기</translation>
     </message>
     <message>
         <source>Device list will automatically close after selecting a device</source>
-        <translation>장치를 선택하면 장치 목록이 자동으로 닫힙니다</translation>
+        <translation type="vanished">장치를 선택하면 장치 목록이 자동으로 닫힙니다</translation>
     </message>
     <message>
         <source>Group applications by executable</source>
@@ -777,7 +777,7 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Power action confirmation timeout</source>
-        <translation>전원 동작 확인 시간 초과</translation>
+        <translation type="vanished">전원 동작 확인 시간 초과</translation>
     </message>
 </context>
 <context>
@@ -911,7 +911,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Unknow date</source>
-        <translation>알 수 없는 날짜</translation>
+        <translation type="vanished">알 수 없는 날짜</translation>
     </message>
     <message>
         <source>Update Translations</source>
@@ -957,6 +957,10 @@ You can enable it in the General tab.</source>
         <source>Fetch for new translation to get data</source>
         <translation>데이터를 얻기 위해 새 번역을 가져옵니다</translation>
     </message>
+    <message>
+        <source>Unknown date</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LoggingConfDialog</name>
@@ -973,7 +977,7 @@ You can enable it in the General tab.</source>
     <name>Main</name>
     <message>
         <source>System sounds</source>
-        <translation type="vanished">시스템 사운드</translation>
+        <translation>시스템 사운드</translation>
     </message>
     <message>
         <source>ChatMix</source>

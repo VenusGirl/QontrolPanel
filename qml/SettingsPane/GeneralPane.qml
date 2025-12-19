@@ -33,33 +33,10 @@ ColumnLayout {
 
             Card {
                 Layout.fillWidth: true
-                title: qsTr("Close device list automatically")
-                description: qsTr("Device list will automatically close after selecting a device")
-
-                additionalControl: LabeledSwitch {
-                    checked: UserSettings.closeDeviceListOnClick
-                    onClicked: UserSettings.closeDeviceListOnClick = checked
-                }
-            }
-
-            Card {
-                Layout.fillWidth: true
                 title: qsTr("Show power action confirmation")
                 additionalControl: LabeledSwitch {
                     checked: UserSettings.showPowerDialogConfirmation
                     onClicked: UserSettings.showPowerDialogConfirmation = checked
-                }
-            }
-
-            Card {
-                Layout.fillWidth: true
-                title: qsTr("Power action confirmation timeout")
-                additionalControl: SpinBox {
-                    from: 5
-                    to: 60
-                    editable: true
-                    value: UserSettings.confirmationTimeout
-                    onValueChanged: UserSettings.confirmationTimeout = value
                 }
             }
 

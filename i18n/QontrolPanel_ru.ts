@@ -93,7 +93,7 @@
     </message>
     <message>
         <source>Applications and devices label</source>
-        <translation>Названия приложений и устройств в панели</translation>
+        <translation type="vanished">Названия приложений и устройств в панели</translation>
     </message>
     <message>
         <source>Show audio level</source>
@@ -106,14 +106,6 @@
     <message>
         <source>Windows taskbar size</source>
         <translation type="vanished">Размер панели задач</translation>
-    </message>
-    <message>
-        <source>Opacity animations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display device icon</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Tray icon theme</source>
@@ -704,11 +696,11 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Close device list automatically</source>
-        <translation>Автоматически закрывать список устройств</translation>
+        <translation type="vanished">Автоматически закрывать список устройств</translation>
     </message>
     <message>
         <source>Device list will automatically close after selecting a device</source>
-        <translation>Список автоматически закроется после выбора устройства</translation>
+        <translation type="vanished">Список автоматически закроется после выбора устройства</translation>
     </message>
     <message>
         <source>Group applications by executable</source>
@@ -744,10 +736,6 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Show power action confirmation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Power action confirmation timeout</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -865,7 +853,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Unknow date</source>
-        <translation>08.07.2025</translation>
+        <translation type="vanished">08.07.2025</translation>
     </message>
     <message>
         <source>Update Translations</source>
@@ -911,6 +899,10 @@ You can enable it in the General tab.</source>
         <source>Fetch for new translation to get data</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unknown date</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LoggingConfDialog</name>
@@ -939,6 +931,10 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Version %1 is available for download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System sounds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

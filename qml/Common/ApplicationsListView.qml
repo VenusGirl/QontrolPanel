@@ -10,7 +10,6 @@ Rectangle {
 
     property alias model: applicationsList.model
     property bool expanded: false
-    property real contentOpacity: 0
     property string executableName: ""
 
     // Export the height needed when fully expanded
@@ -39,7 +38,7 @@ Rectangle {
 
     Behavior on Layout.preferredHeight {
         NumberAnimation {
-            duration: 150
+            duration: 180
             easing.type: Easing.OutQuad
         }
     }
@@ -75,15 +74,6 @@ Rectangle {
         anchors.rightMargin: 14
         clip: true
         interactive: false
-        opacity: root.contentOpacity
-
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 200
-                easing.type: Easing.OutQuad
-            }
-        }
-
         delegate: RowLayout {
             id: individualAppLayout
             width: applicationsList.width
@@ -121,7 +111,6 @@ Rectangle {
                 spacing: -4
 
                 Label {
-                    visible: UserSettings.displayDevAppLabel
                     opacity: UserSettings.chatMixEnabled ? 0.3 : 0.5
                     elide: Text.ElideRight
                     Layout.preferredWidth: 200
@@ -165,7 +154,6 @@ Rectangle {
                     from: 0
                     to: 100
                     enabled: !UserSettings.chatMixEnabled && !muteButton.highlighted
-                    //opacity: enabled ? 1 : 0.5
                     audioLevel: {
                         AudioBridge.applicationAudioLevels
                         return AudioBridge.getApplicationAudioLevel(individualAppLayout.model.appId)
@@ -191,13 +179,6 @@ Rectangle {
                         let isCommApp = AudioBridge.isCommApp(appName)
 
                         return isCommApp ? 100 : UserSettings.chatMixValue
-                    }
-
-                    Behavior on opacity {
-                        NumberAnimation {
-                            duration: 300
-                            easing.type: Easing.Linear
-                        }
                     }
 
                     ToolTip {
@@ -230,30 +211,6 @@ Rectangle {
         }
     }
 
-    Timer {
-        id: opacityTimer
-        interval: 112
-        repeat: false
-        onTriggered: root.contentOpacity = 1
-    }
-
-    onExpandedChanged: {
-        if (expanded) {
-            if (UserSettings.opacityAnimations) {
-                opacityTimer.start()
-            } else {
-                root.contentOpacity = 1
-            }
-        } else {
-            if (UserSettings.opacityAnimations) {
-                root.contentOpacity = 0
-            } else {
-                root.contentOpacity = 0
-            }
-        }
-    }
-
-    // Context menu for renaming applications
     Menu {
         id: renameContextMenu
 

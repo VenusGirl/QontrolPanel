@@ -10,8 +10,6 @@ Rectangle {
 
     property alias model: devicesList.model
     property bool expanded: false
-    property real contentOpacity: 0
-
     property real expandedNeededHeight: devicesList.contentHeight + 20
 
     signal deviceClicked(string name, int index)
@@ -43,7 +41,7 @@ Rectangle {
 
     Behavior on Layout.preferredHeight {
         NumberAnimation {
-            duration: 150
+            duration: 180
             easing.type: Easing.OutQuad
         }
     }
@@ -74,15 +72,6 @@ Rectangle {
         anchors.margins: 10
         clip: true
         interactive: false
-        opacity: root.contentOpacity
-
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 200
-                easing.type: Easing.OutQuad
-            }
-        }
-
         delegate: ItemDelegate {
             id: del
             width: devicesList.width
@@ -95,7 +84,7 @@ Rectangle {
             required property int index
 
             highlighted: model.isDefault
-            icon.source: UserSettings.deviceIcon ? AudioBridge.getDisplayIconForDevice(model.name || "", model.isInput || false) : ""
+            icon.source: AudioBridge.getDisplayIconForDevice(model.name || "", model.isInput || false)
             icon.width: 14
             icon.height: 14
             spacing: 6
@@ -140,29 +129,6 @@ Rectangle {
         }
     }
 
-    Timer {
-        id: opacityTimer
-        interval: 112
-        repeat: false
-        onTriggered: root.contentOpacity = 1
-    }
-
-    onExpandedChanged: {
-        if (expanded) {
-            if (UserSettings.opacityAnimations) {
-                opacityTimer.start()
-            } else {
-                root.contentOpacity = 1
-            }
-        } else {
-            if (UserSettings.opacityAnimations) {
-                root.contentOpacity = 0
-            } else {
-                root.contentOpacity = 0
-            }
-        }
-    }
-
     Menu {
         id: deviceRenameContextMenu
 
@@ -177,7 +143,6 @@ Rectangle {
 
         MenuItem {
             text: qsTr("Change Icon")
-            enabled: UserSettings.deviceIcon
             onTriggered: deviceIconDialog.open()
         }
 

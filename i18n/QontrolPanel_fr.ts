@@ -73,7 +73,7 @@
     </message>
     <message>
         <source>Applications and devices label</source>
-        <translation>Nom des périphériques et applications</translation>
+        <translation type="vanished">Nom des périphériques et applications</translation>
     </message>
     <message>
         <source>Show audio level</source>
@@ -93,7 +93,7 @@
     </message>
     <message>
         <source>Display device icon</source>
-        <translation>Afficher les icones des périphériques</translation>
+        <translation type="vanished">Afficher les icones des périphériques</translation>
     </message>
     <message>
         <source>Appearance &amp; Position</source>
@@ -121,7 +121,7 @@
     </message>
     <message>
         <source>Opacity animations</source>
-        <translation>Animations d&apos;opacité</translation>
+        <translation type="vanished">Animations d&apos;opacité</translation>
     </message>
     <message>
         <source>Panel position</source>
@@ -651,7 +651,7 @@ Si vous souhaitez soutenir mon travail, toute contribution serait grandement app
     </message>
     <message>
         <source>Power action confirmation timeout</source>
-        <translation>Délai d&apos;attente pour la confirmation de l&apos;action d&apos;alimentation</translation>
+        <translation type="vanished">Délai d&apos;attente pour la confirmation de l&apos;action d&apos;alimentation</translation>
     </message>
     <message>
         <source>Faster</source>
@@ -667,7 +667,7 @@ Si vous souhaitez soutenir mon travail, toute contribution serait grandement app
     </message>
     <message>
         <source>Close device list automatically</source>
-        <translation>Fermer la liste des périphériques automatiquement</translation>
+        <translation type="vanished">Fermer la liste des périphériques automatiquement</translation>
     </message>
     <message>
         <source>QSS will boot up when your computer starts</source>
@@ -675,7 +675,7 @@ Si vous souhaitez soutenir mon travail, toute contribution serait grandement app
     </message>
     <message>
         <source>Device list will automatically close after selecting a device</source>
-        <translation>La liste se fermera automatiquement après la sélection d’un périphérique</translation>
+        <translation type="vanished">La liste se fermera automatiquement après la sélection d’un périphérique</translation>
     </message>
     <message>
         <source>Run at system startup</source>
@@ -813,8 +813,12 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
         <translation>Système</translation>
     </message>
     <message>
+        <source>Unknown date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unknow date</source>
-        <translation>03.12.2025</translation>
+        <translation type="vanished">03.12.2025</translation>
     </message>
     <message>
         <source>Download</source>
@@ -880,7 +884,7 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     </message>
     <message>
         <source>System sounds</source>
-        <translation type="vanished">Sons système</translation>
+        <translation>Sons système</translation>
     </message>
     <message>
         <source>Brightness</source>

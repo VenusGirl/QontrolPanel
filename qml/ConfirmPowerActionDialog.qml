@@ -57,7 +57,7 @@ Dialog {
     }
     Timer {
         id: countdownTimer
-        property int remaining: UserSettings.confirmationTimeout
+        property int remaining: 30000
         interval: 1000
         repeat: true
         running: dialog.visible
@@ -71,7 +71,7 @@ Dialog {
         }
         onRunningChanged: {
             if (running) {
-                remaining = UserSettings.confirmationTimeout
+                remaining = 30000
             }
         }
     }
@@ -85,7 +85,7 @@ Dialog {
 
         ProgressBar {
             from: 0
-            to: UserSettings.confirmationTimeout
+            to: 30000
             value: countdownTimer.remaining
             Layout.fillWidth: true
 

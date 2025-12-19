@@ -48,23 +48,11 @@
         <translation></translation>
     </message>
     <message>
-        <source>Applications and devices label</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Show audio level</source>
         <translation></translation>
     </message>
     <message>
         <source>Display audio level value in slider</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Opacity animations</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Display device icon</source>
         <translation></translation>
     </message>
     <message>
@@ -611,14 +599,6 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
         <translation></translation>
     </message>
     <message>
-        <source>Close device list automatically</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Device list will automatically close after selecting a device</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -644,10 +624,6 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Show power action confirmation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Power action confirmation timeout</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -753,7 +729,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Unknow date</source>
-        <translation>02.07.2025</translation>
+        <translation type="vanished">02.07.2025</translation>
     </message>
     <message>
         <source>Update Translations</source>
@@ -799,6 +775,10 @@ You can enable it in the General tab.</source>
         <source>Fetch for new translation to get data</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Unknown date</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LoggingConfDialog</name>
@@ -819,6 +799,10 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Version %1 is available for download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System sounds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

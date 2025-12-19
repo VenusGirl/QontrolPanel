@@ -17,8 +17,6 @@ class UserSettings : public QObject
     Q_PROPERTY(int taskbarOffset READ taskbarOffset WRITE setTaskbarOffset NOTIFY taskbarOffsetChanged)
     Q_PROPERTY(int xAxisMargin READ xAxisMargin WRITE setXAxisMargin NOTIFY xAxisMarginChanged)
     Q_PROPERTY(int yAxisMargin READ yAxisMargin WRITE setYAxisMargin NOTIFY yAxisMarginChanged)
-    Q_PROPERTY(bool displayDevAppLabel READ displayDevAppLabel WRITE setDisplayDevAppLabel NOTIFY displayDevAppLabelChanged)
-    Q_PROPERTY(bool closeDeviceListOnClick READ closeDeviceListOnClick WRITE setCloseDeviceListOnClick NOTIFY closeDeviceListOnClickChanged)
     Q_PROPERTY(int languageIndex READ languageIndex WRITE setLanguageIndex NOTIFY languageIndexChanged)
 
     Q_PROPERTY(QVariantList commApps READ commApps WRITE setCommApps NOTIFY commAppsChanged)
@@ -37,10 +35,8 @@ class UserSettings : public QObject
     Q_PROPERTY(int micMuteShortcutKey READ micMuteShortcutKey WRITE setMicMuteShortcutKey NOTIFY micMuteShortcutKeyChanged)
     Q_PROPERTY(int micMuteShortcutModifiers READ micMuteShortcutModifiers WRITE setMicMuteShortcutModifiers NOTIFY micMuteShortcutModifiersChanged)
     Q_PROPERTY(bool autoUpdateTranslations READ autoUpdateTranslations WRITE setAutoUpdateTranslations NOTIFY autoUpdateTranslationsChanged)
-    Q_PROPERTY(bool opacityAnimations READ opacityAnimations WRITE setOpacityAnimations NOTIFY opacityAnimationsChanged)
     Q_PROPERTY(bool firstRun READ firstRun WRITE setFirstRun NOTIFY firstRunChanged)
 
-    Q_PROPERTY(bool deviceIcon READ deviceIcon WRITE setDeviceIcon NOTIFY deviceIconChanged)
     Q_PROPERTY(int trayIconTheme READ trayIconTheme WRITE setTrayIconTheme NOTIFY trayIconThemeChanged)
     Q_PROPERTY(int iconStyle READ iconStyle WRITE setIconStyle NOTIFY iconStyleChanged)
 
@@ -54,7 +50,6 @@ class UserSettings : public QObject
 
     Q_PROPERTY(bool enablePowerMenu READ enablePowerMenu WRITE setEnablePowerMenu NOTIFY enablePowerMenuChanged)
     Q_PROPERTY(bool showPowerDialogConfirmation READ showPowerDialogConfirmation WRITE setShowPowerDialogConfirmation NOTIFY showPowerDialogConfirmationChanged)
-    Q_PROPERTY(int confirmationTimeout READ confirmationTimeout WRITE setConfirmationTimeout NOTIFY confirmationTimeoutChanged)
 
     Q_PROPERTY(int ddcciBrightness READ ddcciBrightness WRITE setDdcciBrightness NOTIFY ddcciBrightnessChanged)
 
@@ -87,8 +82,6 @@ public:
     int taskbarOffset() const { return m_taskbarOffset; }
     int xAxisMargin() const { return m_xAxisMargin; }
     int yAxisMargin() const { return m_yAxisMargin; }
-    bool displayDevAppLabel() const { return m_displayDevAppLabel; }
-    bool closeDeviceListOnClick() const { return m_closeDeviceListOnClick; }
     int languageIndex() const { return m_languageIndex; }
 
     QVariantList commApps() const { return m_commApps; }
@@ -107,10 +100,8 @@ public:
     int micMuteShortcutKey() const { return m_micMuteShortcutKey; }
     int micMuteShortcutModifiers() const { return m_micMuteShortcutModifiers; }
     bool autoUpdateTranslations() const { return m_autoUpdateTranslations; }
-    bool opacityAnimations() const { return m_opacityAnimations; }
     bool firstRun() const { return m_firstRun; }
 
-    bool deviceIcon() const { return m_deviceIcon; }
     int trayIconTheme() const { return m_trayIconTheme; }
     int iconStyle() const { return m_iconStyle; }
 
@@ -124,7 +115,6 @@ public:
 
     bool enablePowerMenu() const { return m_enablePowerMenu; }
     bool showPowerDialogConfirmation() const { return m_showPowerDialogConfirmation; }
-    int confirmationTimeout() const { return m_confirmationTimeout; }
 
     int ddcciBrightness() const { return m_ddcciBrightness; }
 
@@ -153,8 +143,6 @@ public:
     void setTaskbarOffset(int value);
     void setXAxisMargin(int value);
     void setYAxisMargin(int value);
-    void setDisplayDevAppLabel(bool value);
-    void setCloseDeviceListOnClick(bool value);
     void setLanguageIndex(int value);
 
     void setCommApps(const QVariantList &value);
@@ -173,10 +161,8 @@ public:
     void setMicMuteShortcutKey(int value);
     void setMicMuteShortcutModifiers(int value);
     void setAutoUpdateTranslations(bool value);
-    void setOpacityAnimations(bool value);
     void setFirstRun(bool value);
 
-    void setDeviceIcon(bool value);
     void setTrayIconTheme(int value);
     void setIconStyle(int value);
 
@@ -190,7 +176,6 @@ public:
 
     void setEnablePowerMenu(bool value);
     void setShowPowerDialogConfirmation(bool value);
-    void setConfirmationTimeout(int value);
 
     void setDdcciBrightness(int value);
 
@@ -219,8 +204,6 @@ signals:
     void taskbarOffsetChanged();
     void xAxisMarginChanged();
     void yAxisMarginChanged();
-    void displayDevAppLabelChanged();
-    void closeDeviceListOnClickChanged();
     void languageIndexChanged();
 
     void commAppsChanged();
@@ -239,10 +222,8 @@ signals:
     void micMuteShortcutKeyChanged();
     void micMuteShortcutModifiersChanged();
     void autoUpdateTranslationsChanged();
-    void opacityAnimationsChanged();
     void firstRunChanged();
 
-    void deviceIconChanged();
     void trayIconThemeChanged();
     void iconStyleChanged();
 
@@ -256,7 +237,6 @@ signals:
 
     void enablePowerMenuChanged();
     void showPowerDialogConfirmationChanged();
-    void confirmationTimeoutChanged();
 
     void ddcciBrightnessChanged();
 
@@ -291,8 +271,6 @@ private:
     int m_taskbarOffset;
     int m_xAxisMargin;
     int m_yAxisMargin;
-    bool m_displayDevAppLabel;
-    bool m_closeDeviceListOnClick;
     int m_languageIndex;
 
     QVariantList m_commApps;
@@ -311,10 +289,8 @@ private:
     int m_micMuteShortcutKey;
     int m_micMuteShortcutModifiers;
     bool m_autoUpdateTranslations;
-    bool m_opacityAnimations;
     bool m_firstRun;
 
-    bool m_deviceIcon;
     int m_trayIconTheme;
     int m_iconStyle;
 
@@ -328,7 +304,6 @@ private:
 
     bool m_enablePowerMenu;
     bool m_showPowerDialogConfirmation;
-    int m_confirmationTimeout;
 
     int m_ddcciBrightness;
 

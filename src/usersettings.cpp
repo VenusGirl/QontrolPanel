@@ -41,8 +41,6 @@ void UserSettings::initProperties()
     m_taskbarOffset = settings.value("taskbarOffset", 0).toInt();
     m_xAxisMargin = settings.value("xAxisMargin", 12).toInt();
     m_yAxisMargin = settings.value("yAxisMargin", 12).toInt();
-    m_displayDevAppLabel = settings.value("displayDevAppLabel", true).toBool();
-    m_closeDeviceListOnClick = settings.value("closeDeviceListOnClick", true).toBool();
     m_languageIndex = settings.value("languageIndex", 0).toInt();
 
     m_commApps = settings.value("commApps", QVariantList()).toList();
@@ -61,10 +59,8 @@ void UserSettings::initProperties()
     m_micMuteShortcutKey = settings.value("micMuteShortcutKey", 75).toInt();
     m_micMuteShortcutModifiers = settings.value("micMuteShortcutModifiers", 117440512).toInt();
     m_autoUpdateTranslations = settings.value("autoUpdateTranslations", false).toBool();
-    m_opacityAnimations = settings.value("opacityAnimations", true).toBool();
     m_firstRun = settings.value("firstRun", true).toBool();
 
-    m_deviceIcon = settings.value("deviceIcon", true).toBool();
     m_trayIconTheme = settings.value("trayIconTheme", 0).toInt();
     m_iconStyle = settings.value("iconStyle", 0).toInt();
 
@@ -78,7 +74,6 @@ void UserSettings::initProperties()
 
     m_enablePowerMenu = settings.value("enablePowerMenu", true).toBool();
     m_showPowerDialogConfirmation = settings.value("showPowerDialogConfirmation", true).toBool();
-    m_confirmationTimeout = settings.value("confirmationTimeout", 60).toInt();
 
     m_ddcciBrightness = settings.value("ddcciBrightness", 100).toInt();
 
@@ -161,24 +156,6 @@ void UserSettings::setYAxisMargin(int value)
         m_yAxisMargin = value;
         saveValue("yAxisMargin", value);
         emit yAxisMarginChanged();
-    }
-}
-
-void UserSettings::setDisplayDevAppLabel(bool value)
-{
-    if (m_displayDevAppLabel != value) {
-        m_displayDevAppLabel = value;
-        saveValue("displayDevAppLabel", value);
-        emit displayDevAppLabelChanged();
-    }
-}
-
-void UserSettings::setCloseDeviceListOnClick(bool value)
-{
-    if (m_closeDeviceListOnClick != value) {
-        m_closeDeviceListOnClick = value;
-        saveValue("closeDeviceListOnClick", value);
-        emit closeDeviceListOnClickChanged();
     }
 }
 
@@ -326,30 +303,12 @@ void UserSettings::setAutoUpdateTranslations(bool value)
     }
 }
 
-void UserSettings::setOpacityAnimations(bool value)
-{
-    if (m_opacityAnimations != value) {
-        m_opacityAnimations = value;
-        saveValue("opacityAnimations", value);
-        emit opacityAnimationsChanged();
-    }
-}
-
 void UserSettings::setFirstRun(bool value)
 {
     if (m_firstRun != value) {
         m_firstRun = value;
         saveValue("firstRun", value);
         emit firstRunChanged();
-    }
-}
-
-void UserSettings::setDeviceIcon(bool value)
-{
-    if (m_deviceIcon != value) {
-        m_deviceIcon = value;
-        saveValue("deviceIcon", value);
-        emit deviceIconChanged();
     }
 }
 
@@ -449,15 +408,6 @@ void UserSettings::setShowPowerDialogConfirmation(bool value)
         m_showPowerDialogConfirmation = value;
         saveValue("showPowerDialogConfirmation", value);
         emit showPowerDialogConfirmationChanged();
-    }
-}
-
-void UserSettings::setConfirmationTimeout(int value)
-{
-    if (m_confirmationTimeout != value) {
-        m_confirmationTimeout = value;
-        saveValue("confirmationTimeout", value);
-        emit confirmationTimeoutChanged();
     }
 }
 

@@ -53,7 +53,7 @@
     </message>
     <message>
         <source>Applications and devices label</source>
-        <translation type="unfinished">Etykieta aplikacji i urządzeń</translation>
+        <translation type="obsolete">Etykieta aplikacji i urządzeń</translation>
     </message>
     <message>
         <source>Show audio level</source>
@@ -65,11 +65,11 @@
     </message>
     <message>
         <source>Opacity animations</source>
-        <translation type="unfinished">Animacje krycia</translation>
+        <translation type="obsolete">Animacje krycia</translation>
     </message>
     <message>
         <source>Display device icon</source>
-        <translation type="unfinished">Wyświetl ikonę urządzenia</translation>
+        <translation type="obsolete">Wyświetl ikonę urządzenia</translation>
     </message>
     <message>
         <source>Tray icon theme</source>
@@ -613,11 +613,11 @@ Jeśli chcesz wesprzeć moją pracę, każda wpłata będzie bardzo mile widzian
     </message>
     <message>
         <source>Close device list automatically</source>
-        <translation type="unfinished">Zamknij listę urządzeń automatycznie</translation>
+        <translation type="obsolete">Zamknij listę urządzeń automatycznie</translation>
     </message>
     <message>
         <source>Device list will automatically close after selecting a device</source>
-        <translation type="unfinished">Lista urządzeń zostanie automatycznie zamknięta po wybraniu urządzenia</translation>
+        <translation type="obsolete">Lista urządzeń zostanie automatycznie zamknięta po wybraniu urządzenia</translation>
     </message>
     <message>
         <source>Show power action confirmation</source>
@@ -625,7 +625,7 @@ Jeśli chcesz wesprzeć moją pracę, każda wpłata będzie bardzo mile widzian
     </message>
     <message>
         <source>Power action confirmation timeout</source>
-        <translation type="unfinished">Limit czasu potwierdzenia akcji zasilania</translation>
+        <translation type="obsolete">Limit czasu potwierdzenia akcji zasilania</translation>
     </message>
     <message>
         <source>DDC/CI brightness update rate</source>
@@ -798,8 +798,12 @@ Można ją włączyć w zakładce Ogólne.</translation>
         <translation type="unfinished">Tłumaczenie ostatniej aktualizacji</translation>
     </message>
     <message>
+        <source>Unknown date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unknow date</source>
-        <translation type="unfinished">Nieznana data</translation>
+        <translation type="obsolete">Nieznana data</translation>
     </message>
 </context>
 <context>
@@ -825,7 +829,7 @@ Można ją włączyć w zakładce Ogólne.</translation>
     </message>
     <message>
         <source>System sounds</source>
-        <translation type="obsolete">Dźwięki systemowe</translation>
+        <translation type="unfinished">Dźwięki systemowe</translation>
     </message>
     <message>
         <source>ChatMix</source>

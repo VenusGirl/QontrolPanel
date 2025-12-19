@@ -83,10 +83,6 @@ ApplicationWindow {
 
     onVisibleChanged: {
         if (!visible) {
-            if (UserSettings.opacityAnimations) {
-                mediaLayout.opacity = 0
-                mainLayout.opacity = 0
-            }
             if (UserSettings.showAudioLevel) {
                 AudioBridge.stopAudioLevelMonitoring()
                 AudioBridge.stopApplicationAudioLevelMonitoring()
@@ -130,17 +126,6 @@ ApplicationWindow {
                 MediaSessionBridge.startMediaMonitoring()
             } else {
                 MediaSessionBridge.stopMediaMonitoring()
-            }
-        }
-        function onOpacityAnimationsChanged() {
-            if (panel.visible) return
-
-            if (UserSettings.opacityAnimations) {
-                mediaLayout.opacity = 0
-                mainLayout.opacity = 0
-            } else {
-                mediaLayout.opacity = 1
-                mainLayout.opacity = 1
             }
         }
 
@@ -250,7 +235,7 @@ ApplicationWindow {
     PropertyAnimation {
         id: showAnimation
         target: contentTransform
-        duration: 250
+        duration: 300
         easing.type: Easing.OutCubic
         onStarted: {
             contentOpacityTimer.start()
@@ -265,7 +250,7 @@ ApplicationWindow {
     PropertyAnimation {
         id: hideAnimation
         target: contentTransform
-        duration: 250
+        duration: 300
         easing.type: Easing.InCubic
         onFinished: {
             panel.visible = false
@@ -650,7 +635,7 @@ ApplicationWindow {
                         property: "opacity"
                         from: 0
                         to: 1
-                        duration: 300
+                        duration: 400
                         easing.type: Easing.OutQuad
                     }
 
@@ -660,7 +645,7 @@ ApplicationWindow {
                         property: "opacity"
                         from: 1
                         to: 0
-                        duration: 300
+                        duration: 400
                         easing.type: Easing.OutQuad
                     }
 
@@ -683,20 +668,7 @@ ApplicationWindow {
                     anchors.leftMargin: 15
                     anchors.rightMargin: 15
                     anchors.bottomMargin: 0
-                    opacity: 0
                     visible: UserSettings.enableMediaSessionManager && (MediaSessionBridge.mediaTitle !== "")
-                    onVisibleChanged: {
-                        if (panel.visible) {
-                            opacity = 1
-                        }
-                    }
-
-                    Behavior on opacity {
-                        NumberAnimation {
-                            duration: 300
-                            easing.type: Easing.OutQuad
-                        }
-                    }
                 }
 
                 Item {
@@ -723,7 +695,7 @@ ApplicationWindow {
 
                     Behavior on opacity {
                         NumberAnimation {
-                            duration: 300
+                            duration: 400
                             easing.type: Easing.OutQuad
                         }
                     }
@@ -759,7 +731,6 @@ ApplicationWindow {
                             ColumnLayout {
                                 spacing: -4
                                 Label {
-                                    visible: UserSettings.displayDevAppLabel
                                     opacity: 1
                                     elide: Text.ElideRight
                                     Layout.preferredWidth: outputSlider.implicitWidth - 30
@@ -812,9 +783,7 @@ ApplicationWindow {
                             model: AudioBridge.outputDevices
                             onDeviceClicked: function(name, index) {
                                 AudioBridge.setOutputDevice(index)
-                                if (UserSettings.closeDeviceListOnClick) {
-                                    expanded = false
-                                }
+                                expanded = false
                             }
                         }
 
@@ -835,7 +804,6 @@ ApplicationWindow {
                             ColumnLayout {
                                 spacing: -4
                                 Label {
-                                    visible: UserSettings.displayDevAppLabel
                                     opacity: 1
                                     elide: Text.ElideRight
                                     Layout.preferredWidth: inputSlider.implicitWidth - 30
@@ -887,9 +855,7 @@ ApplicationWindow {
                             model: AudioBridge.inputDevices
                             onDeviceClicked: function(name, index) {
                                 AudioBridge.setInputDevice(index)
-                                if (UserSettings.closeDeviceListOnClick) {
-                                    expanded = false
-                                }
+                                expanded = false
                             }
                         }
                     }
@@ -949,7 +915,6 @@ ApplicationWindow {
                                         spacing: -4
 
                                         Label {
-                                            visible: UserSettings.displayDevAppLabel
                                             opacity: UserSettings.chatMixEnabled ? 0.3 : 1
                                             elide: Text.ElideRight
                                             Layout.preferredWidth: 200
@@ -1091,7 +1056,6 @@ ApplicationWindow {
                                 spacing: -4
 
                                 Label {
-                                    visible: UserSettings.displayDevAppLabel
                                     opacity: 1
                                     text: qsTr("ChatMix")
                                     Layout.leftMargin: 18
@@ -1169,7 +1133,6 @@ ApplicationWindow {
                                 spacing: -4
 
                                 Label {
-                                    visible: UserSettings.displayDevAppLabel
                                     opacity: 1
                                     text: qsTr("Brightness")
                                     Layout.leftMargin: 18

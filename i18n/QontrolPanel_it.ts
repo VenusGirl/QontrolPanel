@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>Applications and devices label</source>
-        <translation>Etichetta applicazioni e dispositivi</translation>
+        <translation type="vanished">Etichetta applicazioni e dispositivi</translation>
     </message>
     <message>
         <source>Show audio level</source>
@@ -61,11 +61,11 @@
     </message>
     <message>
         <source>Opacity animations</source>
-        <translation>Opacità animazione</translation>
+        <translation type="vanished">Opacità animazione</translation>
     </message>
     <message>
         <source>Display device icon</source>
-        <translation>Visualizza icona dispositivo</translation>
+        <translation type="vanished">Visualizza icona dispositivo</translation>
     </message>
     <message>
         <source>Tray icon theme</source>
@@ -613,11 +613,11 @@ Se vuoi supportare il mio lavoro, qualsiasi contributo sarebbe molto apprezzato!
     </message>
     <message>
         <source>Close device list automatically</source>
-        <translation>Chiudi automaticamente elenco dispositivi</translation>
+        <translation type="vanished">Chiudi automaticamente elenco dispositivi</translation>
     </message>
     <message>
         <source>Device list will automatically close after selecting a device</source>
-        <translation>L&apos;elenco dei dispositivi si chiuderà automaticamente dopo aver selezionato un dispositivo</translation>
+        <translation type="vanished">L&apos;elenco dei dispositivi si chiuderà automaticamente dopo aver selezionato un dispositivo</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -649,7 +649,7 @@ Se vuoi supportare il mio lavoro, qualsiasi contributo sarebbe molto apprezzato!
     </message>
     <message>
         <source>Power action confirmation timeout</source>
-        <translation>Timeout conferma azione alimentazione</translation>
+        <translation type="vanished">Timeout conferma azione alimentazione</translation>
     </message>
 </context>
 <context>
@@ -755,7 +755,7 @@ Puoi abilitarlo nella scheda Generale.</translation>
     </message>
     <message>
         <source>Unknow date</source>
-        <translation type="unfinished">17.12.2025</translation>
+        <translation type="obsolete">17.12.2025</translation>
     </message>
     <message>
         <source>Update Translations</source>
@@ -801,6 +801,10 @@ Puoi abilitarlo nella scheda Generale.</translation>
         <source>Fetch for new translation to get data</source>
         <translation>Scarica una nuova traduzione</translation>
     </message>
+    <message>
+        <source>Unknown date</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LoggingConfDialog</name>
@@ -822,6 +826,10 @@ Puoi abilitarlo nella scheda Generale.</translation>
     <message>
         <source>Version %1 is available for download</source>
         <translation>È disponibile la versione %1</translation>
+    </message>
+    <message>
+        <source>System sounds</source>
+        <translation type="unfinished">Suoni sistema</translation>
     </message>
     <message>
         <source>ChatMix</source>

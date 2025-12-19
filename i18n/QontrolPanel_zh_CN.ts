@@ -101,7 +101,7 @@
     </message>
     <message>
         <source>Applications and devices label</source>
-        <translation>应用程序及设备标签</translation>
+        <translation type="vanished">应用程序及设备标签</translation>
     </message>
     <message>
         <source>Show audio level</source>
@@ -117,11 +117,11 @@
     </message>
     <message>
         <source>Opacity animations</source>
-        <translation>动画透明度</translation>
+        <translation type="vanished">动画透明度</translation>
     </message>
     <message>
         <source>Display device icon</source>
-        <translation>显示设备图标</translation>
+        <translation type="vanished">显示设备图标</translation>
     </message>
     <message>
         <source>Tray icon theme</source>
@@ -720,11 +720,11 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Close device list automatically</source>
-        <translation>自动关闭设备列表</translation>
+        <translation type="vanished">自动关闭设备列表</translation>
     </message>
     <message>
         <source>Device list will automatically close after selecting a device</source>
-        <translation>选取设备后自动关闭设备列表</translation>
+        <translation type="vanished">选取设备后自动关闭设备列表</translation>
     </message>
     <message>
         <source>Group applications by executable</source>
@@ -764,7 +764,7 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Power action confirmation timeout</source>
-        <translation>电源动作确认超时</translation>
+        <translation type="vanished">电源动作确认超时</translation>
     </message>
 </context>
 <context>
@@ -901,7 +901,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Unknow date</source>
-        <translation>2025-10-05</translation>
+        <translation type="vanished">2025-10-05</translation>
     </message>
     <message>
         <source>Update Translations</source>
@@ -947,6 +947,10 @@ You can enable it in the General tab.</source>
         <source>Fetch for new translation to get data</source>
         <translation>拉去新的语言文件</translation>
     </message>
+    <message>
+        <source>Unknown date</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LoggingConfDialog</name>
@@ -979,7 +983,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>System sounds</source>
-        <translation type="vanished">系统声音</translation>
+        <translation>系统声音</translation>
     </message>
     <message>
         <source>Brightness</source>
