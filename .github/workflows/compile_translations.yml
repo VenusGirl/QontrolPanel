@@ -73,12 +73,35 @@ jobs:
           echo "Generating translation progress data..."
           python3 tools/analyze_translations.py
 
-      - name: Commit cleaned translations and compiled files
+      - name: Push compiled files to translations repository
+        env:
+          TRANSLATIONS_TOKEN: ${{ secrets.TRANSLATIONS_TOKEN }}
         run: |
+          # Clone the translations repository
+          git clone https://x-access-token:${TRANSLATIONS_TOKEN}@github.com/Odizinne/QontrolPanelTranslations.git /tmp/translations
+
+          # Copy compiled QM files and progress JSON
+          cp i18n/compiled/*.qm /tmp/translations/ || echo "No QM files to copy"
+          cp i18n/compiled/translation_progress.json /tmp/translations/ || echo "No progress file to copy"
+
+          # Commit and push to translations repo
+          cd /tmp/translations
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add i18n/*.ts i18n/compiled/
+          git add *.qm translation_progress.json
           if ! git diff --staged --quiet; then
-            git commit -m "Auto-update compiled translations and progress data [skip ci]"
+            git commit -m "Auto-update compiled translations and progress data"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+
+          # Commit cleaned source .ts files back to main repo
+          cd $GITHUB_WORKSPACE
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add i18n/*.ts
+          if ! git diff --staged --quiet; then
+            git commit -m "Clean obsolete translations [skip ci]"
             git push
           fi
