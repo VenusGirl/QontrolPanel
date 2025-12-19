@@ -7,7 +7,7 @@ import Odizinne.QontrolPanel
 
 ApplicationWindow {
     id: notificationWindow
-    width: contentRow.implicitWidth + 30
+    width: calculateWidth()
     height: 50
     visible: false
     flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
@@ -21,10 +21,16 @@ ApplicationWindow {
 
     transientParent: null
 
-    onWidthChanged: {
-        if (visible) {
-            positionWindow()
-        }
+    function calculateWidth() {
+        // Measure all possible messages and use the widest
+        let measurements = [
+            chatMixEnabledMeasure.implicitWidth,
+            chatMixDisabledMeasure.implicitWidth,
+            micMutedMeasure.implicitWidth,
+            micUnmutedMeasure.implicitWidth
+        ]
+        let maxWidth = Math.max(...measurements)
+        return maxWidth + 20 + 12 + 30 // icon width + spacing + margins
     }
 
     Component.onCompleted: {
@@ -134,16 +140,31 @@ ApplicationWindow {
         y: -notificationWindow.height
     }
 
+    // Hidden measurement texts for all possible messages
     Text {
-        id: enabledMeasure
-        text: qsTr("Microphone Enabled")
+        id: chatMixEnabledMeasure
+        text: qsTr("ChatMix Enabled")
         font.pixelSize: 14
         visible: false
     }
 
     Text {
-        id: disabledMeasure
-        text: qsTr("Microphone Disabled")
+        id: chatMixDisabledMeasure
+        text: qsTr("ChatMix Disabled")
+        font.pixelSize: 14
+        visible: false
+    }
+
+    Text {
+        id: micMutedMeasure
+        text: qsTr("Microphone Muted")
+        font.pixelSize: 14
+        visible: false
+    }
+
+    Text {
+        id: micUnmutedMeasure
+        text: qsTr("Microphone Unmuted")
         font.pixelSize: 14
         visible: false
     }
@@ -276,8 +297,6 @@ ApplicationWindow {
                 text: notificationWindow.message
                 font.pixelSize: 14
                 Layout.alignment: Qt.AlignVCenter
-                Layout.preferredWidth: Math.max(enabledMeasure.implicitWidth, disabledMeasure.implicitWidth)
-                horizontalAlignment: Text.AlignHCenter
             }
         }
     }

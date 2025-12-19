@@ -217,20 +217,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Microphone Enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Microphone Disabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>ChatMix Enabled</source>
-        <translation type="vanished">ChatMix включен</translation>
+        <translation>ChatMix включен</translation>
     </message>
     <message>
         <source>ChatMix Disabled</source>
-        <translation type="vanished">ChatMix отключен</translation>
+        <translation>ChatMix отключен</translation>
     </message>
 </context>
 <context>

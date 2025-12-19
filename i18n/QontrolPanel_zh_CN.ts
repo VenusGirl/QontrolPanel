@@ -241,20 +241,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Microphone Enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Microphone Disabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>ChatMix Enabled</source>
-        <translation type="vanished">ChatMix 已启用</translation>
+        <translation>ChatMix 已启用</translation>
     </message>
     <message>
         <source>ChatMix Disabled</source>
-        <translation type="vanished">ChatMix 已禁用</translation>
+        <translation>ChatMix 已禁用</translation>
     </message>
 </context>
 <context>

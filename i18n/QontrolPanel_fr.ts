@@ -205,20 +205,12 @@
         <translation>Microphone Activé</translation>
     </message>
     <message>
-        <source>Microphone Enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Microphone Disabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>ChatMix Enabled</source>
-        <translation type="vanished">ChatMix Activé</translation>
+        <translation>ChatMix Activé</translation>
     </message>
     <message>
         <source>ChatMix Disabled</source>
-        <translation type="vanished">ChatMix Désactivé</translation>
+        <translation>ChatMix Désactivé</translation>
     </message>
 </context>
 <context>

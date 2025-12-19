@@ -165,11 +165,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Microphone Enabled</source>
+        <source>ChatMix Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Microphone Disabled</source>
+        <source>ChatMix Disabled</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

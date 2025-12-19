@@ -177,12 +177,20 @@
         <translation>マイクのミュートを解除しました</translation>
     </message>
     <message>
+        <source>ChatMix Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ChatMix Disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Microphone Enabled</source>
-        <translation>マイクを有効にしました</translation>
+        <translation type="vanished">マイクを有効にしました</translation>
     </message>
     <message>
         <source>Microphone Disabled</source>
-        <translation>マイクを無効にしました</translation>
+        <translation type="vanished">マイクを無効にしました</translation>
     </message>
 </context>
 <context>

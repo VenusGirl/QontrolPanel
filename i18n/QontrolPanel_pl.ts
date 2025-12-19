@@ -177,12 +177,20 @@
         <translation type="unfinished">Mikrofon niewyciszony</translation>
     </message>
     <message>
+        <source>ChatMix Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ChatMix Disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Microphone Enabled</source>
-        <translation type="unfinished">Mikrofon włączony</translation>
+        <translation type="obsolete">Mikrofon włączony</translation>
     </message>
     <message>
         <source>Microphone Disabled</source>
-        <translation type="unfinished">Mikrofon wyłączony</translation>
+        <translation type="obsolete">Mikrofon wyłączony</translation>
     </message>
 </context>
 <context>

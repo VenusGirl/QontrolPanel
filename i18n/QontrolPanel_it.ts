@@ -165,12 +165,20 @@
         <translation>Muting microfono OFF</translation>
     </message>
     <message>
+        <source>ChatMix Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ChatMix Disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Microphone Enabled</source>
-        <translation>Microfono abilitato</translation>
+        <translation type="vanished">Microfono abilitato</translation>
     </message>
     <message>
         <source>Microphone Disabled</source>
-        <translation>Microfono disabilitato</translation>
+        <translation type="vanished">Microfono disabilitato</translation>
     </message>
 </context>
 <context>

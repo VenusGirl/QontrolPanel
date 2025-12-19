@@ -238,19 +238,19 @@
     </message>
     <message>
         <source>Microphone Enabled</source>
-        <translation>마이크 사용함</translation>
+        <translation type="vanished">마이크 사용함</translation>
     </message>
     <message>
         <source>Microphone Disabled</source>
-        <translation>마이크 사용 안 함</translation>
+        <translation type="vanished">마이크 사용 안 함</translation>
     </message>
     <message>
         <source>ChatMix Enabled</source>
-        <translation type="vanished">채팅 믹스 사용함</translation>
+        <translation>채팅 믹스 사용함</translation>
     </message>
     <message>
         <source>ChatMix Disabled</source>
-        <translation type="vanished">채팅 믹스 사용안 함</translation>
+        <translation>채팅 믹스 사용안 함</translation>
     </message>
 </context>
 <context>
