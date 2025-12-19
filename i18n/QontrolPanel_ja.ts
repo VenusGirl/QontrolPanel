@@ -828,7 +828,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>System sounds</source>
-        <translation type="unfinished">システム サウンド</translation>
+        <translation>システム サウンド</translation>
     </message>
     <message>
         <source>ChatMix</source>
