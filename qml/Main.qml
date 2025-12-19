@@ -923,7 +923,6 @@ ApplicationWindow {
                                             text: {
                                                 let name = appDelegateRoot.model.displayName
                                                 if (name === "System sounds") {
-                                                    console.log("-----pass------")
                                                     name = qsTr("System sounds")
                                                 }
 
