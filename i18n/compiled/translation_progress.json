@@ -1,34 +1,34 @@
 {
   "de": {
     "percentage": 0,
-    "last_updated": "2025-12-17 08:35:25 +0100"
-  },
-  "en": {
-    "percentage": 100,
-    "last_updated": "2025-12-17 08:35:25 +0100"
-  },
-  "fr": {
-    "percentage": 97,
-    "last_updated": "2025-12-17 08:35:25 +0100"
-  },
-  "it": {
-    "percentage": 99,
-    "last_updated": "2025-12-17 11:28:28 +0100"
+    "last_updated": "2025-12-19 10:16:36 +0100"
   },
   "ko": {
-    "percentage": 100,
-    "last_updated": "2025-12-17 22:22:14 +0100"
-  },
-  "pl": {
-    "percentage": 0,
-    "last_updated": "2025-12-17 08:35:25 +0100"
-  },
-  "ru": {
-    "percentage": 34,
-    "last_updated": "2025-12-17 08:35:25 +0100"
+    "percentage": 99,
+    "last_updated": "2025-12-19 10:16:36 +0100"
   },
   "zh_CN": {
     "percentage": 86,
-    "last_updated": "2025-12-17 08:35:25 +0100"
+    "last_updated": "2025-12-19 10:16:36 +0100"
+  },
+  "fr": {
+    "percentage": 96,
+    "last_updated": "2025-12-19 10:16:36 +0100"
+  },
+  "en": {
+    "percentage": 100,
+    "last_updated": "2025-12-19 10:16:36 +0100"
+  },
+  "pl": {
+    "percentage": 2,
+    "last_updated": "2025-12-19 10:16:36 +0100"
+  },
+  "it": {
+    "percentage": 99,
+    "last_updated": "2025-12-19 10:16:36 +0100"
+  },
+  "ru": {
+    "percentage": 33,
+    "last_updated": "2025-12-19 10:16:36 +0100"
   }
 }
