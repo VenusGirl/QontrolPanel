@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>Applications and devices label</source>
-        <translation>アプリとデバイス ラベル</translation>
+        <translation type="vanished">アプリとデバイス ラベル</translation>
     </message>
     <message>
         <source>Show audio level</source>
@@ -61,11 +61,11 @@
     </message>
     <message>
         <source>Opacity animations</source>
-        <translation>透過アニメーション</translation>
+        <translation type="vanished">透過アニメーション</translation>
     </message>
     <message>
         <source>Display device icon</source>
-        <translation>デバイス アイコンを表示</translation>
+        <translation type="vanished">デバイス アイコンを表示</translation>
     </message>
     <message>
         <source>Tray icon theme</source>
@@ -613,11 +613,11 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Close device list automatically</source>
-        <translation>デバイスの一覧を自動で閉じる</translation>
+        <translation type="vanished">デバイスの一覧を自動で閉じる</translation>
     </message>
     <message>
         <source>Device list will automatically close after selecting a device</source>
-        <translation>デバイスを選択後にデバイスの一覧を自動で閉じます</translation>
+        <translation type="vanished">デバイスを選択後にデバイスの一覧を自動で閉じます</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -649,7 +649,7 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Power action confirmation timeout</source>
-        <translation>電源アクションの確認のタイムアウト</translation>
+        <translation type="vanished">電源アクションの確認のタイムアウト</translation>
     </message>
 </context>
 <context>
@@ -754,7 +754,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Unknow date</source>
-        <translation>2025.12.19</translation>
+        <translation type="vanished">2025.12.19</translation>
     </message>
     <message>
         <source>Update Translations</source>
@@ -800,6 +800,10 @@ You can enable it in the General tab.</source>
         <source>Fetch for new translation to get data</source>
         <translation>新しい翻訳を取得してデータを取得します</translation>
     </message>
+    <message>
+        <source>Unknown date</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LoggingConfDialog</name>
@@ -821,6 +825,10 @@ You can enable it in the General tab.</source>
     <message>
         <source>Version %1 is available for download</source>
         <translation>バージョン %1 がダウンロードできます</translation>
+    </message>
+    <message>
+        <source>System sounds</source>
+        <translation type="unfinished">システム サウンド</translation>
     </message>
     <message>
         <source>ChatMix</source>
