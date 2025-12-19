@@ -50,28 +50,26 @@ jobs:
           # Save changed files list for next step
           echo "$CHANGED_FILES" > /tmp/changed_ts_files.txt
 
-      - name: Compile changed translation files
+      - name: Compile all translation files
         run: |
-          echo "Compiling changed .ts files to .qm files..."
-          mkdir -p i18n/compiled
-          CHANGED_FILES=$(cat /tmp/changed_ts_files.txt)
-          if [ -z "$CHANGED_FILES" ]; then
-            echo "No .ts files to compile"
-          else
-            for ts_file in $CHANGED_FILES; do
-              if [ -f "$ts_file" ]; then
-                filename=$(basename "$ts_file" .ts)
-                qm_file="i18n/compiled/${filename}.qm"
-                echo "Compiling $ts_file -> $qm_file"
-                lrelease "$ts_file" -qm "$qm_file"
-              fi
-            done
-          fi
+          echo "Compiling all .ts files to .qm files..."
+          mkdir -p /tmp/qm_files
+          for ts_file in i18n/*.ts; do
+            if [ -f "$ts_file" ]; then
+              filename=$(basename "$ts_file" .ts)
+              qm_file="/tmp/qm_files/${filename}.qm"
+              echo "Compiling $ts_file -> $qm_file"
+              lrelease "$ts_file" -qm "$qm_file"
+            fi
+          done
 
       - name: Generate translation progress JSON
         run: |
           echo "Generating translation progress data..."
+          mkdir -p /tmp/qm_files
           python3 tools/analyze_translations.py
+          # Move the generated JSON to the temp directory
+          mv i18n/compiled/translation_progress.json /tmp/qm_files/ 2>/dev/null || true
 
       - name: Push compiled files to translations repository
         env:
@@ -80,9 +78,9 @@ jobs:
           # Clone the translations repository
           git clone https://x-access-token:${TRANSLATIONS_TOKEN}@github.com/Odizinne/QontrolPanelTranslations.git /tmp/translations
 
-          # Copy compiled QM files and progress JSON
-          cp i18n/compiled/*.qm /tmp/translations/ || echo "No QM files to copy"
-          cp i18n/compiled/translation_progress.json /tmp/translations/ || echo "No progress file to copy"
+          # Copy all compiled QM files and progress JSON
+          cp /tmp/qm_files/*.qm /tmp/translations/
+          cp /tmp/qm_files/translation_progress.json /tmp/translations/
 
           # Commit and push to translations repo
           cd /tmp/translations
