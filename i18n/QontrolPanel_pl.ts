@@ -37,11 +37,11 @@
     </message>
     <message>
         <source>Panel X margin</source>
-        <translation type="unfinished">Panel X margines</translation>
+        <translation type="unfinished">Panel X marginesu</translation>
     </message>
     <message>
         <source>Control panel X axis margin</source>
-        <translation type="unfinished">Margines osi X panelu sterowani</translation>
+        <translation type="unfinished">Margines osi X panelu sterowania</translation>
     </message>
     <message>
         <source>Panel Y margin</source>
@@ -398,23 +398,23 @@
     </message>
     <message>
         <source>Filter by:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Filtruj wg:</translation>
     </message>
     <message>
         <source>Configure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Konfiguracja</translation>
     </message>
     <message>
         <source>Auto-scroll</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Auto-przewijanie</translation>
     </message>
     <message>
         <source>Copy All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopiuj wszystko</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wyczyść</translation>
     </message>
 </context>
 <context>
@@ -477,7 +477,7 @@
     </message>
     <message>
         <source>Commit</source>
-        <translation type="unfinished">Zaangażowanie</translation>
+        <translation type="unfinished">Zatwierdzenie</translation>
     </message>
     <message>
         <source>Build date</source>
@@ -516,7 +516,7 @@
     </message>
     <message>
         <source>Custom name</source>
-        <translation type="unfinished">Nazwa niestandardowa</translation>
+        <translation type="unfinished">Nazwa własna</translation>
     </message>
 </context>
 <context>
@@ -527,11 +527,11 @@
     </message>
     <message>
         <source>Change Icon</source>
-        <translation type="unfinished">Zmień ikonę</translation>
+        <translation type="unfinished">Zmień Ikonę</translation>
     </message>
     <message>
         <source>Reset to Original Name</source>
-        <translation type="unfinished">Resetuj oryginalną nazwę</translation>
+        <translation type="unfinished">Resetuj Oryginalną Nazwę</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -543,7 +543,7 @@
     </message>
     <message>
         <source>Change Device Icon</source>
-        <translation type="unfinished">Zmień ikonę urządzenia</translation>
+        <translation type="unfinished">Zmień Ikonę Urządzenia</translation>
     </message>
 </context>
 <context>
@@ -571,22 +571,22 @@ Jeśli chcesz wesprzeć moją pracę, każda wpłata będzie bardzo mile widzian
     <name>ExecutableRenameContextMenu</name>
     <message>
         <source>Rename Application</source>
-        <translation type="unfinished">Zmień nazwę aplikacji</translation>
+        <translation type="unfinished">Zmień Nazwę Aplikacji</translation>
     </message>
     <message>
         <source>Reset to Original Name</source>
-        <translation type="unfinished">Zresetuj do oryginalnej nazwy</translation>
+        <translation type="unfinished">Zresetuj do Oryginalnej Nazwy</translation>
     </message>
     <message>
         <source>Mute in Background</source>
-        <translation type="unfinished">Wyciszenie w tle</translation>
+        <translation type="unfinished">Wyciszenie w Tle</translation>
     </message>
 </context>
 <context>
     <name>ExecutableRenameDialog</name>
     <message>
         <source>Rename Application</source>
-        <translation type="unfinished">Zmień nazwę aplikacji</translation>
+        <translation type="unfinished">Zmień Nazwę Aplikacji</translation>
     </message>
     <message>
         <source>Original name: </source>
@@ -594,7 +594,7 @@ Jeśli chcesz wesprzeć moją pracę, każda wpłata będzie bardzo mile widzian
     </message>
     <message>
         <source>Custom name:</source>
-        <translation type="unfinished">Niestadardowa nazwa:</translation>
+        <translation type="unfinished">Własna nazwa:</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -609,7 +609,7 @@ Jeśli chcesz wesprzeć moją pracę, każda wpłata będzie bardzo mile widzian
     <name>GeneralPane</name>
     <message>
         <source>General Settings</source>
-        <translation type="unfinished">Ustawienia ogólne</translation>
+        <translation type="unfinished">Ustawienia Ogólne</translation>
     </message>
     <message>
         <source>Run at system startup</source>
@@ -657,7 +657,7 @@ Jeśli chcesz wesprzeć moją pracę, każda wpłata będzie bardzo mile widzian
     </message>
     <message>
         <source>Lightspeed</source>
-        <translation type="unfinished">Prędkość światła</translation>
+        <translation type="unfinished">Prędkości światła</translation>
     </message>
 </context>
 <context>
@@ -732,11 +732,11 @@ Można ją włączyć w zakładce Ogólne.</translation>
     <name>LabeledSwitch</name>
     <message>
         <source>On</source>
-        <translation type="unfinished">Wł</translation>
+        <translation>Wł.</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished">Wył</translation>
+        <translation type="unfinished">Wył.</translation>
     </message>
 </context>
 <context>
@@ -747,7 +747,7 @@ Można ją włączyć w zakładce Ogólne.</translation>
     </message>
     <message>
         <source>Update Translations</source>
-        <translation type="unfinished">Aktualizacja tłumaczeń</translation>
+        <translation type="unfinished">Aktualizacja Tłumaczeń</translation>
     </message>
     <message>
         <source>Download the latest translation files from GitHub</source>
@@ -799,7 +799,7 @@ Można ją włączyć w zakładce Ogólne.</translation>
     </message>
     <message>
         <source>Unknow author</source>
-        <translation type="unfinished">Nieznany autor</translation>
+        <translation type="unfinished">Fresta</translation>
     </message>
     <message>
         <source>Translation last updated</source>
@@ -807,7 +807,7 @@ Można ją włączyć w zakładce Ogólne.</translation>
     </message>
     <message>
         <source>Unknown date</source>
-        <translation type="unfinished"></translation>
+        <translation>19.12.2025r.</translation>
     </message>
     <message>
         <source>Unknow date</source>
@@ -818,18 +818,18 @@ Można ją włączyć w zakładce Ogólne.</translation>
     <name>LoggingConfDialog</name>
     <message>
         <source>Log Categories</source>
-        <translation type="unfinished">Kategorie dziennika</translation>
+        <translation type="unfinished">Kategorie Dziennika</translation>
     </message>
     <message>
         <source>Enable All Logging</source>
-        <translation type="unfinished">Włącz wszystkie rejestrowanie</translation>
+        <translation type="unfinished">Włącz Wszystkie Rejestrowania</translation>
     </message>
 </context>
 <context>
     <name>Main</name>
     <message>
         <source>Update Available</source>
-        <translation type="unfinished">Dostępna aktualizacja</translation>
+        <translation type="unfinished">Dostępna Aktualizacja</translation>
     </message>
     <message>
         <source>Version %1 is available for download</source>
@@ -949,11 +949,11 @@ Można ją włączyć w zakładce Ogólne.</translation>
     </message>
     <message>
         <source>Allow QontrolPanel to respond to keyboard shortcuts globally</source>
-        <translation type="unfinished">Pozwól aplikacji QontrolPanel globalnie reagować na skróty klawiaturowe</translation>
+        <translation type="unfinished">Zezwalaj QontrolPanel reagować na globalne skróty klawiaturowe</translation>
     </message>
     <message>
         <source>Notification on ChatMix toggle</source>
-        <translation type="unfinished">Powiadomienie o przełączeniu ChatMix</translation>
+        <translation type="unfinished">Powiadomienie w przełączeniu ChatMix</translation>
     </message>
     <message>
         <source>Show/Hide Panel</source>
@@ -961,7 +961,7 @@ Można ją włączyć w zakładce Ogólne.</translation>
     </message>
     <message>
         <source>Shortcut to toggle the main panel visibility</source>
-        <translation type="unfinished">Skrót  klawiaturowy do przełączania widoczności panelu głównego</translation>
+        <translation type="unfinished">Skrót klawiaturowy do przełączania widoczności panelu głównego</translation>
     </message>
     <message>
         <source>Change</source>
@@ -977,7 +977,7 @@ Można ją włączyć w zakładce Ogólne.</translation>
     </message>
     <message>
         <source>Toggle Microphone Mute</source>
-        <translation type="unfinished">Przełącznik wyciszenie mikrofonu</translation>
+        <translation type="unfinished">Przełącznik Wyciszenie Mikrofonu</translation>
     </message>
     <message>
         <source>Shortcut to mute/unmute microphone</source>
@@ -989,11 +989,11 @@ Można ją włączyć w zakładce Ogólne.</translation>
     </message>
     <message>
         <source>Set ChatMix Shortcut</source>
-        <translation type="unfinished">Ustaw Skrót  Klawiaturowy ChatMix</translation>
+        <translation type="unfinished">Ustaw Skrót Klawiaturowy ChatMix</translation>
     </message>
     <message>
         <source>Set Microphone Mute Shortcut</source>
-        <translation type="unfinished">Ustaw Skrót  Klawiaturowy Wyciszania Mikrofonu</translation>
+        <translation type="unfinished">Ustaw Skrót Klawiaturowy Wyciszania Mikrofonu</translation>
     </message>
     <message>
         <source>Press the desired key combination</source>
@@ -1020,11 +1020,11 @@ Można ją włączyć w zakładce Ogólne.</translation>
     </message>
     <message>
         <source>Windows sound settings (Legacy)</source>
-        <translation type="unfinished">Ustawienia dźwięku Windows (starsza)</translation>
+        <translation type="unfinished">Ustawienia dźwięku Windows (starsze)</translation>
     </message>
     <message>
         <source>Windows sound settings (Modern)</source>
-        <translation type="unfinished">Ustawienia dźwięku Windows (nowsza)</translation>
+        <translation type="unfinished">Ustawienia dźwięku Windows (nowsze)</translation>
     </message>
     <message>
         <source>QontrolPanel settings</source>
