@@ -959,7 +959,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Unknown date</source>
-        <translation type="unfinished"></translation>
+        <translation>날짜 미상</translation>
     </message>
 </context>
 <context>
