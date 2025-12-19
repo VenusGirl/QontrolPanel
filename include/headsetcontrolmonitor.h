@@ -1,10 +1,12 @@
 #pragma once
 #include <QObject>
 #include <QTimer>
-#include <QProcess>
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <headsetcontrol.hpp>
+#include <memory>
+#include <vector>
 
 struct HeadsetControlDevice {
     QString deviceName;
@@ -15,6 +17,7 @@ struct HeadsetControlDevice {
     QString batteryStatus;  // "BATTERY_AVAILABLE", "BATTERY_CHARGING", "BATTERY_UNAVAILABLE"
     int batteryLevel;       // -1 - 100
     QStringList capabilities;
+
     HeadsetControlDevice() : batteryLevel(0) {}
 };
 Q_DECLARE_METATYPE(HeadsetControlDevice)
@@ -22,7 +25,6 @@ Q_DECLARE_METATYPE(HeadsetControlDevice)
 class HeadsetControlMonitor : public QObject
 {
     Q_OBJECT
-
 public:
     explicit HeadsetControlMonitor(QObject *parent = nullptr);
     ~HeadsetControlMonitor();
@@ -55,17 +57,17 @@ signals:
 
 private slots:
     void fetchHeadsetInfo();
-    void onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
-    void parseHeadsetControlOutput(const QByteArray& output);
-    QString getExecutablePath() const;
+    void updateDeviceCache();
     void updateCapabilities();
-    void executeHeadsetControlCommand(const QStringList& arguments);
+    QString batteryStatusToString(battery_status status) const;
+    QStringList getCapabilityList(const headsetcontrol::Headset& headset) const;
 
     QTimer* m_fetchTimer;
-    QProcess* m_process;
-    QList<HeadsetControlDevice> m_cachedDevices;  // Cached last successful result
+    QList<HeadsetControlDevice> m_cachedDevices;
+    std::vector<headsetcontrol::Headset> m_headsets;
+
     bool m_isMonitoring;
     int m_fetchIntervalMs;
 

@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.30)
-project(QontrolPanel VERSION 1.10.4 LANGUAGES C CXX)
+
+if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+    set(CMAKE_TOOLCHAIN_FILE "c:/vcpkg/scripts/buildsystems/vcpkg.cmake"
+        CACHE STRING "Vcpkg toolchain file")
+endif()
+
+project(QontrolPanel VERSION 1.11.0 LANGUAGES C CXX)
 
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Installation directory" FORCE)
 set(CMAKE_CXX_STANDARD 20)
@@ -18,6 +24,8 @@ find_package(Qt6 REQUIRED COMPONENTS
     LinguistTools
     Network
 )
+
+find_package(hidapi CONFIG REQUIRED)
 
 qt_standard_project_setup(REQUIRES 6.9)
 
@@ -187,6 +195,7 @@ qt_add_qml_module(QontrolPanel
 target_include_directories(QontrolPanel PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_BINARY_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/headsetcontrol/include
 )
 
 target_link_libraries(QontrolPanel PRIVATE
@@ -196,6 +205,8 @@ target_link_libraries(QontrolPanel PRIVATE
     Qt::Quick
     Qt::Widgets
     Qt::Network
+    ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/headsetcontrol/lib/headsetcontrol.lib
+    hidapi::hidapi
     Gdi32
     Winmm
     WindowsApp
@@ -222,22 +233,29 @@ qt_add_translations(${CMAKE_PROJECT_NAME}
     LUPDATE_OPTIONS "-locations none"
 )
 
-add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/dependencies ${CMAKE_BINARY_DIR}/dependencies
-    COMMENT "Copying translations and dependencies"
-)
-
 add_dependencies(${CMAKE_PROJECT_NAME} update_translations)
-
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/dependencies/
-    DESTINATION ${CMAKE_INSTALL_BINDIR}/dependencies
-    COMPONENT Runtime
-)
 
 install(TARGETS QontrolPanel
     BUNDLE DESTINATION .
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+if(WIN32)
+    find_file(HIDAPI_DLL
+        NAMES hidapi.dll
+        PATHS
+            ${VCPKG_INSTALLED_DIR}/x64-windows/bin
+            $ENV{VCPKG_ROOT}/installed/x64-windows/bin
+            C:/vcpkg/installed/x64-windows/bin
+        NO_DEFAULT_PATH
+    )
+
+    if(HIDAPI_DLL)
+        install(FILES ${HIDAPI_DLL} DESTINATION ${CMAKE_INSTALL_BINDIR})
+    else()
+        message(WARNING "hidapi.dll not found - you may need to copy it manually")
+    endif()
+endif()
 
 qt_generate_deploy_qml_app_script(
     TARGET QontrolPanel

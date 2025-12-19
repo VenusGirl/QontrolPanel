@@ -37,7 +37,7 @@ function(get_qm_files OUTPUT_VAR PROJECT_NAME)
     get_language_codes(CODES)
     set(QM_FILES "")
     foreach(CODE ${CODES})
-        list(APPEND QM_FILES "${CMAKE_BINARY_DIR}/${PROJECT_NAME}_${CODE}.qm")
+        list(APPEND QM_FILES "${CMAKE_BINARY_DIR}/i18n/${PROJECT_NAME}_${CODE}.qm")
     endforeach()
     set(${OUTPUT_VAR} ${QM_FILES} PARENT_SCOPE)
 endfunction()
@@ -51,16 +51,16 @@ function(generate_languages_header)
         list(GET LANG_LIST 0 CODE)
         list(GET LANG_LIST 1 ENGLISH_NAME)
         list(GET LANG_LIST 2 NATIVE_NAME)
-        
+
         string(APPEND LANGUAGE_DATA "        {\"${CODE}\", \"${ENGLISH_NAME}\", \"${NATIVE_NAME}\"},\n")
     endforeach()
-    
+
     # Remove trailing comma and newline
     string(REGEX REPLACE ",\n$" "\n" LANGUAGE_DATA "${LANGUAGE_DATA}")
-    
+
     # Set the variable in parent scope for configure_file
     set(LANGUAGE_DATA "${LANGUAGE_DATA}" PARENT_SCOPE)
-    
+
     configure_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/src/languages.h.in"
         "${CMAKE_CURRENT_BINARY_DIR}/languages.h"
