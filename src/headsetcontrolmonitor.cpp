@@ -108,8 +108,8 @@ void HeadsetControlMonitor::setLights(bool enabled)
     LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
                                     QString("Setting headset lights: %1").arg(enabled ? "ON" : "OFF"));
 
-    auto& headset = m_headsets[0];
-    auto result = headset.setLights(enabled);
+    headsetcontrol::Headset& headset = m_headsets[0];
+    headsetcontrol::Result<headsetcontrol::LightsResult> result = headset.setLights(enabled);
 
     if (!result) {
         LogManager::instance()->sendCritical(LogManager::HeadsetControlManager,
@@ -139,8 +139,8 @@ void HeadsetControlMonitor::setSidetone(int value)
     LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
                                     QString("Setting headset sidetone to %1").arg(value));
 
-    auto& headset = m_headsets[0];
-    auto result = headset.setSidetone(static_cast<uint8_t>(value));
+    headsetcontrol::Headset& headset = m_headsets[0];
+    headsetcontrol::Result<headsetcontrol::SidetoneResult> result = headset.setSidetone(static_cast<uint8_t>(value));
 
     if (!result) {
         LogManager::instance()->sendCritical(LogManager::HeadsetControlManager,
@@ -202,7 +202,7 @@ void HeadsetControlMonitor::updateDeviceCache()
 {
     QList<HeadsetControlDevice> newDevices;
 
-    for (auto& headset : m_headsets) {
+    for (headsetcontrol::Headset& headset : m_headsets) {
         HeadsetControlDevice device;
 
         device.deviceName = QString::fromStdString(std::string(headset.name()));
@@ -215,7 +215,7 @@ void HeadsetControlMonitor::updateDeviceCache()
 
         // Query battery if supported
         if (headset.supports(CAP_BATTERY_STATUS)) {
-            auto batteryResult = headset.getBattery();
+            headsetcontrol::Result<headsetcontrol::BatteryResult> batteryResult = headset.getBattery();
             if (batteryResult) {
                 device.batteryLevel = batteryResult->level_percent;
                 device.batteryStatus = batteryStatusToString(batteryResult->status);
@@ -270,7 +270,7 @@ void HeadsetControlMonitor::updateCapabilities()
     bool wasDeviceFound = m_anyDeviceFound;
 
     if (!m_headsets.empty()) {
-        const auto& headset = m_headsets[0];
+        const headsetcontrol::Headset& headset = m_headsets[0];
         newDeviceName = QString::fromStdString(std::string(headset.name()));
 
         newSidetoneCapability = headset.supports(CAP_SIDETONE);
