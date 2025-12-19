@@ -218,14 +218,11 @@ get_qm_files(QM_FILES ${CMAKE_PROJECT_NAME})
 
 qt_add_translations(${CMAKE_PROJECT_NAME}
     TS_FILES ${TS_FILES}
+    QM_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/i18n/
     LUPDATE_OPTIONS "-locations none"
 )
 
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/i18n
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/i18n/compiled
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QM_FILES} ${CMAKE_BINARY_DIR}/i18n/
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QM_FILES} ${PROJECT_SOURCE_DIR}/i18n/compiled/
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/dependencies ${CMAKE_BINARY_DIR}/dependencies
     COMMENT "Copying translations and dependencies"
 )
