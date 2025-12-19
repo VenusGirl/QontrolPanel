@@ -5,26 +5,31 @@ on:
     branches:
       - main
   workflow_dispatch:
-
 env:
   QT_VERSION: '6.10.1'
-
+  VCPKG_ROOT: 'C:/vcpkg'
 jobs:
   build:
     runs-on: windows-2022
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Get version from CMake
         id: cmake_version
         uses: DarwinInnovation/cmake-project-version-action@v1.0
-
       - name: Set up Visual Studio shell
         uses: egor-tensin/vs-shell@v2
         with:
           arch: x64
-
+      - name: Setup vcpkg
+        shell: pwsh
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git C:/vcpkg
+          C:/vcpkg/bootstrap-vcpkg.bat
+      - name: Install dependencies with vcpkg
+        shell: pwsh
+        run: |
+          C:/vcpkg/vcpkg install hidapi:x64-windows getopt-win32:x64-windows
       - name: Install Qt
         id: qt
         uses: jurplel/install-qt-action@v4
@@ -33,16 +38,14 @@ jobs:
           arch: 'win64_msvc2022_64'
           add-tools-to-path: true
           cache: true
-
       - name: Generate and Build with CMake
         shell: pwsh
         run: |
           mkdir -p build
           cd build
-          cmake ..
+          cmake .. -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
           cmake --build . --config Release
           cmake --install . --config Release
-
       - name: Rename release folder
         shell: pwsh
         run: |
@@ -54,27 +57,23 @@ jobs:
               Write-Error "Release folder not found!"
               exit 1
           }
-
       - name: Zip binaries folder
         shell: pwsh
         run: |
           $zipFile = "build/QontrolPanel_win64_msvc2022.zip"
           $folder = "build/QontrolPanel"
           Compress-Archive -Path $folder -DestinationPath $zipFile
-
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: QontrolPanel_win64_msvc2022
           path: build/QontrolPanel_win64_msvc2022.zip
-
       - name: Update .iss version
         shell: pwsh
         run: |
           $content = Get-Content tools/installer.iss
           $new = $content -replace '(?<=#define AppVersion ")[^"]+', "${{ steps.cmake_version.outputs.version }}"
           Set-Content tools/installer.iss -Value $new
-
       - name: Download VC++ Redistributable
         shell: pwsh
         run: |
@@ -83,13 +82,11 @@ jobs:
           Write-Host "Downloading VC++ Redistributable..."
           Invoke-WebRequest -Uri $vcRedistUrl -OutFile $vcRedistPath
           Write-Host "VC++ Redistributable downloaded successfully"
-
       - name: Create Installer
         shell: pwsh
         run: |
           $env:Path += ";${env:ProgramFiles(x86)}\Inno Setup 6"
           iscc.exe tools/installer.iss
-
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:

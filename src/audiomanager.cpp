@@ -629,10 +629,10 @@ void AudioWorker::updateDevicesBatteryInfo(const QList<HeadsetControlDevice>& he
 
         // Find matching headset by VID/PID (only if we have devices to check)
         for (const HeadsetControlDevice& headsetDevice : headsetDevices) {
-            QString deviceVid = headsetDevice.vendorId.startsWith("0x") ? headsetDevice.vendorId.mid(2) : headsetDevice.vendorId;
-            QString devicePid = headsetDevice.productId.startsWith("0x") ? headsetDevice.productId.mid(2) : headsetDevice.productId;
-            QString audioVid = audioDevice.vendorId.startsWith("0x") ? audioDevice.vendorId.mid(2) : audioDevice.vendorId;
-            QString audioPid = audioDevice.productId.startsWith("0x") ? audioDevice.productId.mid(2) : audioDevice.productId;
+            QString deviceVid = headsetDevice.vendorId.startsWith("0x", Qt::CaseInsensitive) ? headsetDevice.vendorId.mid(2) : headsetDevice.vendorId;
+            QString devicePid = headsetDevice.productId.startsWith("0x", Qt::CaseInsensitive) ? headsetDevice.productId.mid(2) : headsetDevice.productId;
+            QString audioVid = audioDevice.vendorId.startsWith("0x", Qt::CaseInsensitive) ? audioDevice.vendorId.mid(2) : audioDevice.vendorId;
+            QString audioPid = audioDevice.productId.startsWith("0x", Qt::CaseInsensitive) ? audioDevice.productId.mid(2) : audioDevice.productId;
 
             if (deviceVid.compare(audioVid, Qt::CaseInsensitive) == 0 &&
                 devicePid.compare(audioPid, Qt::CaseInsensitive) == 0) {
