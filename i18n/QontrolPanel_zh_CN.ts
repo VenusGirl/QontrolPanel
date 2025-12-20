@@ -32,16 +32,8 @@
         <translation>相对任务栏偏移量</translation>
     </message>
     <message>
-        <source>Panel margin</source>
-        <translation type="vanished">面板边距</translation>
-    </message>
-    <message>
         <source>Panel X margin</source>
         <translation>面板横向边距</translation>
-    </message>
-    <message>
-        <source>How far the panel should be pushed from screen edge</source>
-        <translation type="vanished">面板与屏幕边缘的间距</translation>
     </message>
     <message>
         <source>Control panel X axis margin</source>
@@ -56,72 +48,12 @@
         <translation>设置面板纵向边距</translation>
     </message>
     <message>
-        <source>Use short device names</source>
-        <translation type="vanished">对设备使用短名称</translation>
-    </message>
-    <message>
-        <source>Shorten device names by shrinking description</source>
-        <translation type="vanished">只显示主设备名称，忽略端口以及描述等其他信息</translation>
-    </message>
-    <message>
-        <source>Volume value display mode</source>
-        <translation type="vanished">音量显示模式</translation>
-    </message>
-    <message>
-        <source>Control how you want sound value to be displayed</source>
-        <translation type="vanished">控制音量的显示方式</translation>
-    </message>
-    <message>
-        <source>Slider tooltip</source>
-        <translation type="vanished">滑动条提示</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation type="vanished">标签</translation>
-    </message>
-    <message>
-        <source>Hidden</source>
-        <translation type="vanished">隐藏</translation>
-    </message>
-    <message>
-        <source>Media info display</source>
-        <translation type="vanished">媒体信息显示方式</translation>
-    </message>
-    <message>
-        <source>Display currently playing media from Windows known sources</source>
-        <translation type="vanished">显示Windows识别的当前播放媒体信息</translation>
-    </message>
-    <message>
-        <source>Flyout (interactive)</source>
-        <translation type="vanished">弹出面板（可交互）</translation>
-    </message>
-    <message>
-        <source>Panel (informative)</source>
-        <translation type="vanished">固定面板（仅显示信息）</translation>
-    </message>
-    <message>
-        <source>Applications and devices label</source>
-        <translation type="vanished">应用程序及设备标签</translation>
-    </message>
-    <message>
         <source>Show audio level</source>
         <translation>显示音量</translation>
     </message>
     <message>
         <source>Display audio level value in slider</source>
         <translation>在滑动条显示音量</translation>
-    </message>
-    <message>
-        <source>Windows taskbar size</source>
-        <translation type="vanished">Windiows 任务栏尺寸</translation>
-    </message>
-    <message>
-        <source>Opacity animations</source>
-        <translation type="vanished">动画透明度</translation>
-    </message>
-    <message>
-        <source>Display device icon</source>
-        <translation type="vanished">显示设备图标</translation>
     </message>
     <message>
         <source>Tray icon theme</source>
@@ -170,14 +102,6 @@
     <message>
         <source>Battery</source>
         <translation>电池</translation>
-    </message>
-    <message>
-        <source>Avoid applications overflow</source>
-        <translation type="vanished">避免应用程序过界</translation>
-    </message>
-    <message>
-        <source>Wrap applications in ScrollView when more than 4 applications are displayed</source>
-        <translation type="vanished">滚动显示应用程序如果超过 4 个</translation>
     </message>
 </context>
 <context>
@@ -667,64 +591,12 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
         <translation>常规</translation>
     </message>
     <message>
-        <source>Panel mode</source>
-        <translation type="vanished">面板模式</translation>
-    </message>
-    <message>
-        <source>Choose what should be displayed in the panel</source>
-        <translation type="vanished">选择在面板中显示什么内容</translation>
-    </message>
-    <message>
-        <source>Devices + Mixer</source>
-        <translation type="vanished">设备 + 合成器</translation>
-    </message>
-    <message>
-        <source>Mixer only</source>
-        <translation type="vanished">只显示合成器</translation>
-    </message>
-    <message>
-        <source>Devices only</source>
-        <translation type="vanished">只显示设备</translation>
-    </message>
-    <message>
-        <source>Link same input and output devices</source>
-        <translation type="vanished">链接输入输出设备</translation>
-    </message>
-    <message>
-        <source>Try to match input / output from the same device</source>
-        <translation type="vanished">尝试使用同一硬件上的输入输出设备</translation>
-    </message>
-    <message>
-        <source>Sound keepalive</source>
-        <translation type="vanished">保持声音连接检测信号</translation>
-    </message>
-    <message>
-        <source>Emit an inaudible sound to keep bluetooth devices awake</source>
-        <translation type="vanished">持续发出听不见的声音，让蓝牙设备保持唤醒状态</translation>
-    </message>
-    <message>
         <source>Run at system startup</source>
         <translation>开机自启</translation>
     </message>
     <message>
         <source>QSS will boot up when your computer starts</source>
         <translation>QSS 将随系统启动时自动启动</translation>
-    </message>
-    <message>
-        <source>Close device list automatically</source>
-        <translation type="vanished">自动关闭设备列表</translation>
-    </message>
-    <message>
-        <source>Device list will automatically close after selecting a device</source>
-        <translation type="vanished">选取设备后自动关闭设备列表</translation>
-    </message>
-    <message>
-        <source>Group applications by executable</source>
-        <translation type="vanished">按照执行文件名分组应用程序</translation>
-    </message>
-    <message>
-        <source>Control multiple stream comming from a single app with one slider</source>
-        <translation type="vanished">通过单一滑动条来控制多个 Stream 通信</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -753,10 +625,6 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     <message>
         <source>Show power action confirmation</source>
         <translation>显示电源动作确认</translation>
-    </message>
-    <message>
-        <source>Power action confirmation timeout</source>
-        <translation type="vanished">电源动作确认超时</translation>
     </message>
 </context>
 <context>
@@ -810,36 +678,12 @@ You can enable it in the General tab.</source>
 <context>
     <name>IntroWindow</name>
     <message>
-        <source>Windows sound settings (Legacy)</source>
-        <translation type="obsolete">Windows 声音设置（旧版）</translation>
-    </message>
-    <message>
-        <source>Windows sound settings (Modern)</source>
-        <translation type="obsolete">Windows 声音设置（新版）</translation>
-    </message>
-    <message>
-        <source>Exit</source>
-        <translation type="obsolete">退出</translation>
-    </message>
-    <message>
         <source>Automatic application update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Get Started</source>
         <translation>开始</translation>
-    </message>
-    <message>
-        <source>The tray icon is probably hidden and can be added to the tray area by dragging it as shown in the video below.</source>
-        <translation type="vanished">任务栏图标可能被隐藏了,可根据下图所示拉出</translation>
-    </message>
-    <message>
-        <source>You can then click on the tray icon to reveal the panel.</source>
-        <translation type="vanished">即刻点击任务栏图标访问面板</translation>
-    </message>
-    <message>
-        <source>Automatic application update fetching</source>
-        <translation type="vanished">自动更新信息拉取中</translation>
     </message>
     <message>
         <source>Automatic translations update</source>
@@ -864,10 +708,6 @@ You can enable it in the General tab.</source>
 <context>
     <name>LanguagePane</name>
     <message>
-        <source>Debug and information</source>
-        <translation type="vanished">调试信息</translation>
-    </message>
-    <message>
         <source>Application language</source>
         <translation>应用程序语言</translation>
     </message>
@@ -884,16 +724,8 @@ You can enable it in the General tab.</source>
         <translation>翻译作者</translation>
     </message>
     <message>
-        <source>Unknow author</source>
-        <translation type="vanished">rampageX</translation>
-    </message>
-    <message>
         <source>Translation last updated</source>
         <translation>翻译最后更新日期</translation>
-    </message>
-    <message>
-        <source>Unknow date</source>
-        <translation type="vanished">2025-10-05</translation>
     </message>
     <message>
         <source>Update Translations</source>
@@ -906,10 +738,6 @@ You can enable it in the General tab.</source>
     <message>
         <source>Download</source>
         <translation>下载</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">取消</translation>
     </message>
     <message>
         <source>Download completed successfully!</source>
@@ -964,10 +792,6 @@ You can enable it in the General tab.</source>
     <message>
         <source>ChatMix</source>
         <translation>ChatMix</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">取消</translation>
     </message>
     <message>
         <source>Update Available</source>
@@ -1026,49 +850,6 @@ You can enable it in the General tab.</source>
     <message>
         <source>Switch User</source>
         <translation>切换用户</translation>
-    </message>
-</context>
-<context>
-    <name>QontrolPanel</name>
-    <message>
-        <source>Exit</source>
-        <translation type="vanished">退出</translation>
-    </message>
-    <message>
-        <source>Output: Loading...</source>
-        <translation type="vanished">输出: 载入中...</translation>
-    </message>
-    <message>
-        <source>Input: Loading...</source>
-        <translation type="vanished">输入: 载入中...</translation>
-    </message>
-    <message>
-        <source>Windows sound settings (Legacy)</source>
-        <translation type="vanished">Windows 声音设置（旧版）</translation>
-    </message>
-    <message>
-        <source>Windows sound settings (Modern)</source>
-        <translation type="vanished">Windows 声音设置（新版）</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="vanished">已启用</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="vanished">已禁用</translation>
-    </message>
-    <message>
-        <source>ChatMix %1</source>
-        <translation type="vanished">ChatMix %1</translation>
-    </message>
-    <message>
-        <source>Output</source>
-        <translation type="vanished">输出</translation>
-    </message>
-    <message>
-        <source>Input</source>
-        <translation type="vanished">输入</translation>
     </message>
 </context>
 <context>
@@ -1187,32 +968,6 @@ You can enable it in the General tab.</source>
     <message>
         <source>Set ChatMix Shortcut</source>
         <translation>设置 ChaMix 快捷键</translation>
-    </message>
-</context>
-<context>
-    <name>SoundPanel</name>
-    <message>
-        <source>ChatMix</source>
-        <translation type="vanished">ChatMix</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">取消</translation>
-    </message>
-</context>
-<context>
-    <name>SoundPanelBridge</name>
-    <message>
-        <source>No translation files to download</source>
-        <translation type="vanished">无可用语言文件下载</translation>
-    </message>
-    <message>
-        <source>All translations downloaded successfully</source>
-        <translation type="vanished">所有语言文件下载成功</translation>
-    </message>
-    <message>
-        <source>Downloaded %1 of %2 translation files</source>
-        <translation type="vanished">%2 所有语言文件中的 1% 已下载</translation>
     </message>
 </context>
 <context>

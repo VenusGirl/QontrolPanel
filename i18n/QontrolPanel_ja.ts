@@ -48,24 +48,12 @@
         <translation>コントロール パネルの Y 軸マージンを設定します</translation>
     </message>
     <message>
-        <source>Applications and devices label</source>
-        <translation type="vanished">アプリとデバイス ラベル</translation>
-    </message>
-    <message>
         <source>Show audio level</source>
         <translation>オーディオ レベルを表示</translation>
     </message>
     <message>
         <source>Display audio level value in slider</source>
         <translation>スライダー内にオーディオ  レベルの値を表示します</translation>
-    </message>
-    <message>
-        <source>Opacity animations</source>
-        <translation type="vanished">透過アニメーション</translation>
-    </message>
-    <message>
-        <source>Display device icon</source>
-        <translation type="vanished">デバイス アイコンを表示</translation>
     </message>
     <message>
         <source>Tray icon theme</source>
@@ -183,14 +171,6 @@
     <message>
         <source>ChatMix Disabled</source>
         <translation>ChatMix を無効にしました</translation>
-    </message>
-    <message>
-        <source>Microphone Enabled</source>
-        <translation type="vanished">マイクを有効にしました</translation>
-    </message>
-    <message>
-        <source>Microphone Disabled</source>
-        <translation type="vanished">マイクを無効にしました</translation>
     </message>
 </context>
 <context>
@@ -620,14 +600,6 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
         <translation>コンピューターの起動時に QSS を起動します</translation>
     </message>
     <message>
-        <source>Close device list automatically</source>
-        <translation type="vanished">デバイスの一覧を自動で閉じる</translation>
-    </message>
-    <message>
-        <source>Device list will automatically close after selecting a device</source>
-        <translation type="vanished">デバイスを選択後にデバイスの一覧を自動で閉じます</translation>
-    </message>
-    <message>
         <source>Normal</source>
         <translation>通常</translation>
     </message>
@@ -654,10 +626,6 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     <message>
         <source>Show power action confirmation</source>
         <translation>電源アクションの確認を表示</translation>
-    </message>
-    <message>
-        <source>Power action confirmation timeout</source>
-        <translation type="vanished">電源アクションの確認のタイムアウト</translation>
     </message>
 </context>
 <context>
@@ -753,16 +721,8 @@ You can enable it in the General tab.</source>
         <translation>翻訳の作者</translation>
     </message>
     <message>
-        <source>Unknow author</source>
-        <translation type="vanished">Re*Index.(ot_inc)</translation>
-    </message>
-    <message>
         <source>Translation last updated</source>
         <translation>翻訳の最終更新</translation>
-    </message>
-    <message>
-        <source>Unknow date</source>
-        <translation type="vanished">2025.12.20</translation>
     </message>
     <message>
         <source>Update Translations</source>

@@ -48,64 +48,12 @@
         <translation>Вертикальное смещение панели от нижнего края экрана</translation>
     </message>
     <message>
-        <source>Use short device names</source>
-        <translation type="vanished">Использовать короткие названия устройств</translation>
-    </message>
-    <message>
-        <source>Shorten device names by shrinking description</source>
-        <translation type="vanished">Сократить описания устройств</translation>
-    </message>
-    <message>
-        <source>Volume value display mode</source>
-        <translation type="vanished">Режим отображения уровня громкости</translation>
-    </message>
-    <message>
-        <source>Control how you want sound value to be displayed</source>
-        <translation type="vanished">Настройка вида отображения уровня громкости</translation>
-    </message>
-    <message>
-        <source>Slider tooltip</source>
-        <translation type="vanished">Всплывающая подсказка</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation type="vanished">Текст</translation>
-    </message>
-    <message>
-        <source>Hidden</source>
-        <translation type="vanished">Скрыть</translation>
-    </message>
-    <message>
-        <source>Media info display</source>
-        <translation type="vanished">Медиа дисплей</translation>
-    </message>
-    <message>
-        <source>Display currently playing media from Windows known sources</source>
-        <translation type="vanished">Отображение текущего медиа из Windows приложений</translation>
-    </message>
-    <message>
-        <source>Flyout (interactive)</source>
-        <translation type="vanished">Всплывающее окно (интерактивное)</translation>
-    </message>
-    <message>
-        <source>Panel (informative)</source>
-        <translation type="vanished">Панель (информационная)</translation>
-    </message>
-    <message>
-        <source>Applications and devices label</source>
-        <translation type="vanished">Названия приложений и устройств в панели</translation>
-    </message>
-    <message>
         <source>Show audio level</source>
         <translation>Показать уровень громкости</translation>
     </message>
     <message>
         <source>Display audio level value in slider</source>
         <translation>Отображение значения уровня громкости в слайдере</translation>
-    </message>
-    <message>
-        <source>Windows taskbar size</source>
-        <translation type="vanished">Размер панели задач</translation>
     </message>
     <message>
         <source>Tray icon theme</source>
@@ -643,64 +591,12 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
         <translation>Основные настройки</translation>
     </message>
     <message>
-        <source>Panel mode</source>
-        <translation type="vanished">Режим панели</translation>
-    </message>
-    <message>
-        <source>Choose what should be displayed in the panel</source>
-        <translation type="vanished">Выберите, что должно отображаться в панели</translation>
-    </message>
-    <message>
-        <source>Devices + Mixer</source>
-        <translation type="vanished">Совмещённый</translation>
-    </message>
-    <message>
-        <source>Mixer only</source>
-        <translation type="vanished">Только микшер</translation>
-    </message>
-    <message>
-        <source>Devices only</source>
-        <translation type="vanished">Только устройства</translation>
-    </message>
-    <message>
-        <source>Link same input and output devices</source>
-        <translation type="vanished">Связать устройства ввода/вывода</translation>
-    </message>
-    <message>
-        <source>Try to match input / output from the same device</source>
-        <translation type="vanished">Попробовать связать ввод / вывод с одного устройства</translation>
-    </message>
-    <message>
-        <source>Sound keepalive</source>
-        <translation type="vanished">Поддержание соединения Bluetooth</translation>
-    </message>
-    <message>
-        <source>Emit an inaudible sound to keep bluetooth devices awake</source>
-        <translation type="vanished">Издавать неслышный звук, чтобы поддерживать работу устройств Bluetooth</translation>
-    </message>
-    <message>
         <source>Run at system startup</source>
         <translation>Добавить в автозагрузку</translation>
     </message>
     <message>
         <source>QSS will boot up when your computer starts</source>
         <translation>QSS запустится при включении компьютера</translation>
-    </message>
-    <message>
-        <source>Close device list automatically</source>
-        <translation type="vanished">Автоматически закрывать список устройств</translation>
-    </message>
-    <message>
-        <source>Device list will automatically close after selecting a device</source>
-        <translation type="vanished">Список автоматически закроется после выбора устройства</translation>
-    </message>
-    <message>
-        <source>Group applications by executable</source>
-        <translation type="vanished">Группировать приложения по исполнительным файлам</translation>
-    </message>
-    <message>
-        <source>Control multiple stream comming from a single app with one slider</source>
-        <translation type="vanished">Контролировать все потоки одного приложения одним ползунком</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -782,18 +678,6 @@ You can enable it in the General tab.</source>
 <context>
     <name>IntroWindow</name>
     <message>
-        <source>Windows sound settings (Legacy)</source>
-        <translation type="obsolete">Настройки звука Windows (Старые)</translation>
-    </message>
-    <message>
-        <source>Windows sound settings (Modern)</source>
-        <translation type="obsolete">Настройки звука Windows (Новые)</translation>
-    </message>
-    <message>
-        <source>Exit</source>
-        <translation type="obsolete">Выход</translation>
-    </message>
-    <message>
         <source>Automatic application update</source>
         <translation type="unfinished"></translation>
     </message>
@@ -836,16 +720,8 @@ You can enable it in the General tab.</source>
         <translation>Автор перевода</translation>
     </message>
     <message>
-        <source>Unknow author</source>
-        <translation type="vanished">GlifBoss</translation>
-    </message>
-    <message>
         <source>Translation last updated</source>
         <translation>Последнее обновление</translation>
-    </message>
-    <message>
-        <source>Unknow date</source>
-        <translation type="vanished">08.07.2025</translation>
     </message>
     <message>
         <source>Update Translations</source>
@@ -918,10 +794,6 @@ You can enable it in the General tab.</source>
         <translation type="unfinished">ChatMix</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отмена</translation>
-    </message>
-    <message>
         <source>Update Available</source>
         <translation type="unfinished"></translation>
     </message>
@@ -978,45 +850,6 @@ You can enable it in the General tab.</source>
     <message>
         <source>Switch User</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>QontrolPanel</name>
-    <message>
-        <source>Exit</source>
-        <translation type="vanished">Выход</translation>
-    </message>
-    <message>
-        <source>Output: Loading...</source>
-        <translation type="vanished">Вывод: Загрузка...</translation>
-    </message>
-    <message>
-        <source>Input: Loading...</source>
-        <translation type="vanished">Ввод: Загрузка...</translation>
-    </message>
-    <message>
-        <source>Windows sound settings (Legacy)</source>
-        <translation type="vanished">Настройки звука Windows (Старые)</translation>
-    </message>
-    <message>
-        <source>Windows sound settings (Modern)</source>
-        <translation type="vanished">Настройки звука Windows (Новые)</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="vanished">Включено</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="vanished">Отключено</translation>
-    </message>
-    <message>
-        <source>Output</source>
-        <translation type="vanished">Вывод</translation>
-    </message>
-    <message>
-        <source>Input</source>
-        <translation type="vanished">Ввод</translation>
     </message>
 </context>
 <context>
@@ -1135,28 +968,6 @@ You can enable it in the General tab.</source>
     <message>
         <source>Set ChatMix Shortcut</source>
         <translation>Установить сочетание ChatMix</translation>
-    </message>
-</context>
-<context>
-    <name>SoundPanel</name>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отмена</translation>
-    </message>
-</context>
-<context>
-    <name>SoundPanelBridge</name>
-    <message>
-        <source>No translation files to download</source>
-        <translation type="vanished">Нет доступных файлов для загрузки</translation>
-    </message>
-    <message>
-        <source>All translations downloaded successfully</source>
-        <translation type="vanished">Загрузка файлов завершена</translation>
-    </message>
-    <message>
-        <source>Downloaded %1 of %2 translation files</source>
-        <translation type="vanished">Загружено %1 из %2 файлов перевода</translation>
     </message>
 </context>
 <context>

@@ -28,10 +28,6 @@
         <translation>Thème du panneau</translation>
     </message>
     <message>
-        <source>Avoid applications overflow</source>
-        <translation type="vanished">Éviter les débordements d&apos;applications</translation>
-    </message>
-    <message>
         <source>Right</source>
         <translation>Droite</translation>
     </message>
@@ -44,10 +40,6 @@
         <translation>Afficher la valeur du niveau audio dans le curseur</translation>
     </message>
     <message>
-        <source>Display currently playing media from Windows known sources</source>
-        <translation type="vanished">Afficher les médias en cours de lecture depuis les sources reconnues de Windows</translation>
-    </message>
-    <message>
         <source>Bottom</source>
         <translation>Bas</translation>
     </message>
@@ -56,24 +48,12 @@
         <translation>Remplie</translation>
     </message>
     <message>
-        <source>Hidden</source>
-        <translation type="vanished">Masqué</translation>
-    </message>
-    <message>
         <source>Normal</source>
         <translation>Normale</translation>
     </message>
     <message>
         <source>Windows taskbar size (Only set if using W11 and taskbar is not at screen bottom)</source>
         <translation>Taille de la barre des tâches (Seulement si la barre des tâches n&apos;est pas en bas)</translation>
-    </message>
-    <message>
-        <source>Wrap applications in scrollview when more than 4 applications are displayed</source>
-        <translation type="vanished">Envelopper les applications dans une vue déroulante lorsque plus de 4 applications sont affichées</translation>
-    </message>
-    <message>
-        <source>Applications and devices label</source>
-        <translation type="vanished">Nom des périphériques et applications</translation>
     </message>
     <message>
         <source>Show audio level</source>
@@ -92,10 +72,6 @@
         <translation>Thème de l&apos;icône</translation>
     </message>
     <message>
-        <source>Display device icon</source>
-        <translation type="vanished">Afficher les icones des périphériques</translation>
-    </message>
-    <message>
         <source>Appearance &amp; Position</source>
         <translation>Apparence et position</translation>
     </message>
@@ -106,22 +82,6 @@
     <message>
         <source>Choose the color of the system tray icon</source>
         <translation>Choisissez la couleur de l&apos;icône</translation>
-    </message>
-    <message>
-        <source>Media info display</source>
-        <translation type="vanished">Affichage des infos média</translation>
-    </message>
-    <message>
-        <source>Panel (informative)</source>
-        <translation type="vanished">Panneau (informatif)</translation>
-    </message>
-    <message>
-        <source>Flyout (interactive)</source>
-        <translation type="vanished">Flyout (interactif)</translation>
-    </message>
-    <message>
-        <source>Opacity animations</source>
-        <translation type="vanished">Animations d&apos;opacité</translation>
     </message>
     <message>
         <source>Panel position</source>
@@ -634,16 +594,8 @@ Si vous souhaitez soutenir mon travail, toute contribution serait grandement app
         <translation>Rapide</translation>
     </message>
     <message>
-        <source>Sound keepalive</source>
-        <translation type="vanished">Empêcher la mise en veille audio</translation>
-    </message>
-    <message>
         <source>General Settings</source>
         <translation>Paramètres généraux</translation>
-    </message>
-    <message>
-        <source>Power action confirmation timeout</source>
-        <translation type="vanished">Délai d&apos;attente pour la confirmation de l&apos;action d&apos;alimentation</translation>
     </message>
     <message>
         <source>Faster</source>
@@ -658,16 +610,8 @@ Si vous souhaitez soutenir mon travail, toute contribution serait grandement app
         <translation>Normal</translation>
     </message>
     <message>
-        <source>Close device list automatically</source>
-        <translation type="vanished">Fermer la liste des périphériques automatiquement</translation>
-    </message>
-    <message>
         <source>QSS will boot up when your computer starts</source>
         <translation>QSS démarrera en même temps que l’ordinateur</translation>
-    </message>
-    <message>
-        <source>Device list will automatically close after selecting a device</source>
-        <translation type="vanished">La liste se fermera automatiquement après la sélection d’un périphérique</translation>
     </message>
     <message>
         <source>Run at system startup</source>
@@ -676,10 +620,6 @@ Si vous souhaitez soutenir mon travail, toute contribution serait grandement app
     <message>
         <source>Controls how frequently brightness commands are sent to external monitors</source>
         <translation>Contrôle la fréquence à laquelle les commandes de luminosité sont envoyées aux moniteurs externes</translation>
-    </message>
-    <message>
-        <source>Emit an inaudible sound to keep bluetooth devices awake</source>
-        <translation type="vanished">Émet un son inaudible pour garder les périphériques Bluetooth actifs</translation>
     </message>
     <message>
         <source>Show power action confirmation</source>
@@ -747,10 +687,6 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
         <translation>Bienvenue dans QontrolPanel!</translation>
     </message>
     <message>
-        <source>You can then click on the tray icon to reveal the panel.</source>
-        <translation type="vanished">Vous pouvez ensuite cliquer sur l&apos;icône pour afficher le panneau.</translation>
-    </message>
-    <message>
         <source>Automatic application update</source>
         <translation>Mise à jour automatiques</translation>
     </message>
@@ -761,14 +697,6 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     <message>
         <source>Get Started</source>
         <translation>Commencer</translation>
-    </message>
-    <message>
-        <source>The tray icon is probably hidden and can be added to the tray area by dragging it as shown in the video below.</source>
-        <translation type="vanished">L&apos;icône de la barre des tâches est probablement masquée et peut être ajoutée à la zone de notification en la faisant glisser comme indiqué dans la vidéo ci-dessous.</translation>
-    </message>
-    <message>
-        <source>Automatic application update fetching</source>
-        <translation type="vanished">Recherche automatique de mise à jour</translation>
     </message>
 </context>
 <context>
@@ -813,10 +741,6 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unknow date</source>
-        <translation type="vanished">03.12.2025</translation>
-    </message>
-    <message>
         <source>Download</source>
         <translation>Télécharger</translation>
     </message>
@@ -827,10 +751,6 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     <message>
         <source>Error: %1</source>
         <translation>Erreur: %1</translation>
-    </message>
-    <message>
-        <source>Unknow author</source>
-        <translation type="vanished">Odizinne/Largo</translation>
     </message>
     <message>
         <source>Update Translations</source>
@@ -935,21 +855,6 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     <message>
         <source>Sign Out</source>
         <translation>Se déconnecter</translation>
-    </message>
-</context>
-<context>
-    <name>QontrolPanel</name>
-    <message>
-        <source>Disabled</source>
-        <translation type="vanished">Désactivé</translation>
-    </message>
-    <message>
-        <source>ChatMix %1</source>
-        <translation type="vanished">ChatMix %1</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="vanished">Activé</translation>
     </message>
 </context>
 <context>
@@ -1069,21 +974,6 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     <message>
         <source>Global Shortcuts</source>
         <translation>Raccourcis globaux</translation>
-    </message>
-</context>
-<context>
-    <name>SoundPanelBridge</name>
-    <message>
-        <source>Downloaded %1 of %2 translation files</source>
-        <translation type="vanished">Téléchargé %1 sur %2 fichiers de traduction</translation>
-    </message>
-    <message>
-        <source>No translation files to download</source>
-        <translation type="vanished">Aucune mise à jour disponible</translation>
-    </message>
-    <message>
-        <source>All translations downloaded successfully</source>
-        <translation type="vanished">Toutes les traductions ont été téléchargées avec succès</translation>
     </message>
 </context>
 <context>

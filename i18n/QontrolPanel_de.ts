@@ -678,10 +678,6 @@ You can enable it in the General tab.</source>
 <context>
     <name>IntroWindow</name>
     <message>
-        <source>Exit</source>
-        <translation type="obsolete">Beenden</translation>
-    </message>
-    <message>
         <source>Automatic application update</source>
         <translation type="unfinished"></translation>
     </message>
@@ -854,13 +850,6 @@ You can enable it in the General tab.</source>
     <message>
         <source>Switch User</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>QontrolPanel</name>
-    <message>
-        <source>Exit</source>
-        <translation type="vanished">Beenden</translation>
     </message>
 </context>
 <context>

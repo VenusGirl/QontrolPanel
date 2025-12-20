@@ -720,16 +720,8 @@ You can enable it in the General tab.</source>
         <translation></translation>
     </message>
     <message>
-        <source>Unknow author</source>
-        <translation type="vanished">Odizinne</translation>
-    </message>
-    <message>
         <source>Translation last updated</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Unknow date</source>
-        <translation type="vanished">02.07.2025</translation>
     </message>
     <message>
         <source>Update Translations</source>

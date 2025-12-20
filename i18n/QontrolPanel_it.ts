@@ -172,14 +172,6 @@
         <source>ChatMix Disabled</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Microphone Enabled</source>
-        <translation type="vanished">Microfono abilitato</translation>
-    </message>
-    <message>
-        <source>Microphone Disabled</source>
-        <translation type="vanished">Microfono disabilitato</translation>
-    </message>
 </context>
 <context>
     <name>CommAppsPane</name>
@@ -728,10 +720,6 @@ Puoi abilitarlo nella scheda Generale.</translation>
     <message>
         <source>Translation author</source>
         <translation>Autore traduzione</translation>
-    </message>
-    <message>
-        <source>Unknow author</source>
-        <translation type="vanished">RB</translation>
     </message>
     <message>
         <source>Translation last updated</source>
