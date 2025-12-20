@@ -92,6 +92,43 @@ def count_ts_files_in_commit(commit_hash, i18n_dir):
         print(f"  Warning: Could not count files in commit: {e}")
         return 0
 
+def find_last_single_file_commit(file_path, i18n_dir):
+    """Find the most recent commit that ONLY modified this specific .ts file"""
+    try:
+        # Get all commits that touched this file
+        result = subprocess.run(
+            ['git', 'log', '--format=%H', '--follow', '--', str(file_path)],
+            capture_output=True,
+            text=True,
+            cwd=i18n_dir.parent
+        )
+        if result.returncode != 0 or not result.stdout.strip():
+            return None, None
+
+        commit_hashes = result.stdout.strip().split('\n')
+
+        # Search through commits to find one with only this .ts file
+        for commit_hash in commit_hashes:
+            ts_count = count_ts_files_in_commit(commit_hash, i18n_dir)
+            if ts_count == 1:
+                # Found a commit with only this file, get its date
+                date_result = subprocess.run(
+                    ['git', 'show', '--format=%ci', '--no-patch', commit_hash],
+                    capture_output=True,
+                    text=True,
+                    cwd=i18n_dir.parent
+                )
+                if date_result.returncode == 0 and date_result.stdout.strip():
+                    commit_date = date_result.stdout.strip()
+                    print(f"  Found single-file commit in history: {commit_hash[:7]} on {commit_date}")
+                    return commit_hash, commit_date
+
+        print(f"  No single-file commit found in history")
+        return None, None
+    except Exception as e:
+        print(f"  Warning: Could not search commit history: {e}")
+        return None, None
+
 def main():
     script_dir = Path(__file__).parent
     i18n_dir = script_dir.parent / 'i18n'
@@ -150,8 +187,10 @@ def main():
             old_data = existing_progress.get(language_code, {})
             last_updated = old_data.get('last_updated')
             if not last_updated:
-                # If no old date exists, use None instead of current commit date
-                last_updated = None
+                # If no old date exists, search git history for a single-file commit
+                print(f"  No existing date found, searching git history...")
+                _, history_date = find_last_single_file_commit(ts_file, i18n_dir)
+                last_updated = history_date
 
         # Special case for English - always 100%
         if language_code.lower() in ['en', 'english', 'en_us', 'en_gb']:
