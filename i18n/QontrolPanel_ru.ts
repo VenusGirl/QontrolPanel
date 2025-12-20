@@ -837,7 +837,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Unknow author</source>
-        <translation>GlifBoss</translation>
+        <translation type="vanished">GlifBoss</translation>
     </message>
     <message>
         <source>Translation last updated</source>
@@ -889,6 +889,10 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Fetch for new translation to get data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

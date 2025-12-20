@@ -537,6 +537,20 @@ QString Updater::getTranslationLastUpdated(const QString& languageCode)
     return QString();
 }
 
+QString Updater::getTranslationContributor(const QString& languageCode)
+{
+    if (m_translationProgress.contains(languageCode)) {
+        QJsonValue value = m_translationProgress[languageCode];
+        if (value.isObject()) {
+            QString contributor = value.toObject()["contributor"].toString();
+            if (!contributor.isEmpty()) {
+                return contributor;
+            }
+        }
+    }
+    return QString();
+}
+
 bool Updater::hasTranslationProgressData()
 {
     return !m_translationProgress.isEmpty();

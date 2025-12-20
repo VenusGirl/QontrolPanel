@@ -805,6 +805,10 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
         <translation>Système</translation>
     </message>
     <message>
+        <source>Unknown author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unknown date</source>
         <translation type="unfinished"></translation>
     </message>
@@ -826,7 +830,7 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     </message>
     <message>
         <source>Unknow author</source>
-        <translation>Odizinne/Largo</translation>
+        <translation type="vanished">Odizinne/Largo</translation>
     </message>
     <message>
         <source>Update Translations</source>

@@ -172,8 +172,57 @@ ColumnLayout {
                     description: ""
 
                     additionalControl: Label {
-                        text: qsTr("Unknow author")
+                        id: contributorLabel
+                        text: {
+                            if (!Updater.hasTranslationProgressData()) {
+                                return qsTr("Unknown author")
+                            }
+                            let currentLangCode = LanguageBridge.getLanguageCodeFromIndex(UserSettings.languageIndex)
+                            let contributor = Updater.getTranslationContributor(currentLangCode)
+                            return contributor ? contributor : qsTr("Unknown author")
+                        }
                         opacity: 0.5
+
+                        Connections {
+                            target: UserSettings
+                            function onLanguageIndexChanged() {
+                                contributorLabel.text = Qt.binding(function() {
+                                    if (!Updater.hasTranslationProgressData()) {
+                                        return qsTr("Unknown author")
+                                    }
+                                    let currentLangCode = LanguageBridge.getLanguageCodeFromIndex(UserSettings.languageIndex)
+                                    let contributor = Updater.getTranslationContributor(currentLangCode)
+                                    return contributor ? contributor : qsTr("Unknown author")
+                                })
+                            }
+                        }
+
+                        Connections {
+                            target: Updater
+                            function onTranslationDownloadFinished(success, message) {
+                                if (success) {
+                                    contributorLabel.text = Qt.binding(function() {
+                                        if (!Updater.hasTranslationProgressData()) {
+                                            return qsTr("Unknown author")
+                                        }
+                                        let currentLangCode = LanguageBridge.getLanguageCodeFromIndex(UserSettings.languageIndex)
+                                        let contributor = Updater.getTranslationContributor(currentLangCode)
+                                        return contributor ? contributor : qsTr("Unknown author")
+                                    })
+                                }
+                            }
+
+                            function onTranslationProgressDataLoaded() {
+                                contributorLabel.text = Qt.binding(function() {
+                                    if (!Updater.hasTranslationProgressData()) {
+                                        return qsTr("Unknown author")
+                                    }
+                                    let currentLangCode = LanguageBridge.getLanguageCodeFromIndex(UserSettings.languageIndex)
+                                    let contributor = Updater.getTranslationContributor(currentLangCode)
+                                    return contributor ? contributor : qsTr("Unknown author")
+                                })
+                            }
+                        }
                     }
                 }
 

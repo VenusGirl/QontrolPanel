@@ -903,7 +903,7 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Unknow author</source>
-        <translation>비너스걸💋: https://venusgirls.tistory.com/</translation>
+        <translation type="vanished">비너스걸💋: https://venusgirls.tistory.com/</translation>
     </message>
     <message>
         <source>Translation last updated</source>
@@ -956,6 +956,10 @@ You can enable it in the General tab.</source>
     <message>
         <source>Fetch for new translation to get data</source>
         <translation>데이터를 얻기 위해 새 번역을 가져옵니다</translation>
+    </message>
+    <message>
+        <source>Unknown author</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unknown date</source>

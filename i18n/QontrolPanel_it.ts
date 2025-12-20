@@ -731,7 +731,7 @@ Puoi abilitarlo nella scheda Generale.</translation>
     </message>
     <message>
         <source>Unknow author</source>
-        <translation>RB</translation>
+        <translation type="vanished">RB</translation>
     </message>
     <message>
         <source>Translation last updated</source>
@@ -780,6 +780,10 @@ Puoi abilitarlo nella scheda Generale.</translation>
     <message>
         <source>Fetch for new translation to get data</source>
         <translation>Scarica una nuova traduzione</translation>
+    </message>
+    <message>
+        <source>Unknown author</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unknown date</source>
