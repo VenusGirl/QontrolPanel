@@ -50,6 +50,7 @@ ApplicationWindow {
 
     property bool isAnimatingIn: false
     property bool isAnimatingOut: false
+    property bool closeAfterOpen: false
     property string taskbarPos: {
         switch (UserSettings.panelPosition) {
             case 0: return "top";
@@ -76,10 +77,6 @@ ApplicationWindow {
         }
         return usedSpace
     }
-
-    signal hideAnimationFinished()
-    signal showAnimationFinished()
-    signal hideAnimationStarted()
 
     onVisibleChanged: {
         if (!visible) {
@@ -195,7 +192,7 @@ ApplicationWindow {
     Shortcut {
         sequences: [StandardKey.Cancel]
         onActivated: {
-            if (!panel.isAnimatingIn && !panel.isAnimatingOut && panel.visible) {
+            if (!panel.isAnimatingOut && panel.visible) {
                 panel.hidePanel()
             }
         }
@@ -243,7 +240,11 @@ ApplicationWindow {
         }
         onFinished: {
             panel.isAnimatingIn = false
-            panel.showAnimationFinished()
+            if (panel.closeAfterOpen) {
+                panel.closeAfterOpen = false
+                panel.closeAllMenusAndCollapse()
+                panel.startHideAnimation()
+            }
         }
     }
 
@@ -255,7 +256,6 @@ ApplicationWindow {
         onFinished: {
             panel.visible = false
             panel.isAnimatingOut = false
-            panel.hideAnimationFinished()
         }
     }
 
@@ -280,7 +280,12 @@ ApplicationWindow {
     }
 
     function togglePanel() {
-        if (isAnimatingIn || isAnimatingOut) {
+        if (isAnimatingOut) {
+            return
+        }
+
+        if (isAnimatingIn) {
+            closeAfterOpen = true
             return
         }
 
@@ -296,6 +301,7 @@ ApplicationWindow {
             return
         }
 
+        closeAfterOpen = false
         isAnimatingIn = true
         panel.visible = true
         panel.requestActivate()
@@ -393,7 +399,12 @@ ApplicationWindow {
     }
 
     function hidePanel() {
-        if (isAnimatingIn || isAnimatingOut) {
+        if (isAnimatingOut) {
+            return
+        }
+
+        if (isAnimatingIn) {
+            closeAfterOpen = true
             return
         }
 
@@ -442,7 +453,6 @@ ApplicationWindow {
 
     function startHideAnimation() {
         isAnimatingOut = true
-        panel.hideAnimationStarted()
 
         switch (panel.taskbarPos) {
         case "top":
