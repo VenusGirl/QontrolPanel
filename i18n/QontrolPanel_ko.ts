@@ -381,10 +381,6 @@
         <translation>필터 기준:</translation>
     </message>
     <message>
-        <source>Configure</source>
-        <translation type="vanished">구성</translation>
-    </message>
-    <message>
         <source>Auto-scroll</source>
         <translation>자동 스크롤</translation>
     </message>
@@ -776,17 +772,6 @@ You can enable it in the General tab.</source>
     <message>
         <source>Unknown date</source>
         <translation>날짜 미상</translation>
-    </message>
-</context>
-<context>
-    <name>LoggingConfDialog</name>
-    <message>
-        <source>Log Categories</source>
-        <translation type="vanished">로그 범주</translation>
-    </message>
-    <message>
-        <source>Enable All Logging</source>
-        <translation type="vanished">모든 로그 기록 사용함</translation>
     </message>
 </context>
 <context>

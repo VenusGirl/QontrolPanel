@@ -383,10 +383,6 @@
         <translation>Filtrer par:</translation>
     </message>
     <message>
-        <source>Configure</source>
-        <translation type="vanished">Configurer</translation>
-    </message>
-    <message>
         <source>Auto-scroll</source>
         <translation>Défilement automatique</translation>
     </message>
@@ -779,17 +775,6 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     <message>
         <source>Fetch for new translation to get data</source>
         <translation>Téléchargez d&apos;abord les traductions</translation>
-    </message>
-</context>
-<context>
-    <name>LoggingConfDialog</name>
-    <message>
-        <source>Log Categories</source>
-        <translation type="vanished">Catégories de journal</translation>
-    </message>
-    <message>
-        <source>Enable All Logging</source>
-        <translation type="vanished">Activer toute la journalisation</translation>
     </message>
 </context>
 <context>

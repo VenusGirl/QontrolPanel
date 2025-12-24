@@ -52,24 +52,12 @@
         <translation>Margines osi Y panelu sterowania</translation>
     </message>
     <message>
-        <source>Applications and devices label</source>
-        <translation type="vanished">Etykieta aplikacji i urządzeń</translation>
-    </message>
-    <message>
         <source>Show audio level</source>
         <translation>Pokaż poziom dźwięku</translation>
     </message>
     <message>
         <source>Display audio level value in slider</source>
         <translation>Wyświetl wartość poziomu dźwięku na suwaku</translation>
-    </message>
-    <message>
-        <source>Opacity animations</source>
-        <translation type="vanished">Animacje krycia</translation>
-    </message>
-    <message>
-        <source>Display device icon</source>
-        <translation type="vanished">Wyświetl ikonę urządzenia</translation>
     </message>
     <message>
         <source>Tray icon theme</source>
@@ -183,14 +171,6 @@
     <message>
         <source>ChatMix Disabled</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Microphone Enabled</source>
-        <translation type="vanished">Mikrofon włączony</translation>
-    </message>
-    <message>
-        <source>Microphone Disabled</source>
-        <translation type="vanished">Mikrofon wyłączony</translation>
     </message>
 </context>
 <context>
@@ -616,20 +596,8 @@ Jeśli chcesz wesprzeć moją pracę, każda wpłata będzie bardzo mile widzian
         <translation>QSS uruchomi się po uruchomieniu komputera</translation>
     </message>
     <message>
-        <source>Close device list automatically</source>
-        <translation type="vanished">Zamknij listę urządzeń automatycznie</translation>
-    </message>
-    <message>
-        <source>Device list will automatically close after selecting a device</source>
-        <translation type="vanished">Lista urządzeń zostanie automatycznie zamknięta po wybraniu urządzenia</translation>
-    </message>
-    <message>
         <source>Show power action confirmation</source>
         <translation>Pokaż potwierdzenie akcji zasilania</translation>
-    </message>
-    <message>
-        <source>Power action confirmation timeout</source>
-        <translation type="vanished">Limit czasu potwierdzenia akcji zasilania</translation>
     </message>
     <message>
         <source>DDC/CI brightness update rate</source>
@@ -802,27 +770,8 @@ Można ją włączyć w zakładce Ogólne.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unknow author</source>
-        <translation type="vanished">Fresta</translation>
-    </message>
-    <message>
         <source>Translation last updated</source>
         <translation>Tłumaczenie ostatniej aktualizacji</translation>
-    </message>
-    <message>
-        <source>Unknow date</source>
-        <translation type="vanished">17.12.2025</translation>
-    </message>
-</context>
-<context>
-    <name>LoggingConfDialog</name>
-    <message>
-        <source>Log Categories</source>
-        <translation type="vanished">Kategorie dziennika</translation>
-    </message>
-    <message>
-        <source>Enable All Logging</source>
-        <translation type="vanished">Włącz wszystkie rejestrowanie</translation>
     </message>
 </context>
 <context>

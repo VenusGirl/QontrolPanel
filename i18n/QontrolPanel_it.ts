@@ -381,10 +381,6 @@
         <translation>Filtra per:</translation>
     </message>
     <message>
-        <source>Configure</source>
-        <translation type="vanished">Configura</translation>
-    </message>
-    <message>
         <source>Auto-scroll</source>
         <translation>Scorrimento automatico</translation>
     </message>
@@ -776,17 +772,6 @@ Puoi abilitarlo nella scheda Generale.</translation>
     <message>
         <source>Unknown date</source>
         <translation>21.12.2025</translation>
-    </message>
-</context>
-<context>
-    <name>LoggingConfDialog</name>
-    <message>
-        <source>Log Categories</source>
-        <translation type="vanished">Categorie registro eventi</translation>
-    </message>
-    <message>
-        <source>Enable All Logging</source>
-        <translation type="vanished">Abilita tutte le registrazioni</translation>
     </message>
 </context>
 <context>

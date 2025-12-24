@@ -773,17 +773,6 @@ You can enable it in the General tab.</source>
     </message>
 </context>
 <context>
-    <name>LoggingConfDialog</name>
-    <message>
-        <source>Log Categories</source>
-        <translation type="vanished">日志分类</translation>
-    </message>
-    <message>
-        <source>Enable All Logging</source>
-        <translation type="vanished">启用所有日志</translation>
-    </message>
-</context>
-<context>
     <name>Main</name>
     <message>
         <source>ChatMix</source>

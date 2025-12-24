@@ -381,10 +381,6 @@
         <translation>フィルター:</translation>
     </message>
     <message>
-        <source>Configure</source>
-        <translation type="vanished">構成</translation>
-    </message>
-    <message>
         <source>Auto-scroll</source>
         <translation>自動スクロール</translation>
     </message>
@@ -775,17 +771,6 @@ You can enable it in the General tab.</source>
     <message>
         <source>Unknown date</source>
         <translation>不明な日時</translation>
-    </message>
-</context>
-<context>
-    <name>LoggingConfDialog</name>
-    <message>
-        <source>Log Categories</source>
-        <translation type="vanished">ログのカテゴリー</translation>
-    </message>
-    <message>
-        <source>Enable All Logging</source>
-        <translation type="vanished">すべてのログの取得を有効</translation>
     </message>
 </context>
 <context>
