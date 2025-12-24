@@ -53,7 +53,7 @@
     </message>
     <message>
         <source>Applications and devices label</source>
-        <translation>Etykieta aplikacji i urządzeń</translation>
+        <translation type="vanished">Etykieta aplikacji i urządzeń</translation>
     </message>
     <message>
         <source>Show audio level</source>
@@ -65,11 +65,11 @@
     </message>
     <message>
         <source>Opacity animations</source>
-        <translation>Animacje krycia</translation>
+        <translation type="vanished">Animacje krycia</translation>
     </message>
     <message>
         <source>Display device icon</source>
-        <translation>Wyświetl ikonę urządzenia</translation>
+        <translation type="vanished">Wyświetl ikonę urządzenia</translation>
     </message>
     <message>
         <source>Tray icon theme</source>
@@ -177,12 +177,20 @@
         <translation>Mikrofon niewyciszony</translation>
     </message>
     <message>
+        <source>ChatMix Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ChatMix Disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Microphone Enabled</source>
-        <translation>Mikrofon włączony</translation>
+        <translation type="vanished">Mikrofon włączony</translation>
     </message>
     <message>
         <source>Microphone Disabled</source>
-        <translation>Mikrofon wyłączony</translation>
+        <translation type="vanished">Mikrofon wyłączony</translation>
     </message>
 </context>
 <context>
@@ -387,6 +395,22 @@
     <message>
         <source>Console output</source>
         <translation>Wyjście konsoli</translation>
+    </message>
+    <message>
+        <source>Filter by:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto-scroll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -593,11 +617,11 @@ Jeśli chcesz wesprzeć moją pracę, każda wpłata będzie bardzo mile widzian
     </message>
     <message>
         <source>Close device list automatically</source>
-        <translation>Zamknij listę urządzeń automatycznie</translation>
+        <translation type="vanished">Zamknij listę urządzeń automatycznie</translation>
     </message>
     <message>
         <source>Device list will automatically close after selecting a device</source>
-        <translation>Lista urządzeń zostanie automatycznie zamknięta po wybraniu urządzenia</translation>
+        <translation type="vanished">Lista urządzeń zostanie automatycznie zamknięta po wybraniu urządzenia</translation>
     </message>
     <message>
         <source>Show power action confirmation</source>
@@ -605,7 +629,7 @@ Jeśli chcesz wesprzeć moją pracę, każda wpłata będzie bardzo mile widzian
     </message>
     <message>
         <source>Power action confirmation timeout</source>
-        <translation>Limit czasu potwierdzenia akcji zasilania</translation>
+        <translation type="vanished">Limit czasu potwierdzenia akcji zasilania</translation>
     </message>
     <message>
         <source>DDC/CI brightness update rate</source>
@@ -770,8 +794,16 @@ Można ją włączyć w zakładce Ogólne.</translation>
         <translation>Autor tłumaczenia</translation>
     </message>
     <message>
+        <source>Unknown author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unknow author</source>
-        <translation>Fresta</translation>
+        <translation type="vanished">Fresta</translation>
     </message>
     <message>
         <source>Translation last updated</source>
@@ -779,18 +811,18 @@ Można ją włączyć w zakładce Ogólne.</translation>
     </message>
     <message>
         <source>Unknow date</source>
-        <translation>17.12.2025</translation>
+        <translation type="vanished">17.12.2025</translation>
     </message>
 </context>
 <context>
     <name>LoggingConfDialog</name>
     <message>
         <source>Log Categories</source>
-        <translation>Kategorie dziennika</translation>
+        <translation type="vanished">Kategorie dziennika</translation>
     </message>
     <message>
         <source>Enable All Logging</source>
-        <translation>Włącz wszystkie rejestrowanie</translation>
+        <translation type="vanished">Włącz wszystkie rejestrowanie</translation>
     </message>
 </context>
 <context>

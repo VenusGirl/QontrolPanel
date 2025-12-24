@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QString>
 #include <QQmlEngine>
+#include <QSet>
 
 class LogManager : public QObject
 {
@@ -11,22 +12,6 @@ class LogManager : public QObject
     QML_SINGLETON
 
 public:
-    enum Sender {
-        AudioManager,
-        MediaSessionManager,
-        MonitorManager,
-        SoundPanelBridge,
-        Updater,
-        ShortcutManager,
-        Core,
-        LocalServer,
-        Ui,
-        PowerManager,
-        HeadsetControlManager,
-        WindowFocusManager
-    };
-    Q_ENUM(Sender)
-
     enum LogType {
         Info,
         Warning,
@@ -37,50 +22,39 @@ public:
     static LogManager* create(QQmlEngine *qmlEngine, QJSEngine *jsEngine);
     static LogManager* instance();
 
-    Q_INVOKABLE void sendLog(Sender sender, const QString &content);
-    Q_INVOKABLE void sendWarn(Sender sender, const QString &content);
-    Q_INVOKABLE void sendCritical(Sender sender, const QString &content);
-    Q_INVOKABLE void setQmlReady();
+    // New simplified API
+    Q_INVOKABLE void log(const QString &category, const QString &content);
+    Q_INVOKABLE void warn(const QString &category, const QString &content);
+    Q_INVOKABLE void critical(const QString &category, const QString &content);
 
-    Q_INVOKABLE void setAudioManagerLogging(bool enabled);
-    Q_INVOKABLE void setMediaSessionManagerLogging(bool enabled);
-    Q_INVOKABLE void setMonitorManagerLogging(bool enabled);
-    Q_INVOKABLE void setSoundPanelBridgeLogging(bool enabled);
-    Q_INVOKABLE void setUpdaterLogging(bool enabled);
-    Q_INVOKABLE void setShortcutManagerLogging(bool enabled);
-    Q_INVOKABLE void setCoreLogging(bool enabled);
-    Q_INVOKABLE void setLocalServerLogging(bool enabled);
-    Q_INVOKABLE void setUiLogging(bool enabled);
-    Q_INVOKABLE void setPowerManagerLogging(bool enabled);
-    Q_INVOKABLE void setHeadsetControlManagerLogging(bool enabled);
-    Q_INVOKABLE void setWindowFocusManagerLogging(bool enabled);
+    Q_INVOKABLE QStringList getAllCategories() const;
+    Q_INVOKABLE void setQmlReady();
 
 signals:
     void logReceived(const QString &formattedMessage, LogType type);
     void bufferedLogsReady(const QVariantList &logs);
+    void categoryRegistered(const QString &category);
 
 private:
     explicit LogManager(QObject *parent = nullptr);
     static LogManager* m_instance;
 
-    QString senderToString(Sender sender) const;
-    QString formatMessage(Sender sender, LogType type, const QString &content) const;
-    void emitLog(Sender sender, LogType type, const QString &content);
-    bool isLoggingEnabled(Sender sender) const;
+    void registerCategory(const QString &category);
+    QString formatMessage(const QString &category, LogType type, const QString &content) const;
+    void emitLog(const QString &category, LogType type, const QString &content);
 
     QList<QPair<QString, LogType>> m_bufferedLogs;
     bool m_qmlReady = false;
 
-    bool m_audioManagerLogging;
-    bool m_mediaSessionManagerLogging;
-    bool m_monitorManagerLogging;
-    bool m_soundPanelBridgeLogging;
-    bool m_updaterLogging;
-    bool m_shortcutManagerLogging;
-    bool m_coreLogging;
-    bool m_localServerLogging;
-    bool m_uiLogging;
-    bool m_powerManagerLogging;
-    bool m_headsetControlManagerLogging;
-    bool m_windowFocusManagerLogging;
+    QSet<QString> m_registeredCategories;
 };
+
+// Helper macros for concise logging
+#define LOG_INFO(category, message) \
+    LogManager::instance()->log(category, message)
+
+#define LOG_WARN(category, message) \
+    LogManager::instance()->warn(category, message)
+
+#define LOG_CRITICAL(category, message) \
+    LogManager::instance()->critical(category, message)

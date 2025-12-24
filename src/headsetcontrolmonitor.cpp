@@ -14,7 +14,7 @@ HeadsetControlMonitor::HeadsetControlMonitor(QObject *parent)
     , m_batteryLevel(-1)
     , m_anyDeviceFound(false)
 {
-    LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+    LOG_INFO("HeadsetControlManager",
                                     QString("HeadsetControlMonitor initialized - Library version: %1")
                                         .arg(QString::fromStdString(std::string(headsetcontrol::version()))));
 
@@ -26,7 +26,7 @@ HeadsetControlMonitor::HeadsetControlMonitor(QObject *parent)
 
 HeadsetControlMonitor::~HeadsetControlMonitor()
 {
-    LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+    LOG_INFO("HeadsetControlManager",
                                     "HeadsetControlMonitor destructor called");
     stopMonitoring();
 }
@@ -34,12 +34,12 @@ HeadsetControlMonitor::~HeadsetControlMonitor()
 void HeadsetControlMonitor::startMonitoring()
 {
     if (m_isMonitoring) {
-        LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+        LOG_INFO("HeadsetControlManager",
                                         "Headset monitoring already running, ignoring start request");
         return;
     }
 
-    LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+    LOG_INFO("HeadsetControlManager",
                                     QString("Starting headset monitoring (fetch interval: %1ms)").arg(m_fetchIntervalMs));
 
     m_isMonitoring = true;
@@ -55,7 +55,7 @@ void HeadsetControlMonitor::stopMonitoring()
         return;
     }
 
-    LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+    LOG_INFO("HeadsetControlManager",
                                     "Stopping headset monitoring");
 
     m_isMonitoring = false;
@@ -82,7 +82,7 @@ void HeadsetControlMonitor::stopMonitoring()
     emit headsetDataUpdated(m_cachedDevices);
     emit monitoringStateChanged(false);
 
-    LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+    LOG_INFO("HeadsetControlManager",
                                     "Headset monitoring stopped and data cleared");
 }
 
@@ -94,28 +94,28 @@ bool HeadsetControlMonitor::isMonitoring() const
 void HeadsetControlMonitor::setLights(bool enabled)
 {
     if (!m_hasLightsCapability) {
-        LogManager::instance()->sendWarn(LogManager::HeadsetControlManager,
+        LOG_WARN("HeadsetControlManager",
                                          "Cannot set lights - device does not support lights capability");
         return;
     }
 
     if (m_headsets.empty()) {
-        LogManager::instance()->sendWarn(LogManager::HeadsetControlManager,
+        LOG_WARN("HeadsetControlManager",
                                          "Cannot set lights - no device connected");
         return;
     }
 
-    LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+    LOG_INFO("HeadsetControlManager",
                                     QString("Setting headset lights: %1").arg(enabled ? "ON" : "OFF"));
 
     headsetcontrol::Headset& headset = m_headsets[0];
     headsetcontrol::Result<headsetcontrol::LightsResult> result = headset.setLights(enabled);
 
     if (!result) {
-        LogManager::instance()->sendCritical(LogManager::HeadsetControlManager,
+        LOG_CRITICAL("HeadsetControlManager",
                                              QString("Failed to set lights: %1").arg(QString::fromStdString(result.error().fullMessage())));
     } else {
-        LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+        LOG_INFO("HeadsetControlManager",
                                         "Lights set successfully");
     }
 }
@@ -123,30 +123,30 @@ void HeadsetControlMonitor::setLights(bool enabled)
 void HeadsetControlMonitor::setSidetone(int value)
 {
     if (!m_hasSidetoneCapability) {
-        LogManager::instance()->sendWarn(LogManager::HeadsetControlManager,
+        LOG_WARN("HeadsetControlManager",
                                          "Cannot set sidetone - device does not support sidetone capability");
         return;
     }
 
     if (m_headsets.empty()) {
-        LogManager::instance()->sendWarn(LogManager::HeadsetControlManager,
+        LOG_WARN("HeadsetControlManager",
                                          "Cannot set sidetone - no device connected");
         return;
     }
 
     value = qBound(0, value, 128);
 
-    LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+    LOG_INFO("HeadsetControlManager",
                                     QString("Setting headset sidetone to %1").arg(value));
 
     headsetcontrol::Headset& headset = m_headsets[0];
     headsetcontrol::Result<headsetcontrol::SidetoneResult> result = headset.setSidetone(static_cast<uint8_t>(value));
 
     if (!result) {
-        LogManager::instance()->sendCritical(LogManager::HeadsetControlManager,
+        LOG_CRITICAL("HeadsetControlManager",
                                              QString("Failed to set sidetone: %1").arg(QString::fromStdString(result.error().fullMessage())));
     } else {
-        LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+        LOG_INFO("HeadsetControlManager",
                                         QString("Sidetone set to %1 successfully").arg(value));
     }
 }
@@ -162,7 +162,7 @@ void HeadsetControlMonitor::fetchHeadsetInfo()
         m_headsets = headsetcontrol::discover();
 
         if (m_headsets.empty()) {
-            LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+            LOG_INFO("HeadsetControlManager",
                                             "No headset devices found");
 
             m_cachedDevices.clear();
@@ -185,13 +185,13 @@ void HeadsetControlMonitor::fetchHeadsetInfo()
             return;
         }
 
-        LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+        LOG_INFO("HeadsetControlManager",
                                         QString("Found %1 headset device(s)").arg(m_headsets.size()));
 
         updateDeviceCache();
 
     } catch (const std::exception& e) {
-        LogManager::instance()->sendCritical(LogManager::HeadsetControlManager,
+        LOG_CRITICAL("HeadsetControlManager",
                                              QString("Exception during headset discovery: %1").arg(e.what()));
 
         emit headsetDataUpdated(m_cachedDevices);
@@ -220,13 +220,13 @@ void HeadsetControlMonitor::updateDeviceCache()
                 device.batteryLevel = batteryResult->level_percent;
                 device.batteryStatus = batteryStatusToString(batteryResult->status);
 
-                LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+                LOG_INFO("HeadsetControlManager",
                                                 QString("Device %1: Battery %2 at %3%")
                                                     .arg(device.deviceName, device.batteryStatus).arg(device.batteryLevel));
             } else {
                 device.batteryLevel = -1;
                 device.batteryStatus = "BATTERY_UNAVAILABLE";
-                LogManager::instance()->sendWarn(LogManager::HeadsetControlManager,
+                LOG_WARN("HeadsetControlManager",
                                                  QString("Failed to read battery: %1")
                                                      .arg(QString::fromStdString(batteryResult.error().fullMessage())));
             }
@@ -235,7 +235,7 @@ void HeadsetControlMonitor::updateDeviceCache()
             device.batteryLevel = -1;
         }
 
-        LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+        LOG_INFO("HeadsetControlManager",
                                         QString("Found headset device: %1 with %2 capabilities")
                                             .arg(device.deviceName).arg(device.capabilities.size()));
 
@@ -276,7 +276,7 @@ void HeadsetControlMonitor::updateCapabilities()
         newSidetoneCapability = headset.supports(CAP_SIDETONE);
         newLightsCapability = headset.supports(CAP_LIGHTS);
 
-        LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+        LOG_INFO("HeadsetControlManager",
                                         QString("Device capabilities - Sidetone: %1, Lights: %2")
                                             .arg(newSidetoneCapability ? "YES" : "NO", newLightsCapability ? "YES" : "NO"));
     }
@@ -298,18 +298,18 @@ void HeadsetControlMonitor::updateCapabilities()
         emit anyDeviceFoundChanged();
 
         if (!wasDeviceFound && newAnyDeviceFound) {
-            LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+            LOG_INFO("HeadsetControlManager",
                                             "New headset device detected, applying saved settings");
 
             if (newLightsCapability) {
                 bool lightsEnabled = UserSettings::instance()->headsetcontrolLights();
-                LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+                LOG_INFO("HeadsetControlManager",
                                                 QString("Applying saved lights setting: %1").arg(lightsEnabled ? "ON" : "OFF"));
                 setLights(lightsEnabled);
             }
             if (newSidetoneCapability) {
                 int sidetoneValue = UserSettings::instance()->headsetcontrolSidetone();
-                LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+                LOG_INFO("HeadsetControlManager",
                                                 QString("Applying saved sidetone setting: %1").arg(sidetoneValue));
                 setSidetone(sidetoneValue);
             }
@@ -355,6 +355,6 @@ void HeadsetControlMonitor::setFetchInterval(int intervalMs)
     m_fetchIntervalMs = intervalMs;
     m_fetchTimer->setInterval(m_fetchIntervalMs);
 
-    LogManager::instance()->sendLog(LogManager::HeadsetControlManager,
+    LOG_INFO("HeadsetControlManager",
                                     QString("Fetch interval updated to %1ms").arg(m_fetchIntervalMs));
 }

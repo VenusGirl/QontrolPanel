@@ -382,7 +382,7 @@
     </message>
     <message>
         <source>Configure</source>
-        <translation>構成</translation>
+        <translation type="vanished">構成</translation>
     </message>
     <message>
         <source>Auto-scroll</source>
@@ -781,11 +781,11 @@ You can enable it in the General tab.</source>
     <name>LoggingConfDialog</name>
     <message>
         <source>Log Categories</source>
-        <translation>ログのカテゴリー</translation>
+        <translation type="vanished">ログのカテゴリー</translation>
     </message>
     <message>
         <source>Enable All Logging</source>
-        <translation>すべてのログの取得を有効</translation>
+        <translation type="vanished">すべてのログの取得を有効</translation>
     </message>
 </context>
 <context>

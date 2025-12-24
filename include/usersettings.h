@@ -52,19 +52,6 @@ class UserSettings : public QObject
     Q_PROPERTY(bool showPowerDialogConfirmation READ showPowerDialogConfirmation WRITE setShowPowerDialogConfirmation NOTIFY showPowerDialogConfirmationChanged)
 
     Q_PROPERTY(int ddcciBrightness READ ddcciBrightness WRITE setDdcciBrightness NOTIFY ddcciBrightnessChanged)
-
-    Q_PROPERTY(bool audioManagerLogging READ audioManagerLogging WRITE setAudioManagerLogging NOTIFY audioManagerLoggingChanged)
-    Q_PROPERTY(bool mediaSessionManagerLogging READ mediaSessionManagerLogging WRITE setMediaSessionManagerLogging NOTIFY mediaSessionManagerLoggingChanged)
-    Q_PROPERTY(bool monitorManagerLogging READ monitorManagerLogging WRITE setMonitorManagerLogging NOTIFY monitorManagerLoggingChanged)
-    Q_PROPERTY(bool soundPanelBridgeLogging READ soundPanelBridgeLogging WRITE setSoundPanelBridgeLogging NOTIFY soundPanelBridgeLoggingChanged)
-    Q_PROPERTY(bool updaterLogging READ updaterLogging WRITE setUpdaterLogging NOTIFY updaterLoggingChanged)
-    Q_PROPERTY(bool shortcutManagerLogging READ shortcutManagerLogging WRITE setShortcutManagerLogging NOTIFY shortcutManagerLoggingChanged)
-    Q_PROPERTY(bool coreLogging READ coreLogging WRITE setCoreLogging NOTIFY coreLoggingChanged)
-    Q_PROPERTY(bool localServerLogging READ localServerLogging WRITE setLocalServerLogging NOTIFY localServerLoggingChanged)
-    Q_PROPERTY(bool uiLogging READ uiLogging WRITE setUiLogging NOTIFY uiLoggingChanged)
-    Q_PROPERTY(bool powerManagerLogging READ powerManagerLogging WRITE setPowerManagerLogging NOTIFY powerManagerLoggingChanged)
-    Q_PROPERTY(bool headsetControlManagerLogging READ headsetControlManagerLogging WRITE setHeadsetControlManagerLogging NOTIFY headsetControlManagerLoggingChanged)
-    Q_PROPERTY(bool windowFocusManagerLogging READ windowFocusManagerLogging WRITE setWindowFocusManagerLogging NOTIFY windowFocusManagerLoggingChanged)
     Q_PROPERTY(bool displayBatteryFooter READ displayBatteryFooter WRITE setDisplayBatteryFooter NOTIFY displayBatteryFooterChanged)
     Q_PROPERTY(int panelStyle READ panelStyle WRITE setPanelStyle NOTIFY panelStyleChanged)
     Q_PROPERTY(int headsetcontrolFetchRate READ headsetcontrolFetchRate WRITE setHeadsetcontrolFetchRate NOTIFY headsetcontrolFetchRateChanged)
@@ -117,19 +104,6 @@ public:
     bool showPowerDialogConfirmation() const { return m_showPowerDialogConfirmation; }
 
     int ddcciBrightness() const { return m_ddcciBrightness; }
-
-    bool audioManagerLogging() const { return m_audioManagerLogging; }
-    bool mediaSessionManagerLogging() const { return m_mediaSessionManagerLogging; }
-    bool monitorManagerLogging() const { return m_monitorManagerLogging; }
-    bool soundPanelBridgeLogging() const { return m_soundPanelBridgeLogging; }
-    bool updaterLogging() const { return m_updaterLogging; }
-    bool shortcutManagerLogging() const { return m_shortcutManagerLogging; }
-    bool coreLogging() const { return m_coreLogging; }
-    bool localServerLogging() const { return m_localServerLogging; }
-    bool uiLogging() const { return m_uiLogging; }
-    bool powerManagerLogging() const { return m_powerManagerLogging; }
-    bool headsetControlManagerLogging() const { return m_headsetControlManagerLogging; }
-    bool windowFocusManagerLogging() const { return m_windowFocusManagerLogging; }
     bool displayBatteryFooter() const { return m_displayBatteryFooter; }
     int panelStyle() const { return m_panelStyle; }
     int headsetcontrolFetchRate() const { return m_headsetcontrolFetchRate; }
@@ -178,19 +152,6 @@ public:
     void setShowPowerDialogConfirmation(bool value);
 
     void setDdcciBrightness(int value);
-
-    void setAudioManagerLogging(bool value);
-    void setMediaSessionManagerLogging(bool value);
-    void setMonitorManagerLogging(bool value);
-    void setSoundPanelBridgeLogging(bool value);
-    void setUpdaterLogging(bool value);
-    void setShortcutManagerLogging(bool value);
-    void setCoreLogging(bool value);
-    void setLocalServerLogging(bool value);
-    void setUiLogging(bool value);
-    void setPowerManagerLogging(bool value);
-    void setHeadsetControlManagerLogging(bool value);
-    void setWindowFocusManagerLogging(bool value);
     void setDisplayBatteryFooter(bool value);
     void setPanelStyle(int value);
     void setHeadsetcontrolFetchRate(int value);
@@ -239,19 +200,6 @@ signals:
     void showPowerDialogConfirmationChanged();
 
     void ddcciBrightnessChanged();
-
-    void audioManagerLoggingChanged();
-    void mediaSessionManagerLoggingChanged();
-    void monitorManagerLoggingChanged();
-    void soundPanelBridgeLoggingChanged();
-    void updaterLoggingChanged();
-    void shortcutManagerLoggingChanged();
-    void coreLoggingChanged();
-    void localServerLoggingChanged();
-    void uiLoggingChanged();
-    void powerManagerLoggingChanged();
-    void headsetControlManagerLoggingChanged();
-    void windowFocusManagerLoggingChanged();
     void displayBatteryFooterChanged();
     void panelStyleChanged();
     void headsetcontrolFetchRateChanged();
@@ -306,19 +254,6 @@ private:
     bool m_showPowerDialogConfirmation;
 
     int m_ddcciBrightness;
-
-    bool m_audioManagerLogging;
-    bool m_mediaSessionManagerLogging;
-    bool m_monitorManagerLogging;
-    bool m_soundPanelBridgeLogging;
-    bool m_updaterLogging;
-    bool m_shortcutManagerLogging;
-    bool m_coreLogging;
-    bool m_localServerLogging;
-    bool m_uiLogging;
-    bool m_powerManagerLogging;
-    bool m_headsetControlManagerLogging;
-    bool m_windowFocusManagerLogging;
     bool m_displayBatteryFooter;
     int m_panelStyle;
     int m_headsetcontrolFetchRate;

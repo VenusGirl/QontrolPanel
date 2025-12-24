@@ -381,10 +381,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Configure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Auto-scroll</source>
         <translation type="unfinished"></translation>
     </message>
@@ -773,17 +769,6 @@ You can enable it in the General tab.</source>
     </message>
     <message>
         <source>Unknown date</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>LoggingConfDialog</name>
-    <message>
-        <source>Log Categories</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable All Logging</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

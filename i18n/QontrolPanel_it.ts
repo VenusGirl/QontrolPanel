@@ -382,7 +382,7 @@
     </message>
     <message>
         <source>Configure</source>
-        <translation>Configura</translation>
+        <translation type="vanished">Configura</translation>
     </message>
     <message>
         <source>Auto-scroll</source>
@@ -782,11 +782,11 @@ Puoi abilitarlo nella scheda Generale.</translation>
     <name>LoggingConfDialog</name>
     <message>
         <source>Log Categories</source>
-        <translation>Categorie registro eventi</translation>
+        <translation type="vanished">Categorie registro eventi</translation>
     </message>
     <message>
         <source>Enable All Logging</source>
-        <translation>Abilita tutte le registrazioni</translation>
+        <translation type="vanished">Abilita tutte le registrazioni</translation>
     </message>
 </context>
 <context>

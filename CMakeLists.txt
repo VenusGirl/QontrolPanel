@@ -151,7 +151,6 @@ set(QML_FILES
     qml/ExecutableRenameDialog.qml
     qml/PanelSpacer.qml
     qml/PanelFooter.qml
-    qml/LoggingConfDialog.qml
     qml/Common/ApplicationsListView.qml
     qml/Common/NFToolButton.qml
     qml/Common/NFSlider.qml

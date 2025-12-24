@@ -98,8 +98,8 @@ void Updater::onVersionCheckFinished()
     setChecking(false);
 
     if (reply->error() != QNetworkReply::NoError) {
-        LogManager::instance()->sendCritical(LogManager::Updater,
-                                             QString("Update check failed: %1").arg(reply->errorString()));
+        LOG_CRITICAL("Updater",
+                     QString("Update check failed: %1").arg(reply->errorString()));
         emit updateFinished(false, "Failed to check for updates: " + reply->errorString());
         return;
     }
@@ -443,41 +443,41 @@ QString Updater::getTranslationProgressPath() const
 void Updater::loadTranslationProgressData()
 {
     QString progressFilePath = getTranslationProgressPath();
-    LogManager::instance()->sendLog(LogManager::Updater,
-                                    QString("Loading translation progress data from: %1").arg(progressFilePath));
+    LOG_INFO("Updater",
+             QString("Loading translation progress data from: %1").arg(progressFilePath));
 
     QFile file(progressFilePath);
     if (!file.exists()) {
-        LogManager::instance()->sendWarn(LogManager::Updater,
-                                         QString("Translation progress file does not exist: %1").arg(progressFilePath));
+        LOG_WARN("Updater",
+                 QString("Translation progress file does not exist: %1").arg(progressFilePath));
         return;
     }
 
     if (!file.open(QIODevice::ReadOnly)) {
-        LogManager::instance()->sendCritical(LogManager::Updater,
-                                             QString("Failed to open translation progress file: %1").arg(file.errorString()));
+        LOG_CRITICAL("Updater",
+                     QString("Failed to open translation progress file: %1").arg(file.errorString()));
         return;
     }
 
     QByteArray data = file.readAll();
     QJsonDocument doc = QJsonDocument::fromJson(data);
     if (doc.isNull()) {
-        LogManager::instance()->sendCritical(LogManager::Updater,
-                                             "Failed to parse translation progress JSON - invalid format");
+        LOG_CRITICAL("Updater",
+                     "Failed to parse translation progress JSON - invalid format");
         return;
     }
 
     m_translationProgress = doc.object();
-    LogManager::instance()->sendLog(LogManager::Updater,
-                                    "Translation progress data loaded successfully");
+    LOG_INFO("Updater",
+             "Translation progress data loaded successfully");
     emit translationProgressDataLoaded();
 }
 
 void Updater::downloadTranslationProgressFile()
 {
     QString githubUrl = "https://raw.githubusercontent.com/Odizinne/QontrolPanelTranslations/main/translation_progress.json";
-    LogManager::instance()->sendLog(LogManager::Updater,
-                                    QString("Downloading translation progress file from: %1").arg(githubUrl));
+    LOG_INFO("Updater",
+             QString("Downloading translation progress file from: %1").arg(githubUrl));
 
     QNetworkRequest request(githubUrl);
     request.setHeader(QNetworkRequest::UserAgentHeader, "QontrolPanel");
@@ -486,24 +486,24 @@ void Updater::downloadTranslationProgressFile()
     connect(reply, &QNetworkReply::finished, [this, reply]() {
         if (reply->error() == QNetworkReply::NoError) {
             QByteArray data = reply->readAll();
-            LogManager::instance()->sendLog(LogManager::Updater,
-                                            QString("Translation progress data downloaded (%1 bytes)").arg(data.size()));
+            LOG_INFO("Updater",
+                     QString("Translation progress data downloaded (%1 bytes)").arg(data.size()));
 
             QString progressFilePath = getTranslationProgressPath();
             QFile file(progressFilePath);
             if (file.open(QIODevice::WriteOnly)) {
                 file.write(data);
                 file.close();
-                LogManager::instance()->sendLog(LogManager::Updater,
-                                                "Translation progress file saved successfully");
+                LOG_INFO("Updater",
+                         "Translation progress file saved successfully");
                 loadTranslationProgressData();
             } else {
-                LogManager::instance()->sendCritical(LogManager::Updater,
-                                                     QString("Failed to save translation progress file: %1").arg(file.errorString()));
+                LOG_CRITICAL("Updater",
+                             QString("Failed to save translation progress file: %1").arg(file.errorString()));
             }
         } else {
-            LogManager::instance()->sendCritical(LogManager::Updater,
-                                                 QString("Failed to download translation progress: %1").arg(reply->errorString()));
+            LOG_CRITICAL("Updater",
+                         QString("Failed to download translation progress: %1").arg(reply->errorString()));
         }
         reply->deleteLater();
     });

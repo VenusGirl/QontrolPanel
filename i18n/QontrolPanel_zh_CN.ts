@@ -381,10 +381,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Configure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Auto-scroll</source>
         <translation type="unfinished"></translation>
     </message>
@@ -780,11 +776,11 @@ You can enable it in the General tab.</source>
     <name>LoggingConfDialog</name>
     <message>
         <source>Log Categories</source>
-        <translation>日志分类</translation>
+        <translation type="vanished">日志分类</translation>
     </message>
     <message>
         <source>Enable All Logging</source>
-        <translation>启用所有日志</translation>
+        <translation type="vanished">启用所有日志</translation>
     </message>
 </context>
 <context>

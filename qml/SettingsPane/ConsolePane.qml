@@ -13,37 +13,50 @@ ColumnLayout {
 
     Component.onCompleted: {
         LogBridge.applyFilter(selectedSender)
+        updateCategoryList()
+    }
+
+    Connections {
+        target: LogManager
+        function onCategoryRegistered(category) {
+            senderOptions.append({ text: category, value: category })
+        }
+    }
+
+    function updateCategoryList() {
+        let categories = LogManager.getAllCategories()
+        for (let i = 0; i < categories.length; i++) {
+            senderOptions.append({ text: categories[i], value: categories[i] })
+        }
     }
 
     function getSenderColor(sender) {
-        switch(sender) {
-        case "AudioManager":
-            return "#ff1493"      // Deep Pink
-        case "MediaSessionManager":
-            return "#00bfff"      // Deep Sky Blue
-        case "MonitorManager":
-            return "#32cd32"      // Lime Green
-        case "SoundPanelBridge":
-            return "#ff6600"      // Vibrant Orange
-        case "Updater":
-            return "#9932cc"      // Dark Orchid
-        case "ShortcutManager":
-            return "#1e90ff"      // Dodger Blue
-        case "Core":
-            return "#dc143c"      // Crimson
-        case "LocalServer":
-            return "#8a2be2"      // Blue Violet
-        case "UI":
-            return "#ffd700"      // Gold
-        case "PowerManager":
-            return "#ff69b4"      // Hot Pink
-        case "HeadsetControlManager":
-            return "#7fff00"      // Chartreuse
-        case "WindowFocusManager":
-            return "#00ff7f"      // Spring Green
-        default:
-            return "#ffffff"      // White
+        const colorMap = {
+            "AudioManager": "#ff1493",           // Deep Pink
+            "MediaSessionManager": "#00bfff",    // Deep Sky Blue
+            "MonitorManager": "#32cd32",         // Lime Green
+            "SoundPanelBridge": "#ff6600",       // Vibrant Orange
+            "Updater": "#9932cc",                // Dark Orchid
+            "ShortcutManager": "#1e90ff",        // Dodger Blue
+            "Core": "#dc143c",                   // Crimson
+            "LocalServer": "#8a2be2",            // Blue Violet
+            "UI": "#ffd700",                     // Gold
+            "PowerManager": "#ff69b4",           // Hot Pink
+            "HeadsetControlManager": "#7fff00",  // Chartreuse
+            "WindowFocusManager": "#00ff7f"      // Spring Green
         }
+
+        if (colorMap[sender]) {
+            return colorMap[sender]
+        }
+
+        // Generate color for unknown categories based on hash
+        let hash = 0
+        for (let i = 0; i < sender.length; i++) {
+            hash = sender.charCodeAt(i) + ((hash << 5) - hash)
+        }
+        const hue = Math.abs(hash % 360)
+        return `hsl(${hue}, 70%, 60%)`
     }
 
     function copyAllLogs() {
@@ -110,18 +123,6 @@ ColumnLayout {
             model: ListModel {
                 id: senderOptions
                 ListElement { text: "All"; value: "All" }
-                ListElement { text: "AudioManager"; value: "AudioManager" }
-                ListElement { text: "MediaSessionManager"; value: "MediaSessionManager" }
-                ListElement { text: "MonitorManager"; value: "MonitorManager" }
-                ListElement { text: "SoundPanelBridge"; value: "SoundPanelBridge" }
-                ListElement { text: "Updater"; value: "Updater" }
-                ListElement { text: "ShortcutManager"; value: "ShortcutManager" }
-                ListElement { text: "Core"; value: "Core" }
-                ListElement { text: "LocalServer"; value: "LocalServer" }
-                ListElement { text: "UI"; value: "UI" }
-                ListElement { text: "PowerManager"; value: "PowerManager" }
-                ListElement { text: "HeadsetControlManager"; value: "HeadsetControlManager" }
-                ListElement { text: "WindowFocusManager"; value: "WindowFocusManager" }
             }
             textRole: "text"
             valueRole: "value"
@@ -129,11 +130,6 @@ ColumnLayout {
                 logViewer.selectedSender = currentValue
                 LogBridge.applyFilter(logViewer.selectedSender)
             }
-        }
-
-        Button {
-            text: qsTr("Configure")
-            onClicked: loggingDialog.open()
         }
 
         Item {
@@ -160,11 +156,6 @@ ColumnLayout {
     Item {
         Layout.fillWidth: true
         Layout.fillHeight: true
-
-        LoggingConfDialog {
-            id: loggingDialog
-            anchors.centerIn: Overlay.overlay
-        }
 
         CustomScrollView {
             anchors.fill: parent

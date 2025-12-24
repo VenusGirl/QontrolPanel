@@ -47,8 +47,8 @@ void WindowFocusManager::startMonitoring()
     if (m_winEventHook) {
         m_isMonitoring = true;
     } else {
-        LogManager::instance()->sendCritical(LogManager::WindowFocusManager,
-                                             "Failed to start window focus monitoring");
+        LOG_CRITICAL("WindowFocusManager",
+                     "Failed to start window focus monitoring");
     }
 }
 

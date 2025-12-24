@@ -76,19 +76,6 @@ void UserSettings::initProperties()
     m_showPowerDialogConfirmation = settings.value("showPowerDialogConfirmation", true).toBool();
 
     m_ddcciBrightness = settings.value("ddcciBrightness", 100).toInt();
-
-    m_audioManagerLogging = settings.value("audioManagerLogging", true).toBool();
-    m_mediaSessionManagerLogging = settings.value("mediaSessionManagerLogging", true).toBool();
-    m_monitorManagerLogging = settings.value("monitorManagerLogging", true).toBool();
-    m_soundPanelBridgeLogging = settings.value("soundPanelBridgeLogging", true).toBool();
-    m_updaterLogging = settings.value("updaterLogging", true).toBool();
-    m_shortcutManagerLogging = settings.value("shortcutManagerLogging", true).toBool();
-    m_coreLogging = settings.value("coreLogging", true).toBool();
-    m_localServerLogging = settings.value("localServerLogging", true).toBool();
-    m_uiLogging = settings.value("uiLogging", true).toBool();
-    m_powerManagerLogging = settings.value("powerManagerLogging", true).toBool();
-    m_headsetControlManagerLogging = settings.value("headsetControlManagerLogging", true).toBool();
-    m_windowFocusManagerLogging = settings.value("windowFocusManagerLogging", true).toBool();
     m_displayBatteryFooter = settings.value("displayBatteryFooter", true).toBool();
     m_panelStyle = settings.value("panelStyle", 0).toInt();
     m_headsetcontrolFetchRate = settings.value("headsetcontrolFetchRate", 20).toInt();
@@ -417,114 +404,6 @@ void UserSettings::setDdcciBrightness(int value)
         m_ddcciBrightness = value;
         saveValue("ddcciBrightness", value);
         emit ddcciBrightnessChanged();
-    }
-}
-
-void UserSettings::setAudioManagerLogging(bool value)
-{
-    if (m_audioManagerLogging != value) {
-        m_audioManagerLogging = value;
-        saveValue("audioManagerLogging", value);
-        emit audioManagerLoggingChanged();
-    }
-}
-
-void UserSettings::setMediaSessionManagerLogging(bool value)
-{
-    if (m_mediaSessionManagerLogging != value) {
-        m_mediaSessionManagerLogging = value;
-        saveValue("mediaSessionManagerLogging", value);
-        emit mediaSessionManagerLoggingChanged();
-    }
-}
-
-void UserSettings::setMonitorManagerLogging(bool value)
-{
-    if (m_monitorManagerLogging != value) {
-        m_monitorManagerLogging = value;
-        saveValue("monitorManagerLogging", value);
-        emit monitorManagerLoggingChanged();
-    }
-}
-
-void UserSettings::setSoundPanelBridgeLogging(bool value)
-{
-    if (m_soundPanelBridgeLogging != value) {
-        m_soundPanelBridgeLogging = value;
-        saveValue("soundPanelBridgeLogging", value);
-        emit soundPanelBridgeLoggingChanged();
-    }
-}
-
-void UserSettings::setUpdaterLogging(bool value)
-{
-    if (m_updaterLogging != value) {
-        m_updaterLogging = value;
-        saveValue("updaterLogging", value);
-        emit updaterLoggingChanged();
-    }
-}
-
-void UserSettings::setShortcutManagerLogging(bool value)
-{
-    if (m_shortcutManagerLogging != value) {
-        m_shortcutManagerLogging = value;
-        saveValue("shortcutManagerLogging", value);
-        emit shortcutManagerLoggingChanged();
-    }
-}
-
-void UserSettings::setCoreLogging(bool value)
-{
-    if (m_coreLogging != value) {
-        m_coreLogging = value;
-        saveValue("coreLogging", value);
-        emit coreLoggingChanged();
-    }
-}
-
-void UserSettings::setLocalServerLogging(bool value)
-{
-    if (m_localServerLogging != value) {
-        m_localServerLogging = value;
-        saveValue("localServerLogging", value);
-        emit localServerLoggingChanged();
-    }
-}
-
-void UserSettings::setUiLogging(bool value)
-{
-    if (m_uiLogging != value) {
-        m_uiLogging = value;
-        saveValue("uiLogging", value);
-        emit uiLoggingChanged();
-    }
-}
-
-void UserSettings::setPowerManagerLogging(bool value)
-{
-    if (m_powerManagerLogging != value) {
-        m_powerManagerLogging = value;
-        saveValue("powerManagerLogging", value);
-        emit powerManagerLoggingChanged();
-    }
-}
-
-void UserSettings::setHeadsetControlManagerLogging(bool value)
-{
-    if (m_headsetControlManagerLogging != value) {
-        m_headsetControlManagerLogging = value;
-        saveValue("headsetControlManagerLogging", value);
-        emit headsetControlManagerLoggingChanged();
-    }
-}
-
-void UserSettings::setWindowFocusManagerLogging(bool value)
-{
-    if (m_windowFocusManagerLogging != value) {
-        m_windowFocusManagerLogging = value;
-        saveValue("windowFocusManagerLogging", value);
-        emit windowFocusManagerLoggingChanged();
     }
 }
 

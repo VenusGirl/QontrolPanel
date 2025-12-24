@@ -33,10 +33,10 @@ int main(int argc, char *argv[])
     a.setOrganizationName("Odizinne");
     a.setApplicationName("QontrolPanel");
     qRegisterMetaType<LogManager::LogType>("LogType");
-    LogManager::instance()->sendLog(LogManager::Core, "Starting application");
+    LOG_INFO("Core", "Starting application");
 
     if (tryConnectToExistingInstance()) {
-        LogManager::instance()->sendLog(LogManager::LocalServer, "Another instance is already running");
+        LOG_INFO("LocalServer", "Another instance is already running");
         return 0;
     }
 

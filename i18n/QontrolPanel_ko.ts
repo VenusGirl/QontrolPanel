@@ -382,7 +382,7 @@
     </message>
     <message>
         <source>Configure</source>
-        <translation>구성</translation>
+        <translation type="vanished">구성</translation>
     </message>
     <message>
         <source>Auto-scroll</source>
@@ -782,11 +782,11 @@ You can enable it in the General tab.</source>
     <name>LoggingConfDialog</name>
     <message>
         <source>Log Categories</source>
-        <translation>로그 범주</translation>
+        <translation type="vanished">로그 범주</translation>
     </message>
     <message>
         <source>Enable All Logging</source>
-        <translation>모든 로그 기록 사용함</translation>
+        <translation type="vanished">모든 로그 기록 사용함</translation>
     </message>
 </context>
 <context>

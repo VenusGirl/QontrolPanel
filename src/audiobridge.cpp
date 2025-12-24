@@ -63,7 +63,7 @@ AudioBridge::AudioBridge(QObject *parent)
     if (enableDeviceManager || enableApplicationMixer) {
         manager->initialize();
     } else {
-        LogManager::instance()->sendLog(LogManager::AudioManager, "Audio components disabled in settings, skipping initialization");
+        LOG_INFO("AudioManager", "Audio components disabled in settings, skipping initialization");
     }
 }
 
@@ -682,14 +682,14 @@ void AudioBridge::stopAudioLevelMonitoring()
 
 void AudioBridge::initialize()
 {
-    LogManager::instance()->sendLog(LogManager::AudioManager, "AudioBridge initialize requested");
+    LOG_INFO("AudioManager", "AudioBridge initialize requested");
     auto* manager = AudioManager::instance();
     manager->initialize();
 }
 
 void AudioBridge::cleanup()
 {
-    LogManager::instance()->sendLog(LogManager::AudioManager, "AudioBridge cleanup requested");
+    LOG_INFO("AudioManager", "AudioBridge cleanup requested");
     auto* manager = AudioManager::instance();
     manager->cleanup();
 

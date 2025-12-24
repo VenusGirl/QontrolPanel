@@ -38,7 +38,7 @@ MonitorWorker::MonitorWorker(QObject *parent)
 
 void MonitorWorker::init()
 {
-    LogManager::instance()->sendLog(LogManager::MonitorManager, "Initializing MonitorWorker on worker thread");
+    LOG_INFO("MonitorManager", "Initializing MonitorWorker on worker thread");
 
     m_impl = new MonitorManagerImpl();
     m_impl->setChangeCallback([this]() {
@@ -270,8 +270,8 @@ void MonitorWorker::setDDCCIBrightness(int brightness, int delayMs)
         return;
     }
 
-    LogManager::instance()->sendLog(LogManager::MonitorManager,
-                                    QString("Setting DDC/CI brightness to %1% for all external monitors with delay %2ms").arg(brightness).arg(delayMs));
+    LOG_INFO("MonitorManager",
+             QString("Setting DDC/CI brightness to %1% for all external monitors with delay %2ms").arg(brightness).arg(delayMs));
 
     bool anySuccess = false;
 
@@ -284,22 +284,22 @@ void MonitorWorker::setDDCCIBrightness(int brightness, int delayMs)
                     m_monitors[i].brightness = brightness;
                 }
                 anySuccess = true;
-                LogManager::instance()->sendLog(LogManager::MonitorManager,
-                                                QString("Set DDC/CI brightness for monitor %1").arg(i));
+                LOG_INFO("MonitorManager",
+                         QString("Set DDC/CI brightness for monitor %1").arg(i));
             } else {
-                LogManager::instance()->sendWarn(LogManager::MonitorManager,
-                                                 QString("Failed to set DDC/CI brightness for monitor %1").arg(i));
+                LOG_WARN("MonitorManager",
+                         QString("Failed to set DDC/CI brightness for monitor %1").arg(i));
             }
         }
     }
 
     if (anySuccess) {
         emit ddcciBrightnessChanged(brightness);
-        LogManager::instance()->sendLog(LogManager::MonitorManager,
-                                        "DDC/CI brightness change completed successfully");
+        LOG_INFO("MonitorManager",
+                 "DDC/CI brightness change completed successfully");
     } else {
-        LogManager::instance()->sendWarn(LogManager::MonitorManager,
-                                         "No DDC/CI monitors responded to brightness change");
+        LOG_WARN("MonitorManager",
+                 "No DDC/CI monitors responded to brightness change");
     }
 
     // Start the timer to block subsequent calls
@@ -314,8 +314,8 @@ void MonitorWorker::setWMIBrightness(int brightness)
         return;
     }
 
-    LogManager::instance()->sendLog(LogManager::MonitorManager,
-                                    QString("Setting WMI brightness to %1% for all laptop displays").arg(brightness));
+    LOG_INFO("MonitorManager",
+             QString("Setting WMI brightness to %1% for all laptop displays").arg(brightness));
 
     bool anySuccess = false;
 
@@ -328,22 +328,22 @@ void MonitorWorker::setWMIBrightness(int brightness)
                     m_monitors[i].brightness = brightness;
                 }
                 anySuccess = true;
-                LogManager::instance()->sendLog(LogManager::MonitorManager,
-                                                QString("Set WMI brightness for monitor %1").arg(i));
+                LOG_INFO("MonitorManager",
+                         QString("Set WMI brightness for monitor %1").arg(i));
             } else {
-                LogManager::instance()->sendWarn(LogManager::MonitorManager,
-                                                 QString("Failed to set WMI brightness for monitor %1").arg(i));
+                LOG_WARN("MonitorManager",
+                         QString("Failed to set WMI brightness for monitor %1").arg(i));
             }
         }
     }
 
     if (anySuccess) {
         emit wmiBrightnessChanged(brightness);
-        LogManager::instance()->sendLog(LogManager::MonitorManager,
-                                        "WMI brightness change completed successfully");
+        LOG_INFO("MonitorManager",
+                 "WMI brightness change completed successfully");
     } else {
-        LogManager::instance()->sendWarn(LogManager::MonitorManager,
-                                         "No WMI monitors responded to brightness change");
+        LOG_WARN("MonitorManager",
+                 "No WMI monitors responded to brightness change");
     }
 }
 
@@ -363,13 +363,13 @@ MonitorManager::MonitorManager(QObject *parent)
     if (allowBrightnessControl) {
         initialize();
     } else {
-        LogManager::instance()->sendLog(LogManager::MonitorManager, "Brightness control disabled in settings, skipping initialization");
+        LOG_INFO("MonitorManager", "Brightness control disabled in settings, skipping initialization");
     }
 }
 
 MonitorManager::~MonitorManager()
 {
-    LogManager::instance()->sendLog(LogManager::MonitorManager, "MonitorManager destructor called");
+    LOG_INFO("MonitorManager", "MonitorManager destructor called");
     if (s_instance == this) {
         s_instance = nullptr;
     }
@@ -377,14 +377,14 @@ MonitorManager::~MonitorManager()
 
 void MonitorManager::initialize()
 {
-    LogManager::instance()->sendLog(LogManager::MonitorManager, "MonitorManager initialization started");
+    LOG_INFO("MonitorManager", "MonitorManager initialization started");
 
     if (s_worker) {
-        LogManager::instance()->sendLog(LogManager::MonitorManager, "MonitorManager already initialized, skipping");
+        LOG_INFO("MonitorManager", "MonitorManager already initialized, skipping");
         return; // Already initialized
     }
 
-    LogManager::instance()->sendLog(LogManager::MonitorManager, "Creating worker thread");
+    LOG_INFO("MonitorManager", "Creating worker thread");
     s_workerThread = new QThread();
     s_worker = new MonitorWorker();
     s_worker->moveToThread(s_workerThread);
@@ -510,22 +510,22 @@ void MonitorManager::initialize()
                          });
     }
 
-    LogManager::instance()->sendLog(LogManager::MonitorManager, "Starting worker thread");
+    LOG_INFO("MonitorManager", "Starting worker thread");
     s_workerThread->start();
 
     // Initialize the worker on the worker thread (this does the heavy lifting)
     QMetaObject::invokeMethod(s_worker, "init", Qt::QueuedConnection);
     QMetaObject::invokeMethod(s_worker, "refreshBrightnessLevels", Qt::QueuedConnection);
 
-    LogManager::instance()->sendLog(LogManager::MonitorManager, "MonitorManager initialization complete");
+    LOG_INFO("MonitorManager", "MonitorManager initialization complete");
 }
 
 void MonitorManager::cleanup()
 {
-    LogManager::instance()->sendLog(LogManager::MonitorManager, "MonitorManager cleanup requested");
+    LOG_INFO("MonitorManager", "MonitorManager cleanup requested");
 
     if (!s_workerThread) {
-        LogManager::instance()->sendLog(LogManager::MonitorManager, "MonitorManager already cleaned up, skipping");
+        LOG_INFO("MonitorManager", "MonitorManager already cleaned up, skipping");
         return;
     }
 
@@ -569,7 +569,7 @@ void MonitorManager::cleanup()
     emit nightLightEnabledChanged();
     emit nightLightSupportedChanged();
 
-    LogManager::instance()->sendLog(LogManager::MonitorManager, "MonitorManager cleanup complete");
+    LOG_INFO("MonitorManager", "MonitorManager cleanup complete");
 }
 
 MonitorWorker* MonitorManager::getWorker()

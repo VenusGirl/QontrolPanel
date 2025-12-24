@@ -384,7 +384,7 @@
     </message>
     <message>
         <source>Configure</source>
-        <translation>Configurer</translation>
+        <translation type="vanished">Configurer</translation>
     </message>
     <message>
         <source>Auto-scroll</source>
@@ -785,11 +785,11 @@ Vous pouvez l&apos;activer dans l&apos;onglet Général.</translation>
     <name>LoggingConfDialog</name>
     <message>
         <source>Log Categories</source>
-        <translation>Catégories de journal</translation>
+        <translation type="vanished">Catégories de journal</translation>
     </message>
     <message>
         <source>Enable All Logging</source>
-        <translation>Activer toute la journalisation</translation>
+        <translation type="vanished">Activer toute la journalisation</translation>
     </message>
 </context>
 <context>

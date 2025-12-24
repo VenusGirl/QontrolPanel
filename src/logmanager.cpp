@@ -1,5 +1,4 @@
 #include "logmanager.h"
-#include "usersettings.h"
 #include <QDebug>
 #include <QDateTime>
 
@@ -8,18 +7,6 @@ LogManager* LogManager::m_instance = nullptr;
 LogManager::LogManager(QObject *parent)
     : QObject(parent)
 {
-    m_audioManagerLogging = UserSettings::instance()->audioManagerLogging();
-    m_mediaSessionManagerLogging = UserSettings::instance()->mediaSessionManagerLogging();
-    m_monitorManagerLogging = UserSettings::instance()->monitorManagerLogging();
-    m_soundPanelBridgeLogging = UserSettings::instance()->soundPanelBridgeLogging();
-    m_updaterLogging = UserSettings::instance()->updaterLogging();
-    m_shortcutManagerLogging = UserSettings::instance()->shortcutManagerLogging();
-    m_coreLogging = UserSettings::instance()->coreLogging();
-    m_localServerLogging = UserSettings::instance()->localServerLogging();
-    m_uiLogging = UserSettings::instance()->uiLogging();
-    m_powerManagerLogging = UserSettings::instance()->powerManagerLogging();
-    m_headsetControlManagerLogging = UserSettings::instance()->headsetControlManagerLogging();
-    m_windowFocusManagerLogging = UserSettings::instance()->windowFocusManagerLogging();
 }
 
 LogManager* LogManager::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
@@ -37,152 +24,40 @@ LogManager* LogManager::instance()
     return m_instance;
 }
 
-void LogManager::sendLog(Sender sender, const QString &content)
+void LogManager::registerCategory(const QString &category)
 {
-    if (isLoggingEnabled(sender)) {
-        emitLog(sender, Info, content);
+    if (!m_registeredCategories.contains(category)) {
+        m_registeredCategories.insert(category);
+        emit categoryRegistered(category);
     }
 }
 
-void LogManager::sendWarn(Sender sender, const QString &content)
+void LogManager::log(const QString &category, const QString &content)
 {
-    if (isLoggingEnabled(sender)) {
-        emitLog(sender, Warning, content);
-    }
+    registerCategory(category);
+    emitLog(category, Info, content);
 }
 
-void LogManager::sendCritical(Sender sender, const QString &content)
+void LogManager::warn(const QString &category, const QString &content)
 {
-    if (isLoggingEnabled(sender)) {
-        emitLog(sender, Critical, content);
-    }
+    registerCategory(category);
+    emitLog(category, Warning, content);
 }
 
-bool LogManager::isLoggingEnabled(Sender sender) const
+void LogManager::critical(const QString &category, const QString &content)
 {
-    switch (sender) {
-    case AudioManager:
-        return m_audioManagerLogging;
-    case MediaSessionManager:
-        return m_mediaSessionManagerLogging;
-    case MonitorManager:
-        return m_monitorManagerLogging;
-    case SoundPanelBridge:
-        return m_soundPanelBridgeLogging;
-    case Updater:
-        return m_updaterLogging;
-    case ShortcutManager:
-        return m_shortcutManagerLogging;
-    case Core:
-        return m_coreLogging;
-    case LocalServer:
-        return m_localServerLogging;
-    case Ui:
-        return m_uiLogging;
-    case PowerManager:
-        return m_powerManagerLogging;
-    case HeadsetControlManager:
-        return m_headsetControlManagerLogging;
-    case WindowFocusManager:
-        return m_windowFocusManagerLogging;
-    default:
-        return true;
-    }
+    registerCategory(category);
+    emitLog(category, Critical, content);
 }
 
-void LogManager::setAudioManagerLogging(bool enabled)
+QStringList LogManager::getAllCategories() const
 {
-    m_audioManagerLogging = enabled;
+    QStringList categories = m_registeredCategories.values();
+    categories.sort();
+    return categories;
 }
 
-void LogManager::setMediaSessionManagerLogging(bool enabled)
-{
-    m_mediaSessionManagerLogging = enabled;
-}
-
-void LogManager::setMonitorManagerLogging(bool enabled)
-{
-    m_monitorManagerLogging = enabled;
-}
-
-void LogManager::setSoundPanelBridgeLogging(bool enabled)
-{
-    m_soundPanelBridgeLogging = enabled;
-}
-
-void LogManager::setUpdaterLogging(bool enabled)
-{
-    m_updaterLogging = enabled;
-}
-
-void LogManager::setShortcutManagerLogging(bool enabled)
-{
-    m_shortcutManagerLogging = enabled;
-}
-
-void LogManager::setCoreLogging(bool enabled)
-{
-    m_coreLogging = enabled;
-}
-
-void LogManager::setLocalServerLogging(bool enabled)
-{
-    m_localServerLogging = enabled;
-}
-
-void LogManager::setUiLogging(bool enabled)
-{
-    m_uiLogging = enabled;
-}
-
-void LogManager::setPowerManagerLogging(bool enabled)
-{
-    m_powerManagerLogging = enabled;
-}
-
-void LogManager::setHeadsetControlManagerLogging(bool enabled)
-{
-    m_headsetControlManagerLogging = enabled;
-}
-
-void LogManager::setWindowFocusManagerLogging(bool enabled)
-{
-    m_windowFocusManagerLogging = enabled;
-}
-
-QString LogManager::senderToString(Sender sender) const
-{
-    switch (sender) {
-    case AudioManager:
-        return "AudioManager";
-    case MediaSessionManager:
-        return "MediaSessionManager";
-    case MonitorManager:
-        return "MonitorManager";
-    case SoundPanelBridge:
-        return "SoundPanelBridge";
-    case Updater:
-        return "Updater";
-    case ShortcutManager:
-        return "ShortcutManager";
-    case Core:
-        return "Core";
-    case LocalServer:
-        return "LocalServer";
-    case Ui:
-        return "Ui";
-    case PowerManager:
-        return "PowerManager";
-    case HeadsetControlManager:
-        return "HeadsetControlManager";
-    case WindowFocusManager:
-        return "WindowFocusManager";
-    default:
-        return "Unknown";
-    }
-}
-
-QString LogManager::formatMessage(Sender sender, LogType type, const QString &content) const
+QString LogManager::formatMessage(const QString &category, LogType type, const QString &content) const
 {
     QString typeStr;
     switch (type) {
@@ -197,15 +72,12 @@ QString LogManager::formatMessage(Sender sender, LogType type, const QString &co
         break;
     }
 
-    // Get current timestamp (hours:minutes:seconds only)
     QString timestamp = QDateTime::currentDateTime().toString("hh:mm:ss");
-
-    // Return plain text format (no colors) for QML
     return QString("[%1] %2 [%3] - %4")
-        .arg(timestamp, senderToString(sender), typeStr, content);
+        .arg(timestamp, category, typeStr, content);
 }
 
-void LogManager::emitLog(Sender sender, LogType type, const QString &content)
+void LogManager::emitLog(const QString &category, LogType type, const QString &content)
 {
     QString typeStr;
     QString colorCode;
@@ -229,18 +101,16 @@ void LogManager::emitLog(Sender sender, LogType type, const QString &content)
     QString timestamp = QDateTime::currentDateTime().toString("hh:mm:ss");
 
     QString consoleMessage = QString("[%1] %2 [%3%4%5] - %6")
-                                 .arg(timestamp, senderToString(sender), colorCode, typeStr, resetCode, content);
+                                 .arg(timestamp, category, colorCode, typeStr, resetCode, content);
 
     QString plainMessage = QString("[%1] %2 [%3] - %4")
-                               .arg(timestamp, senderToString(sender), typeStr, content);
+                               .arg(timestamp, category, typeStr, content);
 
     qDebug().noquote() << consoleMessage;
 
     if (m_qmlReady) {
-        // QML is ready, emit immediately
         emit logReceived(plainMessage, type);
     } else {
-        // Buffer the log for later
         m_bufferedLogs.append(qMakePair(plainMessage, type));
     }
 }
@@ -251,7 +121,6 @@ void LogManager::setQmlReady()
 
     m_qmlReady = true;
 
-    // Convert buffered logs to QVariantList and emit
     QVariantList bufferedLogs;
     for (const auto& log : m_bufferedLogs) {
         QVariantMap logEntry;

@@ -72,8 +72,8 @@ bool PowerBridge::hasMultipleUsers()
                                         (LPBYTE*)&buffer, MAX_PREFERRED_LENGTH,
                                         &entriesRead, &totalEntries, nullptr);
     if (status == NERR_Success) {
-        LogManager::instance()->sendLog(LogManager::PowerManager,
-                                        QString("Found %1 user accounts, analyzing...").arg(entriesRead));
+        LOG_INFO("PowerManager",
+                 QString("Found %1 user accounts, analyzing...").arg(entriesRead));
 
         for (DWORD i = 0; i < entriesRead; i++) {
             // Skip built-in system accounts
@@ -86,23 +86,23 @@ bool PowerBridge::hasMultipleUsers()
                 !username.startsWith("_") &&
                 !(buffer[i].usri1_flags & UF_ACCOUNTDISABLE)) {
                 realUserCount++;
-                LogManager::instance()->sendLog(LogManager::PowerManager,
-                                                QString("Real user found: %1").arg(username));
+                LOG_INFO("PowerManager",
+                         QString("Real user found: %1").arg(username));
             } else {
-                LogManager::instance()->sendLog(LogManager::PowerManager,
-                                                QString("Skipping system account: %1").arg(username));
+                LOG_INFO("PowerManager",
+                         QString("Skipping system account: %1").arg(username));
             }
         }
         NetApiBufferFree(buffer);
         bool result = realUserCount > 1;
-        LogManager::instance()->sendLog(LogManager::PowerManager,
-                                        QString("Real users found: %1, hasMultipleUsers returning: %2")
-                                            .arg(realUserCount).arg(result ? "true" : "false"));
+        LOG_INFO("PowerManager",
+                 QString("Real users found: %1, hasMultipleUsers returning: %2")
+                     .arg(realUserCount).arg(result ? "true" : "false"));
         return result;
     }
 
-    LogManager::instance()->sendCritical(LogManager::PowerManager,
-                                         QString("Failed to enumerate users, NetUserEnum error: %1").arg(status));
+    LOG_CRITICAL("PowerManager",
+                 QString("Failed to enumerate users, NetUserEnum error: %1").arg(status));
     return false;
 }
 
