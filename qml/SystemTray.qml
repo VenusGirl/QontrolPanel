@@ -13,7 +13,7 @@ Platform.SystemTrayIcon {
 
     onActivated: function(reason) {
         if (reason === Platform.SystemTrayIcon.Trigger) {
-            togglePanelRequested()
+            systemTray.togglePanelRequested()
         }
     }
 

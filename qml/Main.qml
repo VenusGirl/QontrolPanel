@@ -50,7 +50,6 @@ ApplicationWindow {
 
     property bool isAnimatingIn: false
     property bool isAnimatingOut: false
-    property bool closeAfterOpen: false
     property string taskbarPos: {
         switch (UserSettings.panelPosition) {
             case 0: return "top";
@@ -240,11 +239,6 @@ ApplicationWindow {
         }
         onFinished: {
             panel.isAnimatingIn = false
-            if (panel.closeAfterOpen) {
-                panel.closeAfterOpen = false
-                panel.closeAllMenusAndCollapse()
-                panel.startHideAnimation()
-            }
         }
     }
 
@@ -285,7 +279,25 @@ ApplicationWindow {
         }
 
         if (isAnimatingIn) {
-            closeAfterOpen = true
+            showAnimation.stop()
+            isAnimatingIn = false
+            closeAllMenusAndCollapse()
+
+            // Calculate progress and adjust hide animation duration
+            let progress = 0
+            if (panel.taskbarPos === "left" || panel.taskbarPos === "right") {
+                let initialOffset = Math.abs(showAnimation.from)
+                let currentOffset = Math.abs(contentTransform.x)
+                progress = initialOffset > 0 ? (initialOffset - currentOffset) / initialOffset : 1
+            } else {
+                let initialOffset = Math.abs(showAnimation.from)
+                let currentOffset = Math.abs(contentTransform.y)
+                progress = initialOffset > 0 ? (initialOffset - currentOffset) / initialOffset : 1
+            }
+
+            let adjustedDuration = Math.max(50, Math.round(progress * 300))
+            hideAnimation.duration = adjustedDuration
+            startHideAnimation()
             return
         }
 
@@ -301,7 +313,6 @@ ApplicationWindow {
             return
         }
 
-        closeAfterOpen = false
         isAnimatingIn = true
         panel.visible = true
         panel.requestActivate()
@@ -404,8 +415,25 @@ ApplicationWindow {
         }
 
         if (isAnimatingIn) {
-            closeAfterOpen = true
-            return
+            showAnimation.stop()
+            isAnimatingIn = false
+
+            // Calculate progress and adjust hide animation duration
+            let progress = 0
+            if (panel.taskbarPos === "left" || panel.taskbarPos === "right") {
+                let initialOffset = Math.abs(showAnimation.from)
+                let currentOffset = Math.abs(contentTransform.x)
+                progress = initialOffset > 0 ? (initialOffset - currentOffset) / initialOffset : 1
+            } else {
+                let initialOffset = Math.abs(showAnimation.from)
+                let currentOffset = Math.abs(contentTransform.y)
+                progress = initialOffset > 0 ? (initialOffset - currentOffset) / initialOffset : 1
+            }
+
+            let adjustedDuration = Math.max(50, Math.round(progress * 300))
+            hideAnimation.duration = adjustedDuration
+        } else {
+            hideAnimation.duration = 300
         }
 
         closeAllMenusAndCollapse()
