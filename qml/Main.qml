@@ -199,6 +199,8 @@ ApplicationWindow {
 
     ChatMixNotification {}
 
+    MediaOverlay {}
+
     MouseArea {
         height: panel.maxDeviceListSpace - panel.currentUsedListSpace
         anchors.left: parent.left

@@ -798,6 +798,88 @@ Można ją włączyć w zakładce Ogólne.</translation>
     </message>
 </context>
 <context>
+    <name>MediaOverlay</name>
+    <message>
+        <source>No media playing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MediaOverlayPane</name>
+    <message>
+        <source>Media Overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable media overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show a notification overlay when the currently playing song changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overlay size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the size of the media overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tiny</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Big</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overlay position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose where the media overlay appears on screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Lewa</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Prawa</translation>
+    </message>
+    <message>
+        <source>Bottom Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bottom Center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bottom Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PanelFooter</name>
     <message>
         <source>Update available</source>
@@ -856,6 +938,10 @@ Można ją włączyć w zakładce Ogólne.</translation>
     <message>
         <source>Appearance</source>
         <translation>Wygląd</translation>
+    </message>
+    <message>
+        <source>Media Overlay</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>ChatMix</source>

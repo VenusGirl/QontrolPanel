@@ -57,6 +57,10 @@ class UserSettings : public QObject
     Q_PROPERTY(int headsetcontrolFetchRate READ headsetcontrolFetchRate WRITE setHeadsetcontrolFetchRate NOTIFY headsetcontrolFetchRateChanged)
     Q_PROPERTY(bool enableNotifications READ enableNotifications WRITE setEnableNotifications NOTIFY enableNotificationsChanged)
 
+    Q_PROPERTY(bool enableMediaOverlay READ enableMediaOverlay WRITE setEnableMediaOverlay NOTIFY enableMediaOverlayChanged)
+    Q_PROPERTY(int mediaOverlayPosition READ mediaOverlayPosition WRITE setMediaOverlayPosition NOTIFY mediaOverlayPositionChanged)
+    Q_PROPERTY(int mediaOverlaySize READ mediaOverlaySize WRITE setMediaOverlaySize NOTIFY mediaOverlaySizeChanged)
+
 public:
     static UserSettings* create(QQmlEngine *qmlEngine, QJSEngine *jsEngine);
     static UserSettings* instance();
@@ -109,6 +113,10 @@ public:
     int headsetcontrolFetchRate() const { return m_headsetcontrolFetchRate; }
     bool enableNotifications() const { return m_enableNotifications; }
 
+    bool enableMediaOverlay() const { return m_enableMediaOverlay; }
+    int mediaOverlayPosition() const { return m_mediaOverlayPosition; }
+    int mediaOverlaySize() const { return m_mediaOverlaySize; }
+
     // Setters
     void setEnableDeviceManager(bool value);
     void setEnableApplicationMixer(bool value);
@@ -157,6 +165,10 @@ public:
     void setHeadsetcontrolFetchRate(int value);
     void setEnableNotifications(bool value);
 
+    void setEnableMediaOverlay(bool value);
+    void setMediaOverlayPosition(int value);
+    void setMediaOverlaySize(int value);
+
 signals:
     void enableDeviceManagerChanged();
     void enableApplicationMixerChanged();
@@ -204,6 +216,10 @@ signals:
     void panelStyleChanged();
     void headsetcontrolFetchRateChanged();
     void enableNotificationsChanged();
+
+    void enableMediaOverlayChanged();
+    void mediaOverlayPositionChanged();
+    void mediaOverlaySizeChanged();
 
 private:
     explicit UserSettings(QObject *parent = nullptr);
@@ -258,4 +274,8 @@ private:
     int m_panelStyle;
     int m_headsetcontrolFetchRate;
     bool m_enableNotifications;
+
+    bool m_enableMediaOverlay;
+    int m_mediaOverlayPosition;
+    int m_mediaOverlaySize;
 };

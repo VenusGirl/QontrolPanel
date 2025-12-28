@@ -80,6 +80,10 @@ void UserSettings::initProperties()
     m_panelStyle = settings.value("panelStyle", 0).toInt();
     m_headsetcontrolFetchRate = settings.value("headsetcontrolFetchRate", 20).toInt();
     m_enableNotifications = settings.value("enableNotifications", false).toBool();
+
+    m_enableMediaOverlay = settings.value("enableMediaOverlay", false).toBool();
+    m_mediaOverlayPosition = settings.value("mediaOverlayPosition", 1).toInt(); // Default: top-center
+    m_mediaOverlaySize = settings.value("mediaOverlaySize", 1).toInt(); // Default: normal
 }
 
 // Setters
@@ -440,5 +444,32 @@ void UserSettings::setEnableNotifications(bool value)
         m_enableNotifications = value;
         saveValue("enableNotifications", value);
         emit enableNotificationsChanged();
+    }
+}
+
+void UserSettings::setEnableMediaOverlay(bool value)
+{
+    if (m_enableMediaOverlay != value) {
+        m_enableMediaOverlay = value;
+        saveValue("enableMediaOverlay", value);
+        emit enableMediaOverlayChanged();
+    }
+}
+
+void UserSettings::setMediaOverlayPosition(int value)
+{
+    if (m_mediaOverlayPosition != value) {
+        m_mediaOverlayPosition = value;
+        saveValue("mediaOverlayPosition", value);
+        emit mediaOverlayPositionChanged();
+    }
+}
+
+void UserSettings::setMediaOverlaySize(int value)
+{
+    if (m_mediaOverlaySize != value) {
+        m_mediaOverlaySize = value;
+        saveValue("mediaOverlaySize", value);
+        emit mediaOverlaySizeChanged();
     }
 }

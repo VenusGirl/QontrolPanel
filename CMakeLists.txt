@@ -147,6 +147,7 @@ set(QML_FILES
     qml/ConfirmPowerActionDialog.qml
     qml/SystemTray.qml
     qml/ChatMixNotification.qml
+    qml/MediaOverlay.qml
     qml/ExecutableRenameContextMenu.qml
     qml/ExecutableRenameDialog.qml
     qml/PanelSpacer.qml
@@ -172,6 +173,7 @@ set(QML_FILES
     qml/SettingsPane/HeadsetControlPane.qml
     qml/SettingsPane/ConsolePane.qml
     qml/SettingsPane/DeviceRenamingPane.qml
+    qml/SettingsPane/MediaOverlayPane.qml
     qml/Debug/DebugRectangle.qml
 )
 
