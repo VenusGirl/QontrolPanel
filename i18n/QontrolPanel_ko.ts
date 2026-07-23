@@ -116,11 +116,11 @@
     </message>
     <message>
         <source>Settings page animations</source>
-        <translation type="unfinished"></translation>
+        <translation>설정 페이지 애니메이션</translation>
     </message>
     <message>
         <source>Animate transitions between settings pages</source>
-        <translation type="unfinished"></translation>
+        <translation>설정 페이지 간 전환 애니메이션</translation>
     </message>
     <message>
         <source>Tray icon theme</source>
@@ -241,7 +241,7 @@
     </message>
     <message>
         <source>ChatMix is not activated</source>
-        <translation type="unfinished"></translation>
+        <translation>채팅 믹스가 활성화되지 않았습니다</translation>
     </message>
 </context>
 <context>
@@ -276,11 +276,11 @@
     </message>
     <message>
         <source>Show ChatMix controls</source>
-        <translation type="unfinished"></translation>
+        <translation>채팅 믹스 제어 표시</translation>
     </message>
     <message>
         <source>Use ChatMix volume</source>
-        <translation type="unfinished"></translation>
+        <translation>채팅 믹스 볼륨 사용</translation>
     </message>
     <message>
         <source>ChatMix volume</source>
@@ -296,7 +296,7 @@
     </message>
     <message>
         <source>Enable ChatMix Warning</source>
-        <translation>채팅 믹스 경고 활성화</translation>
+        <translation>채팅 믹스 경고 사용함</translation>
     </message>
     <message>
         <source>Activating ChatMix will initially set all non communication application volumes to 50%. This might cause loud audio output.</source>
@@ -617,7 +617,7 @@
     </message>
     <message>
         <source>This app is made with care by an independent developer and is not financed by ad revenue.
-If you&apos;d like to support my work, any contribution would be greatly appreciated!</source>
+If you'd like to support my work, any contribution would be greatly appreciated!</source>
         <translation>이 앱은 독립 개발자가 정성껏 제작했으며 광고 수익으로 운영되지 않습니다.
 제 작업을 후원하고 싶으시다면, 어떤 기부든 환영합니다!</translation>
     </message>
@@ -1278,7 +1278,7 @@ You can enable it in the Components tab.</source>
     </message>
     <message>
         <source>Enable global shortcuts</source>
-        <translation>전역 단축키 사용</translation>
+        <translation>전역 단축키 사용함</translation>
     </message>
     <message>
         <source>Allow QontrolPanel to respond to keyboard shortcuts globally</source>
@@ -1286,7 +1286,7 @@ You can enable it in the Components tab.</source>
     </message>
     <message>
         <source>Notification on ChatMix toggle</source>
-        <translation>채팅 믹스 알림 전환</translation>
+        <translation>채팅 믹스 전환 알림</translation>
     </message>
     <message>
         <source>Show/Hide Panel</source>
@@ -1294,7 +1294,7 @@ You can enable it in the Components tab.</source>
     </message>
     <message>
         <source>Shortcut to toggle the main panel visibility</source>
-        <translation>기본 패널 가시성을 전환하는 단축키</translation>
+        <translation>기본 패널 가시성 전환 단축키</translation>
     </message>
     <message>
         <source>Change</source>
@@ -1349,7 +1349,7 @@ You can enable it in the Components tab.</source>
     </message>
     <message>
         <source>Loading...</source>
-        <translation>로드 중</translation>
+        <translation>로드 중...</translation>
     </message>
     <message>
         <source>Input: </source>
@@ -1447,7 +1447,7 @@ You can enable it in the Components tab.</source>
         <translation>릴리스 노트</translation>
     </message>
     <message>
-        <source>View what&apos;s new in version %1</source>
+        <source>View what's new in version %1</source>
         <translation>버전 %1의 새로운 기능 보기</translation>
     </message>
     <message>
