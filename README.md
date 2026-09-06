@@ -5,6 +5,8 @@
 [![Github All Releases](https://img.shields.io/github/downloads/ChrisLauinger77/qontrolpanel/total.svg)](<>)
 [![license](https://img.shields.io/github/license/ChrisLauinger77/qontrolpanel)](<>)
 
+<img src="resources/icons/icon.png" alt="QontrolPanel icon" width="128" height="128">
+
 QontrolPanel is an enhanced audio panel for Windows.  
 It provide output and input volume / device / mute control as well as application volume mixer and [headsetcontrol](https://github.com/Sapd/HeadsetControl) integration.
 
