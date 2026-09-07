@@ -1,5 +1,6 @@
 #include "panelengine.h"
 #include "logmanager.h"
+#include "updatestaging.h"
 #include <QApplication>
 #include <QDir>
 #include <QElapsedTimer>
@@ -11,6 +12,7 @@
 #include <QOperatingSystemVersion>
 #include <QQuickWindow>
 #include <QThread>
+#include <QThreadPool>
 
 #ifdef Q_OS_WIN
 #include <shobjidl_core.h>
@@ -19,7 +21,7 @@
 namespace {
 
 constexpr auto kLocalServerName = "QontrolPanel";
-constexpr auto kServerStartupTimeoutMs = 5000;
+constexpr auto kServerStartupTimeoutMs = 15000;
 constexpr auto kServerRetryIntervalMs = 50;
 constexpr auto kServerConnectionTimeoutMs = 250;
 
@@ -35,7 +37,7 @@ bool tryConnectToExistingInstance(int timeoutMs = 1000)
     socket.connectToServer(kLocalServerName);
 
     if (socket.waitForConnected(timeoutMs)) {
-        socket.write("show_panel");
+        socket.write("show_panel\n");
         socket.waitForBytesWritten(1000);
         socket.disconnectFromServer();
         return true;
@@ -119,6 +121,11 @@ int main(int argc, char *argv[])
 
         LOG_INFO("LocalServer", "Previous instance exited while relaunching");
     }
+
+    const QString updateTemporaryPath = QDir::tempPath();
+    QThreadPool::globalInstance()->start([updateTemporaryPath] {
+        UpdateStaging::cleanup(updateTemporaryPath, QDateTime::currentDateTimeUtc());
+    });
 
     PanelEngine w;
 

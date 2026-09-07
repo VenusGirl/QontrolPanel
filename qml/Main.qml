@@ -137,45 +137,13 @@ ApplicationWindow {
                 panel.repositionWindows()
             }
         }
-
-        function onEnableMediaSessionManagerChanged() {
-            if (UserSettings.enableMediaSessionManager) {
-                MediaSessionBridge.startMediaMonitoring()
-            } else {
-                MediaSessionBridge.stopMediaMonitoring()
-            }
-        }
-
-        function onAllowBrightnessControlChanged() {
-            if (UserSettings.allowBrightnessControl) {
-                MonitorManager.initialize()
-                if (MonitorManager.monitorDetected) {
-                    MonitorManager.setDDCCIBrightness(Math.round(UserSettings.ddcciBrightness), UserSettings.ddcciQueueDelay)
-                }
-            } else {
-                MonitorManager.cleanup()
-            }
-        }
-
-        function onEnableDeviceManagerChanged() {
-            if (UserSettings.enableDeviceManager || UserSettings.enableApplicationMixer) {
-                AudioBridge.initialize()
-            } else {
-                AudioBridge.cleanup()
-            }
-        }
-
-        function onEnableApplicationMixerChanged() {
-            if (UserSettings.enableDeviceManager || UserSettings.enableApplicationMixer) {
-                AudioBridge.initialize()
-            } else {
-                AudioBridge.cleanup()
-            }
-        }
     }
 
     Connections {
         target: AudioBridge
+        function onSaveFailed(message) {
+            systemTray.showMessage(qsTr("Settings could not be saved"), message)
+        }
         function onOutputDeviceCountChanged() {
             if (AudioBridge.outputDevices.count <= 1) {
                 outputDevicesRect.expanded = false
@@ -634,6 +602,30 @@ ApplicationWindow {
     }
 
     Connections {
+        target: KeyboardShortcutManager
+        function onRegistrationFailed(message) {
+            systemTray.showMessage(qsTr("Shortcut registration failed"), message)
+        }
+        function onSaveFailed(message) {
+            systemTray.showMessage(qsTr("Settings could not be saved"), message)
+        }
+    }
+
+    Connections {
+        target: UserSettings
+        function onSaveFailed(message) {
+            systemTray.showMessage(qsTr("Settings could not be saved"), message)
+        }
+    }
+
+    Connections {
+        target: PowerBridge
+        function onOperationFailed(message) {
+            systemTray.showMessage(qsTr("Power action failed"), message)
+        }
+    }
+
+    Connections {
         target: HeadsetControlBridge
         function onLowHeadsetBattery() {
             LogManager.warn("HeadsetControl", "Low headset battery detected at " + HeadsetControlBridge.batteryLevel + "%")
@@ -1078,9 +1070,15 @@ ApplicationWindow {
                                 opacity: checked ? 0.3 : 1
                                 Component.onCompleted: palette.accent = palette.button
                                 onClicked: {
+                                    const wasEnabled = UserSettings.activateChatmix && UserSettings.chatMixEnabled
                                     UserSettings.chatMixEnabled = !checked
+                                    checked = Qt.binding(function() { return !UserSettings.chatMixEnabled })
+                                    const isEnabled = UserSettings.activateChatmix && UserSettings.chatMixEnabled
+                                    if (wasEnabled === isEnabled) {
+                                        return
+                                    }
 
-                                    if (!checked) {
+                                    if (isEnabled) {
                                         AudioBridge.applyChatMixToApplications(UserSettings.chatMixValue)
                                     } else {
                                         AudioBridge.restoreOriginalVolumes()
@@ -1113,12 +1111,17 @@ ApplicationWindow {
                                         text: Math.round(chatMixSlider.value).toString()
                                     }
 
-                                    onValueChanged: {
-                                        UserSettings.chatMixValue = value
-                                        if (UserSettings.chatMixEnabled) {
-                                            AudioBridge.applyChatMixToApplications(Math.round(value))
+                                    function saveVolume() {
+                                        const previousValue = UserSettings.chatMixValue
+                                        UserSettings.chatMixValue = Math.round(value)
+                                        value = Qt.binding(function() { return UserSettings.chatMixValue })
+                                        if (UserSettings.activateChatmix && UserSettings.chatMixEnabled
+                                                && UserSettings.chatMixValue !== previousValue) {
+                                            AudioBridge.applyChatMixToApplications(UserSettings.chatMixValue)
                                         }
                                     }
+                                    onMoved: saveVolume()
+                                    onWheelChanged: saveVolume()
                                 }
                             }
 
@@ -1181,18 +1184,18 @@ ApplicationWindow {
                                     to: 100
                                     value: UserSettings.ddcciBrightness
                                     Layout.fillWidth: true
-                                    onValueChanged: {
-                                        if (pressed) {
-                                            MonitorManager.setWMIBrightness(Math.round(value))
-                                            MonitorManager.setDDCCIBrightness(Math.round(value), UserSettings.ddcciQueueDelay)
-                                            UserSettings.ddcciBrightness = Math.round(value)
+                                    function saveBrightness() {
+                                        const requestedValue = Math.round(value)
+                                        UserSettings.ddcciBrightness = requestedValue
+                                        value = Qt.binding(function() { return UserSettings.ddcciBrightness })
+                                        if (UserSettings.ddcciBrightness !== requestedValue) {
+                                            return
                                         }
+                                        MonitorManager.setWMIBrightness(UserSettings.ddcciBrightness)
+                                        MonitorManager.setDDCCIBrightness(UserSettings.ddcciBrightness, UserSettings.ddcciQueueDelay)
                                     }
-                                    onWheelChanged: {
-                                        MonitorManager.setWMIBrightness(Math.round(value))
-                                        MonitorManager.setDDCCIBrightness(Math.round(value), UserSettings.ddcciQueueDelay)
-                                        UserSettings.ddcciBrightness = Math.round(value)
-                                    }
+                                    onMoved: saveBrightness()
+                                    onWheelChanged: saveBrightness()
 
                                     ToolTip {
                                         parent: brightnessSlider.handle

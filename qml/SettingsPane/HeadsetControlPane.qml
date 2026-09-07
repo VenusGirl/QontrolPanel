@@ -36,6 +36,13 @@ ColumnLayout {
                 width: parent.width
                 spacing: 3
 
+                Label {
+                    Layout.fillWidth: true
+                    visible: HeadsetControlBridge.lastError.length > 0
+                    text: qsTr("Some headset settings could not be applied. Refresh to retry.") + "\n" + HeadsetControlBridge.lastError
+                    wrapMode: Text.Wrap
+                }
+
                 Card {
                     Layout.fillWidth: true
                     visible: !HeadsetControlBridge.anyDeviceFound && UserSettings.headsetcontrolMonitoring && !HeadsetControlBridge.testModeEnabled
@@ -96,7 +103,10 @@ ColumnLayout {
                             to: 30
                             value: UserSettings.headsetcontrolLowBatteryThreshold
                             editable: true
-                            onValueModified: UserSettings.headsetcontrolLowBatteryThreshold = value
+                            onValueModified: {
+                                UserSettings.headsetcontrolLowBatteryThreshold = value
+                                value = Qt.binding(function() { return UserSettings.headsetcontrolLowBatteryThreshold })
+                            }
                         }
 
                         Label {
@@ -108,6 +118,7 @@ ColumnLayout {
                             checked: UserSettings.enableNotifications
                             onClicked: {
                                 UserSettings.enableNotifications = checked;
+                                checked = Qt.binding(function() { return UserSettings.enableNotifications })
                             }
                         }
                     }
@@ -121,6 +132,7 @@ ColumnLayout {
                         checked: UserSettings.displayBatteryFooter
                         onClicked: {
                             UserSettings.displayBatteryFooter = checked;
+                            checked = Qt.binding(function() { return UserSettings.displayBatteryFooter })
                         }
                     }
                 }
@@ -145,16 +157,17 @@ ColumnLayout {
                         Layout.preferredHeight: 35
                         model: HeadsetControlBridge.equalizerPresetNames
                         enabled: count > 0
-                        currentIndex: {
+                        function acceptedIndex() {
                             if (count <= 0) {
                                 return -1;
                             }
 
                             return Math.min(Math.max(0, UserSettings.headsetcontrolEqualizerPreset), count - 1);
                         }
+                        currentIndex: acceptedIndex()
                         onActivated: {
                             UserSettings.headsetcontrolEqualizerPreset = currentIndex;
-                            HeadsetControlBridge.setEqualizerPreset(currentIndex);
+                            currentIndex = Qt.binding(acceptedIndex)
                         }
                     }
                 }
@@ -177,12 +190,12 @@ ColumnLayout {
                             onPressedChanged: {
                                 if (!pressed) {
                                     UserSettings.headsetcontrolInactiveTime = Math.round(value);
-                                    HeadsetControlBridge.setInactiveTime(Math.round(value));
+                                    value = Qt.binding(function() { return Math.max(0, UserSettings.headsetcontrolInactiveTime) })
                                 }
                             }
                             onWheelChanged: {
                                 UserSettings.headsetcontrolInactiveTime = Math.round(value);
-                                HeadsetControlBridge.setInactiveTime(Math.round(value));
+                                value = Qt.binding(function() { return Math.max(0, UserSettings.headsetcontrolInactiveTime) })
                             }
                         }
 
@@ -204,7 +217,7 @@ ColumnLayout {
                         checked: UserSettings.headsetcontrolLights
                         onClicked: {
                             UserSettings.headsetcontrolLights = checked;
-                            HeadsetControlBridge.setLights(checked);
+                            checked = Qt.binding(function() { return UserSettings.headsetcontrolLights })
                         }
                     }
                 }
@@ -220,7 +233,7 @@ ColumnLayout {
                         checked: UserSettings.headsetcontrolRotateToMute
                         onClicked: {
                             UserSettings.headsetcontrolRotateToMute = checked;
-                            HeadsetControlBridge.setRotateToMute(checked);
+                            checked = Qt.binding(function() { return UserSettings.headsetcontrolRotateToMute })
                         }
                     }
                 }
@@ -243,12 +256,12 @@ ColumnLayout {
                             onPressedChanged: {
                                 if (!pressed) {
                                     UserSettings.headsetcontrolSidetone = Math.round(value);
-                                    HeadsetControlBridge.setSidetone(Math.round(value));
+                                    value = Qt.binding(function() { return UserSettings.headsetcontrolSidetone })
                                 }
                             }
                             onWheelChanged: {
                                 UserSettings.headsetcontrolSidetone = Math.round(value);
-                                HeadsetControlBridge.setSidetone(Math.round(value));
+                                value = Qt.binding(function() { return UserSettings.headsetcontrolSidetone })
                             }
                         }
 
@@ -270,7 +283,7 @@ ColumnLayout {
                         checked: UserSettings.headsetcontrolVoicePrompts
                         onClicked: {
                             UserSettings.headsetcontrolVoicePrompts = checked;
-                            HeadsetControlBridge.setVoicePrompts(checked);
+                            checked = Qt.binding(function() { return UserSettings.headsetcontrolVoicePrompts })
                         }
                     }
                 }
@@ -296,7 +309,7 @@ ColumnLayout {
                             stepSize: 5
                             onValueModified: {
                                 UserSettings.headsetcontrolFetchRate = value;
-                                HeadsetControlBridge.setFetchRate(value);
+                                value = Qt.binding(function() { return UserSettings.headsetcontrolFetchRate })
                             }
                         }
                     }

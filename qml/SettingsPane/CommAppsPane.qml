@@ -9,7 +9,24 @@ ColumnLayout {
     id: lyt
     spacing: 3
 
-    signal cancelChatMixActivation
+    function applyAcceptedChatMixState(wasEnabled) {
+        const isEnabled = UserSettings.activateChatmix && UserSettings.chatMixEnabled
+        if (isEnabled === wasEnabled) {
+            return
+        }
+        if (isEnabled) {
+            AudioBridge.applyChatMixToApplications(UserSettings.chatMixValue)
+        } else {
+            AudioBridge.restoreOriginalVolumes()
+        }
+    }
+
+    Label {
+        Layout.fillWidth: true
+        visible: AudioBridge.lastError.length > 0
+        text: AudioBridge.lastError
+        wrapMode: Text.Wrap
+    }
 
     Label {
         text: qsTr("Communication Apps")
@@ -38,16 +55,14 @@ ColumnLayout {
                         if (checked) {
                             chatMixWarningDialog.open();
                         } else {
-                            UserSettings.activateChatmix = checked;
-                            UserSettings.chatMixEnabled = checked;
-                            AudioBridge.restoreOriginalVolumes();
+                            const wasEnabled = UserSettings.activateChatmix && UserSettings.chatMixEnabled
+                            UserSettings.activateChatmix = false;
+                            if (!UserSettings.activateChatmix) {
+                                UserSettings.chatMixEnabled = false;
+                            }
+                            lyt.applyAcceptedChatMixState(wasEnabled)
                         }
-                    }
-                    Connections {
-                        target: lyt
-                        function onCancelChatMixActivation() {
-                            activateChatMixSwitch.checked = false;
-                        }
+                        checked = Qt.binding(function() { return UserSettings.activateChatmix })
                     }
                 }
             }
@@ -61,13 +76,10 @@ ColumnLayout {
                 additionalControl: LabeledSwitch {
                     checked: UserSettings.chatMixEnabled
                     onClicked: {
-                        if (checked) {
-                            UserSettings.chatMixEnabled = checked;
-                            AudioBridge.applyChatMixToApplications(UserSettings.chatMixValue);
-                        } else {
-                            UserSettings.chatMixEnabled = checked;
-                            AudioBridge.restoreOriginalVolumes();
-                        }
+                        const wasEnabled = UserSettings.activateChatmix && UserSettings.chatMixEnabled
+                        UserSettings.chatMixEnabled = checked;
+                        checked = Qt.binding(function() { return UserSettings.chatMixEnabled })
+                        lyt.applyAcceptedChatMixState(wasEnabled)
                     }
                 }
             }
@@ -90,17 +102,17 @@ ColumnLayout {
                         Layout.preferredWidth: 180
                         enabled: UserSettings.chatMixEnabled
 
-                        onValueChanged: {
-                            UserSettings.chatMixValue = value;
-                        }
-
-                        onPressedChanged: {
-                            if (pressed)
-                                return;
-                            if (UserSettings.chatMixEnabled) {
+                        function saveVolume() {
+                            const previousValue = UserSettings.chatMixValue
+                            UserSettings.chatMixValue = Math.round(value);
+                            value = Qt.binding(function() { return UserSettings.chatMixValue })
+                            if (UserSettings.activateChatmix && UserSettings.chatMixEnabled
+                                    && UserSettings.chatMixValue !== previousValue) {
                                 AudioBridge.applyChatMixToApplications(UserSettings.chatMixValue);
                             }
                         }
+                        onMoved: saveVolume()
+                        onWheelChanged: saveVolume()
                     }
 
                     Label {
@@ -127,9 +139,12 @@ ColumnLayout {
                         to: 100
                         Layout.preferredWidth: 180
 
-                        onValueChanged: {
-                            UserSettings.chatmixRestoreVolume = value;
+                        function saveVolume() {
+                            UserSettings.chatmixRestoreVolume = Math.round(value);
+                            value = Qt.binding(function() { return UserSettings.chatmixRestoreVolume })
                         }
+                        onMoved: saveVolume()
+                        onWheelChanged: saveVolume()
                     }
 
                     Label {
@@ -199,6 +214,13 @@ ColumnLayout {
                 color: "orange"
             }
 
+            Label {
+                Layout.fillWidth: true
+                visible: UserSettings.lastError.length > 0
+                text: UserSettings.lastError
+                wrapMode: Text.Wrap
+            }
+
             RowLayout {
                 spacing: 15
                 Layout.topMargin: 10
@@ -206,7 +228,6 @@ ColumnLayout {
                 Button {
                     text: qsTr("Cancel")
                     onClicked: {
-                        lyt.cancelChatMixActivation();
                         chatMixWarningDialog.close();
                     }
                     Layout.fillWidth: true
@@ -217,9 +238,16 @@ ColumnLayout {
                     highlighted: true
                     Layout.fillWidth: true
                     onClicked: {
+                        const wasEnabled = UserSettings.activateChatmix && UserSettings.chatMixEnabled
                         UserSettings.activateChatmix = true;
+                        if (!UserSettings.activateChatmix) {
+                            return
+                        }
                         UserSettings.chatMixEnabled = true;
-                        AudioBridge.applyChatMixToApplications(UserSettings.chatMixValue);
+                        if (!UserSettings.chatMixEnabled) {
+                            return
+                        }
+                        lyt.applyAcceptedChatMixState(wasEnabled)
                         chatMixWarningDialog.close();
                     }
                 }
@@ -248,6 +276,13 @@ ColumnLayout {
                 placeholderText: qsTr("Discord")
             }
 
+            Label {
+                Layout.fillWidth: true
+                visible: AudioBridge.lastError.length > 0
+                text: AudioBridge.lastError
+                wrapMode: Text.Wrap
+            }
+
             RowLayout {
                 spacing: 15
                 Button {
@@ -262,9 +297,10 @@ ColumnLayout {
                     Layout.fillWidth: true
                     highlighted: true
                     onClicked: {
-                        AudioBridge.addCommApp(executableField.text);
-                        executableField.text = "";
-                        addAppDialog.close();
+                        if (AudioBridge.addCommApp(executableField.text)) {
+                            executableField.text = "";
+                            addAppDialog.close();
+                        }
                     }
                 }
             }
