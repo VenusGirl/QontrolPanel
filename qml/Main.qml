@@ -23,6 +23,9 @@ ApplicationWindow {
     property real restingY: 0
     property real mediaRestingX: 0
     property real mediaRestingY: 0
+    property bool pendingShowGeometryUpdate: false
+    property bool suppressNextTrayShow: false
+    property int showAnimationGeneration: 0
     property alias mediaSurfaceWindow: mediaPanelWindow
     readonly property bool chatMixEffectiveEnabled: UserSettings.activateChatmix && UserSettings.chatMixEnabled
     // Preserve the original 24px spacer after the media content's 15px outer inset.
@@ -137,6 +140,14 @@ ApplicationWindow {
                 panel.repositionWindows()
             }
         }
+
+        function onPanelAnimationsEnabledChanged() {
+            if (panel.isAnimatingOut || hideAnimation.running) {
+                panel.hidePanelImmediately()
+            } else if (panel.visible) {
+                panel.showPanelImmediately(false)
+            }
+        }
     }
 
     Connections {
@@ -171,8 +182,19 @@ ApplicationWindow {
     SystemTray {
         id: systemTray
         onTogglePanelRequested: {
-            if (panel.visible && !panel.isAnimatingOut) {
-                panel.hidePanel()
+            // Losing focus may already have started hiding the panel before
+            // the tray activation reaches QML.
+            if (panel.visible) {
+                trayToggleTimer.stop()
+                if (panel.suppressNextTrayShow) {
+                    focusLossTrayGuardTimer.stop()
+                    panel.suppressNextTrayShow = false
+                } else if (!panel.isAnimatingOut) {
+                    panel.hidePanel()
+                }
+            } else if (panel.suppressNextTrayShow) {
+                focusLossTrayGuardTimer.stop()
+                panel.suppressNextTrayShow = false
             } else {
                 trayToggleTimer.restart()
             }
@@ -193,6 +215,15 @@ ApplicationWindow {
                 panel.showPanel()
             }
         }
+    }
+
+    Timer {
+        id: focusLossTrayGuardTimer
+        // Keep the marker beyond the 300 ms hide so a delayed tray activation
+        // cannot reinterpret the completed hide as a request to show again.
+        interval: 500
+        repeat: false
+        onTriggered: panel.suppressNextTrayShow = false
     }
 
     Shortcut {
@@ -305,6 +336,15 @@ ApplicationWindow {
     }
 
     function togglePanel() {
+        if (!UserSettings.panelAnimationsEnabled) {
+            if (visible) {
+                hidePanel()
+            } else {
+                showPanel()
+            }
+            return
+        }
+
         if (isAnimatingOut) {
             return
         }
@@ -328,11 +368,27 @@ ApplicationWindow {
     }
 
     function showPanel() {
+        focusLossTrayGuardTimer.stop()
+        suppressNextTrayShow = false
+
+        if (!UserSettings.panelAnimationsEnabled) {
+            showPanelImmediately(true)
+            return
+        }
+
         if (isAnimatingIn || isAnimatingOut) {
             return
         }
 
         isAnimatingIn = true
+        const generation = ++showAnimationGeneration
+        pendingShowGeometryUpdate = false
+
+        // A hidden native window can retain its last on-screen backing-store
+        // frame while Qt applies the new off-screen position. Keep the whole
+        // surface transparent until the staged geometry passes have completed.
+        panel.opacity = 0
+        mediaPanelWindow.opacity = 0
         positionWindowsAtTarget(true)
         setInitialWindowPositions()
 
@@ -341,13 +397,73 @@ ApplicationWindow {
         panel.requestActivate()
 
         Qt.callLater(function() {
+            if (generation !== panel.showAnimationGeneration
+                    || !panel.isAnimatingIn || !UserSettings.panelAnimationsEnabled) {
+                return
+            }
+
             Qt.callLater(function() {
+                if (generation !== panel.showAnimationGeneration
+                        || !panel.isAnimatingIn || !UserSettings.panelAnimationsEnabled) {
+                    return
+                }
+
                 positionWindowsAtTarget()
                 setInitialWindowPositions()
+                pendingShowGeometryUpdate = false
 
-                Qt.callLater(panel.startAnimation)
+                Qt.callLater(function() {
+                    if (generation !== panel.showAnimationGeneration
+                            || !panel.isAnimatingIn || !UserSettings.panelAnimationsEnabled) {
+                        return
+                    }
+
+                    if (panel.pendingShowGeometryUpdate) {
+                        panel.positionWindowsAtTarget()
+                        panel.setInitialWindowPositions()
+                        panel.pendingShowGeometryUpdate = false
+                    }
+                    panel.opacity = 1
+                    mediaPanelWindow.opacity = 1
+                    panel.startAnimation()
+                })
             })
         })
+    }
+
+    function clearPanelAnimationState() {
+        ++showAnimationGeneration
+        showAnimation.stop()
+        hideAnimation.stop()
+        contentOpacityTimer.stop()
+        flyoutOpacityTimer.stop()
+        mainOpacityAnimation.stop()
+        mediaPanelWindow.finishContentOpacityAnimation()
+        pendingShowGeometryUpdate = false
+        isAnimatingIn = false
+        isAnimatingOut = false
+        panel.opacity = 1
+        mediaPanelWindow.opacity = 1
+        mainLayout.opacity = 1
+        mediaPanelWindow.contentOpacity = 1
+    }
+
+    function showPanelImmediately(activatePanel) {
+        clearPanelAnimationState()
+        positionWindowsAtTarget(true)
+        mediaPanelWindow.visible = mediaPanelWindow.available
+        panel.visible = true
+        if (activatePanel) {
+            panel.requestActivate()
+        }
+    }
+
+    function hidePanelImmediately() {
+        clearPanelAnimationState()
+        mediaPanelWindow.visible = false
+        panel.visible = false
+        closeAllMenusAndCollapse()
+        positionWindowsAtTarget()
     }
 
     function positionWindowsAtTarget(refreshGeometry) {
@@ -389,6 +505,23 @@ ApplicationWindow {
     }
 
     function repositionWindows() {
+        if (!UserSettings.panelAnimationsEnabled) {
+            if (isAnimatingOut || hideAnimation.running) {
+                hidePanelImmediately()
+            } else {
+                clearPanelAnimationState()
+                positionWindowsAtTarget()
+            }
+            return
+        }
+
+        if (isAnimatingIn && !showAnimation.running) {
+            // The visible window can finish laying out before the staged show
+            // starts. Keep it offscreen until that pass consumes the final size.
+            pendingShowGeometryUpdate = true
+            return
+        }
+
         const wasAnimatingIn = showAnimation.running
         const wasAnimatingOut = hideAnimation.running
         const currentPanelX = panel.x
@@ -460,6 +593,10 @@ ApplicationWindow {
     }
 
     function startAnimation() {
+        if (!UserSettings.panelAnimationsEnabled) {
+            showPanelImmediately(false)
+            return
+        }
         if (!isAnimatingIn) return
 
         const propertyName = animationProperty()
@@ -473,6 +610,11 @@ ApplicationWindow {
     }
 
     function hidePanel() {
+        if (!UserSettings.panelAnimationsEnabled) {
+            hidePanelImmediately()
+            return
+        }
+
         if (isAnimatingOut) {
             return
         }
@@ -489,6 +631,16 @@ ApplicationWindow {
 
         closeAllMenusAndCollapse()
         startHideAnimation()
+    }
+
+    function hidePanelForFocusLoss() {
+        if (!visible) {
+            return
+        }
+
+        suppressNextTrayShow = true
+        focusLossTrayGuardTimer.restart()
+        hidePanel()
     }
 
     function closeAllMenusAndCollapse() {
@@ -531,6 +683,11 @@ ApplicationWindow {
     }
 
     function startHideAnimation() {
+        if (!UserSettings.panelAnimationsEnabled) {
+            hidePanelImmediately()
+            return
+        }
+
         isAnimatingOut = true
         configureHideAnimation()
         hideAnimation.start()
@@ -711,7 +868,9 @@ ApplicationWindow {
                         opacity: 0
 
                         Behavior on opacity {
+                            enabled: UserSettings.panelAnimationsEnabled
                             NumberAnimation {
+                                id: mainOpacityAnimation
                                 duration: 400
                                 easing.type: Easing.OutQuad
                             }

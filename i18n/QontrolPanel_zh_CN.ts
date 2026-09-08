@@ -115,6 +115,14 @@
         <translation>在滑动条显示音量</translation>
     </message>
     <message>
+        <source>Panel animations</source>
+        <translation>面板动画</translation>
+    </message>
+    <message>
+        <source>Animate panel opening and closing</source>
+        <translation>为面板的打开和关闭添加动画</translation>
+    </message>
+    <message>
         <source>Settings page animations</source>
         <translation>设置页面动画</translation>
     </message>

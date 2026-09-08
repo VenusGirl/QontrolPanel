@@ -115,6 +115,14 @@
         <translation>Отображение значения уровня громкости в слайдере</translation>
     </message>
     <message>
+        <source>Panel animations</source>
+        <translation>Анимации панели</translation>
+    </message>
+    <message>
+        <source>Animate panel opening and closing</source>
+        <translation>Анимировать открытие и закрытие панели</translation>
+    </message>
+    <message>
         <source>Settings page animations</source>
         <translation>Анимации страниц настроек</translation>
     </message>
