@@ -402,23 +402,23 @@
     </message>
     <message>
         <source>Remember application volume levels</source>
-        <translation type="unfinished"></translation>
+        <translation>응용 프로그램 볼륨 수준 기억</translation>
     </message>
     <message>
         <source>Restore each application&apos;s last volume when it starts</source>
-        <translation type="unfinished"></translation>
+        <translation>각 응용 프로그램이 시작될 때 마지막 볼륨 복원</translation>
     </message>
     <message>
         <source>Clear remembered application volumes</source>
-        <translation type="unfinished"></translation>
+        <translation>응용 프로그램 볼륨의 기억 지우기</translation>
     </message>
     <message>
         <source>Forget all saved per-application volume levels</source>
-        <translation type="unfinished"></translation>
+        <translation>응용 프로그램별 저장 용량 수준 모두 잊어버리기</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">지우기</translation>
+        <translation>지우기</translation>
     </message>
     <message>
         <source>Show brightness control in panel</source>
@@ -1018,7 +1018,7 @@ You can enable it in the Components tab.</source>
     </message>
     <message>
         <source>Windows could not register a shortcut (error %1). The previous binding was retained when possible.</source>
-        <translation>Windows에서 바로 가기를 등록할 수 없습니다 (오류 %1). 가능한 경우 이전 바인딩을 유지했습니다.</translation>
+        <translation>Windows에서 단축키를 등록할 수 없습니다 (error %1). 가능한 경우 이전 연결이 유지되었습니다.</translation>
     </message>
 </context>
 <context>
