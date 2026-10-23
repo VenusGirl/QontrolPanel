@@ -1,5 +1,6 @@
 pragma Singleton
 import QtQuick
+import ChrisLauinger77.QontrolPanel
 
 // Native services are replaced by value-only fixtures; tests use the real UserSettings.
 QtObject {
@@ -32,6 +33,22 @@ QtObject {
     property string batteryStatus: "BATTERY_AVAILABLE"
     property string batteryIcon: ""
     property int chatMix: 50
+    property int sidetoneLevel: -1
+    property int sidetoneWriteCount: 0
+    property int pendingSidetoneLevel: -1
+    property bool deferSidetoneWrites: false
+    function setSidetone(value) {
+        UserSettings.headsetcontrolSidetone = value
+        if (UserSettings.headsetcontrolSidetone === value) {
+            sidetoneWriteCount++
+            pendingSidetoneLevel = value
+            if (!deferSidetoneWrites) {
+                if (sidetoneLevel >= 0)
+                    sidetoneLevel = value
+                pendingSidetoneLevel = -1
+            }
+        }
+    }
     property bool testModeEnabled: true
     property int testProfile: 1
     property var equalizerPresetNames: ["Flat", "Music", "Voice"]

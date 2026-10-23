@@ -27,6 +27,8 @@ class HeadsetControlBridge : public QObject
     Q_PROPERTY(int batteryLevel READ batteryLevel NOTIFY batteryLevelChanged)
     Q_PROPERTY(QString batteryIcon READ batteryIcon NOTIFY batteryIconChanged)
     Q_PROPERTY(int chatMix READ chatMix NOTIFY chatMixChanged)
+    Q_PROPERTY(int sidetoneLevel READ sidetoneLevel NOTIFY sidetoneLevelChanged)
+    Q_PROPERTY(int pendingSidetoneLevel READ pendingSidetoneLevel NOTIFY pendingSidetoneLevelChanged)
     Q_PROPERTY(QStringList equalizerPresetNames READ equalizerPresetNames NOTIFY equalizerPresetNamesChanged)
     Q_PROPERTY(bool anyDeviceFound READ anyDeviceFound NOTIFY anyDeviceFoundChanged)
     Q_PROPERTY(bool testModeEnabled READ testModeEnabled NOTIFY testModeEnabledChanged)
@@ -69,6 +71,8 @@ public:
     int batteryLevel() const;
     QString batteryIcon() const;
     int chatMix() const;
+    int sidetoneLevel() const;
+    int pendingSidetoneLevel() const { return m_pendingSidetoneLevel; }
     QStringList equalizerPresetNames() const;
     bool anyDeviceFound() const;
     bool testModeEnabled() const;
@@ -83,6 +87,8 @@ signals:
     void batteryLevelChanged();
     void batteryIconChanged();
     void chatMixChanged();
+    void sidetoneLevelChanged();
+    void pendingSidetoneLevelChanged();
     void equalizerPresetNamesChanged();
     void anyDeviceFoundChanged();
     void testModeEnabledChanged();
@@ -91,17 +97,23 @@ signals:
     void lastErrorChanged();
     void headsetDataUpdated(const QList<HeadsetControlDevice>& devices);
 
+private slots:
+    void applyState(const HeadsetControlState& state);
+
 private:
     static HeadsetControlBridge* m_instance;
     HeadsetControlMonitor* findMonitor() const;
     void connectToMonitor();
-    void applyState(const HeadsetControlState& state);
     void syncDesiredSettings();
+    void requestSidetone(int value);
     QThread* m_thread = nullptr;
     HeadsetControlMonitor* m_monitor = nullptr;
     void updateLowBatteryNotificationState();
 
     bool m_lowBatteryNotificationSent = false;
+    bool m_adoptingSidetone = false;
+    quint64 m_sidetoneRequestRevision = 0;
+    int m_pendingSidetoneLevel = -1;
     HeadsetControlState m_cachedState;
     QString m_lastError;
 };

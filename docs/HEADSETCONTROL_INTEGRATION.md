@@ -152,6 +152,16 @@ Battery level uses `-1` when unavailable.
 
 ChatMix uses `-1` when unavailable and otherwise follows the HeadsetControl value range. Application-side ChatMix behavior is coordinated with `AudioBridge`, which applies volume changes to configured communication apps and restores original volumes when needed.
 
+## Sidetone read-back
+
+The device cache, state snapshot, and bridge expose `sidetoneLevel` on the normalised 0–128 scale, or `-1` when unknown. Reachable devices advertising `CAP_SIDETONE_STATUS` are queried during polling, before pending settings are applied. The slider uses the reported level when available and the saved setting otherwise.
+
+On the first successful read for the active headset, or when the read differs from the last applied level, the monitor adopts the device value as both its desired value and its new baseline. It clears sidetone retries and signals the bridge to update `UserSettings`. The bridge suppresses write feedback during adoption; unrelated settings snapshots omit sidetone. A request revision prevents an older adoption from overwriting a newer slider edit. Failed initial reads leave the level unknown and do not restore the default zero; explicit user edits can still write.
+
+A successful slider write updates the reported level from the library's acknowledgement. While a command is pending, the bridge exposes its requested level separately so consecutive wheel edits accumulate. Snapshots carry the processed request revision; only completion of the latest request releases that optimistic value, including on failure. Subsequent polls adopt changes made on the headset or in another application. The baseline resets when monitoring stops or the active headset changes. Devices without read-back retain saved-level restoration and bounded write retries.
+
+The upstream test device reads back a fixed level of `85`. Slider edits still call `setSidetone`; the next fetch returns to `85`, simulating an external change. Reliability tests filter discovery to this synthetic device before any queries or writes, and cover first-read adoption, explicit writes, external changes, reset, and unrelated settings updates. Policy tests additionally cover failed reads, retries, and write-only headsets.
+
 ## Error Handling
 
 HeadsetControl API calls return result objects. App code should:
@@ -162,7 +172,7 @@ HeadsetControl API calls return result objects. App code should:
 - log failure details from `result.error().fullMessage()`;
 - avoid throwing exceptions through QML.
 
-The monitor never reads GUI-owned UserSettings. The bridge sends copied desired values, and the monitor records applied values only after successful writes. Failed settings are retried at most three times per desired value and active headset; a manual refresh resets the retry budget. Exceptions and result errors become a visible bridge error. Duplicate setters with unchanged values do not duplicate successful HID writes.
+The monitor never reads GUI-owned UserSettings. The bridge sends copied desired values, and the monitor records applied values only after successful writes. Failed settings are retried at most three times per desired value and active headset; a manual refresh resets the retry budget. An explicit sidetone edit also resets its budget, including a same-value retry. Exceptions and result errors become a visible bridge error. Duplicate setters with unchanged values do not duplicate successful HID writes.
 
 The active device key uses VID/PID/name rather than enumeration index. Battery matching to audio endpoints remains model-based (VID/PID). The pinned upstream library deduplicates identical VID/PID devices and resolves HID paths by model, so this app cannot reliably select two physically distinct identical headsets. That requires a HeadsetControl fork/upstream change; it must not be patched in this submodule.
 
