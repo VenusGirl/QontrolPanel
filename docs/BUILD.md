@@ -182,9 +182,9 @@ The Release workflow builds a candidate only when manually dispatched from `main
 
 Local builds use the checked-out submodule revision. The scheduled dependency-update workflow proposes a reviewed pin update and explicitly dispatches `ci.yml` on the dependency-update branch for validation without artifact uploads. Release candidates are built manually after merging the update.
 
-After a successful candidate build, download the complete `release-assets` artifact, install the application, and test it. The run summary prints commands to create and push an annotated version tag at the candidate's exact source commit, with a `Candidate-Run: <run ID>` annotation. Artifacts are retained for 30 days, subject to repository limits; start a new manual run for another candidate instead of rerunning an existing one.
+After a successful candidate build, the run pauses at the `release` environment, which requires reviewer approval. Download the complete `release-assets` artifact, install the application, and test it. Then open the run, choose **Review deployments**, and approve `release`, or reject it to discard the candidate. Artifacts are retained for 30 days, subject to repository limits; start a new manual run for another candidate instead of rerunning an existing one.
 
-Pushing that tag runs only publication. The workflow requires a successful original manual run of `release.yml` from `main` at the tagged commit, downloads that run's existing `release-assets` artifact, and verifies provenance and file hashes without rebuilding. The tag must match the CMake version, optionally prefixed with `v`. WinGet publication and the Scoop update request follow successful release publication.
+Approval creates an annotated tag named after the CMake version at the candidate's exact source commit, with a `QontrolPanel <version>` message and a `Candidate-Run: <run ID>` line, and pushes only that tag. The job fails if the tag already exists. The same run then downloads its own `release-assets` artifact, verifies provenance and file hashes, and publishes without rebuilding. Pushing a tag manually does not start a release. If publication fails after tagging, re-run the failed jobs of that run; approval and builds are not repeated. WinGet publication and the Scoop update request follow successful release publication.
 
 ## Reliability tests
 

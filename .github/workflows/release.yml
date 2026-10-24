@@ -1,8 +1,6 @@
 name: Release
 on:
-  push:
-    # Existing numeric tags and v-prefixed tags are validated against CMake.
-    tags: ["*"]
+  # Approving the release environment tags and publishes this run's candidate.
   workflow_dispatch:
 
 permissions:
@@ -17,7 +15,6 @@ env:
   VCPKG_ROOT: "C:/vcpkg"
 jobs:
   build:
-    if: github.event_name == 'workflow_dispatch'
     runs-on: windows-2025-vs2026
     steps:
       - name: Require a fresh candidate run from main
@@ -245,6 +242,9 @@ jobs:
   aggregate:
     needs: build
     runs-on: ubuntu-26.04
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      sha: ${{ github.sha }}
     steps:
       - name: Checkout the candidate source
         uses: actions/checkout@v7
@@ -287,7 +287,7 @@ jobs:
             dist/provenance.json
           if-no-files-found: error
           retention-days: 30
-      - name: Print the exact commands to publish this candidate
+      - name: Explain how to approve this candidate
         env:
           RELEASE_VERSION: ${{ steps.version.outputs.version }}
           SOURCE_SHA: ${{ github.sha }}
@@ -302,102 +302,99 @@ jobs:
           commit = os.environ["SOURCE_SHA"]
           run_id = os.environ["GITHUB_RUN_ID"]
           summary = (
-              "After this run succeeds, download its complete release-assets artifact "
-              "and install and test QontrolPanel_Installer.exe.\n"
-              "When testing succeeds, run these commands in your local checkout:\n\n"
-              "```sh\n"
-              f'git tag -a {version} {commit} -m "QontrolPanel {version}" '
-              f'-m "Candidate-Run: {run_id}"\n'
-              f"git push origin {version}\n"
-              "```\n\n"
-              "Pushing the tag publishes these existing packages without rebuilding. "
-              "Publish before the artifact expires (retention: 30 days, subject to repository limits). "
+              "This run now waits for approval of the release environment. "
+              "Download its complete release-assets artifact "
+              "and install and test QontrolPanel_Installer.exe.\n\n"
+              "When testing succeeds, choose Review deployments, then Approve. Approval creates the "
+              f"annotated tag {version} at {commit} with Candidate-Run: {run_id} and publishes "
+              "these existing packages without rebuilding. Reject to discard this candidate.\n\n"
+              "Approve before the artifact expires (retention: 30 days, subject to repository limits). "
               "For another candidate, start a new manual run; do not rerun this run.\n"
           )
           print(summary, end="")
           with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as output:
               output.write(summary)
 
+  approve-and-tag:
+    # Waits for a required reviewer of the release environment after testing the candidate.
+    needs: aggregate
+    runs-on: ubuntu-26.04
+    environment: release
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ needs.aggregate.outputs.version }}
+    steps:
+      - name: Checkout the candidate source with tags
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.aggregate.outputs.sha }}
+          fetch-depth: 0
+          # Credentials are kept only to push the release tag.
+          persist-credentials: true
+      - name: Refuse an existing release tag
+        env:
+          RELEASE_TAG: ${{ needs.aggregate.outputs.version }}
+        run: |
+          set -euo pipefail
+          if git rev-parse --quiet --verify "refs/tags/$RELEASE_TAG" > /dev/null; then
+              echo "::error::Tag $RELEASE_TAG already exists locally; bump the CMake version and build a new candidate"
+              exit 1
+          fi
+          status=0
+          git ls-remote --exit-code --tags origin "refs/tags/$RELEASE_TAG" > /dev/null || status=$?
+          if [ "$status" -eq 0 ]; then
+              echo "::error::Tag $RELEASE_TAG already exists on origin; bump the CMake version and build a new candidate"
+              exit 1
+          elif [ "$status" -ne 2 ]; then
+              echo "::error::Cannot query remote tags (git ls-remote exit code $status)"
+              exit 1
+          fi
+      - name: Create and push the annotated release tag
+        env:
+          RELEASE_VERSION: ${{ needs.aggregate.outputs.version }}
+          RELEASE_TAG: ${{ needs.aggregate.outputs.version }}
+          SOURCE_SHA: ${{ needs.aggregate.outputs.sha }}
+          BUILD_RUN_ID: ${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          if [ "$(git rev-parse HEAD)" != "$SOURCE_SHA" ]; then
+              echo "::error::Checkout does not match the verified candidate source"
+              exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$RELEASE_TAG" "$SOURCE_SHA" -m "QontrolPanel $RELEASE_VERSION" -m "Candidate-Run: $BUILD_RUN_ID"
+          git push origin "refs/tags/$RELEASE_TAG"
+
   publish:
-    # Independent of the dispatch-only jobs: a tag never starts another build.
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    # Publishes the artifacts verified by this run; approval never starts another build.
+    needs: [aggregate, approve-and-tag]
     runs-on: ubuntu-26.04
     permissions:
       contents: write
-      actions: read
     outputs:
-      tag: ${{ github.ref_name }}
+      tag: ${{ needs.approve-and-tag.outputs.tag }}
     steps:
-      - name: Resolve the tested candidate from the annotated tag
-        id: candidate
-        uses: actions/github-script@v9
-        env:
-          RELEASE_TAG: ${{ github.ref_name }}
-        with:
-          script: |
-            const repository = `${context.repo.owner}/${context.repo.repo}`;
-            const { data: ref } = await github.rest.git.getRef({
-              ...context.repo, ref: `tags/${process.env.RELEASE_TAG}`
-            });
-            if (ref.object.type !== 'tag') {
-              throw new Error('Release requires an annotated tag containing Candidate-Run: <run ID>');
-            }
-            const { data: tag } = await github.rest.git.getTag({
-              ...context.repo, tag_sha: ref.object.sha
-            });
-            if (tag.object.type !== 'commit' || tag.object.sha !== context.sha) {
-              throw new Error('Release tag must point directly to the pushed source commit');
-            }
-            const trailers = tag.message.split(/\r?\n/).filter(line => line.startsWith('Candidate-Run:'));
-            if (trailers.length !== 1 || !/^Candidate-Run: [1-9][0-9]*$/.test(trailers[0])) {
-              throw new Error('Tag must contain exactly one Candidate-Run: <positive run ID> line');
-            }
-            const runId = Number(trailers[0].slice('Candidate-Run: '.length));
-            if (!Number.isSafeInteger(runId)) throw new Error('Invalid candidate run ID');
-            const { data: run } = await github.rest.actions.getWorkflowRun({
-              ...context.repo, run_id: runId
-            });
-            const { data: workflow } = await github.rest.actions.getWorkflow({
-              ...context.repo, workflow_id: 'release.yml'
-            });
-            if (run.workflow_id !== workflow.id || run.event !== 'workflow_dispatch'
-                || run.status !== 'completed' || run.conclusion !== 'success'
-                || run.head_branch !== 'main' || run.head_sha !== tag.object.sha
-                || run.run_attempt !== 1 || run.repository?.full_name !== repository
-                || run.head_repository?.full_name !== repository) {
-              throw new Error('Candidate must be a successful original manual release.yml run from main at the tagged commit');
-            }
-            const artifacts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts, {
-              ...context.repo, run_id: runId, per_page: 100
-            });
-            const matches = artifacts.filter(artifact => artifact.name === 'release-assets');
-            if (matches.length !== 1 || matches[0].expired || matches[0].size_in_bytes <= 0) {
-              throw new Error('Candidate requires one nonexpired release-assets artifact; build and test a new candidate');
-            }
-            core.setOutput('sha', tag.object.sha);
-            core.setOutput('run_id', String(runId));
-            core.setOutput('artifact_id', String(matches[0].id));
       - name: Checkout the source that produced the candidate
         uses: actions/checkout@v7
         with:
-          ref: ${{ steps.candidate.outputs.sha }}
+          ref: ${{ needs.aggregate.outputs.sha }}
           persist-credentials: false
       - name: Setup Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.15"
-      - name: Download the existing tested candidate
+      - name: Download the tested candidate from this run
         uses: actions/download-artifact@v8
         with:
-          artifact-ids: ${{ steps.candidate.outputs.artifact_id }}
-          run-id: ${{ steps.candidate.outputs.run_id }}
-          github-token: ${{ github.token }}
+          name: release-assets
           path: dist
       - name: Verify source, dependency, version and artifact digests
         env:
-          SOURCE_SHA: ${{ steps.candidate.outputs.sha }}
-          BUILD_RUN_ID: ${{ steps.candidate.outputs.run_id }}
-          RELEASE_TAG: ${{ github.ref_name }}
+          SOURCE_SHA: ${{ needs.aggregate.outputs.sha }}
+          BUILD_RUN_ID: ${{ github.run_id }}
+          RELEASE_TAG: ${{ needs.approve-and-tag.outputs.tag }}
         shell: python
         run: |
           import os
@@ -409,13 +406,13 @@ jobs:
               "--manifest", "dist/provenance.json", "--source", os.environ["SOURCE_SHA"],
               "--run", os.environ["BUILD_RUN_ID"], "--directory", "dist"
           ], text=True).strip()
-          if os.environ["RELEASE_TAG"] not in (version, f"v{version}"):
-              raise ValueError("Release tag must match the candidate CMake version, optionally prefixed with v")
+          if os.environ["RELEASE_TAG"] != version:
+              raise ValueError("Release tag must match the candidate CMake version")
       - name: Refuse a tag moved away from the tested source
         uses: actions/github-script@v9
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
-          SOURCE_SHA: ${{ steps.candidate.outputs.sha }}
+          RELEASE_TAG: ${{ needs.approve-and-tag.outputs.tag }}
+          SOURCE_SHA: ${{ needs.aggregate.outputs.sha }}
         with:
           script: |
             const { data: ref } = await github.rest.git.getRef({
@@ -431,9 +428,9 @@ jobs:
       - name: Publish the verified candidate without rebuilding
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ github.ref_name }}
-          target_commitish: ${{ steps.candidate.outputs.sha }}
-          name: ${{ github.ref_name }}
+          tag_name: ${{ needs.approve-and-tag.outputs.tag }}
+          target_commitish: ${{ needs.aggregate.outputs.sha }}
+          name: ${{ needs.approve-and-tag.outputs.tag }}
           draft: false
           generate_release_notes: true
           fail_on_unmatched_files: true
