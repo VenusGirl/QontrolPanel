@@ -961,6 +961,78 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
         <translation>헤드셋용 이퀄라이저 프리셋 설정</translation>
     </message>
     <message>
+        <source>Microphone volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust the headset microphone volume (0–128)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone noise filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the microphone noise filter strength</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished">끔</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume limiter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit the headset playback volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation type="unfinished">켬</translation>
+    </message>
+    <message>
+        <source>Mic mute LED brightness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust the microphone mute indicator brightness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bluetooth on at power-on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Bluetooth when the headset powers on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bluetooth call volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust the Bluetooth call volume (0–100)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>How often the status from your headset is fetched. Lower values may increase battery usage.</source>
         <translation>헤드셋에서 상태를 가져오는 빈도. 값이 낮을수록 배터리 사용량이 증가할 수 있습니다.</translation>
     </message>
@@ -1471,6 +1543,14 @@ You can enable it in the Components tab.</source>
     <message>
         <source>Equalizer Preset</source>
         <translation>이퀄라이저 프리셋</translation>
+    </message>
+    <message>
+        <source>Volume limiter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bluetooth on at power-on</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Lights</source>

@@ -293,6 +293,124 @@ ColumnLayout {
                 }
 
                 Card {
+                    visible: HeadsetControlBridge.anyDeviceFound && HeadsetControlBridge.hasMicVolumeCapability
+                    enabled: HeadsetControlBridge.hasMicVolumeCapability
+                    Layout.fillWidth: true
+                    title: qsTr("Microphone volume")
+                    description: qsTr("Adjust the headset microphone volume (0–128)")
+
+                    additionalControl: SpinBox {
+                        from: -1
+                        to: 128
+                        value: UserSettings.headsetcontrolMicVolume
+                        editable: true
+                        textFromValue: function(value, locale) {
+                            return value < 0 ? qsTr("Not set") : value.toLocaleString(locale, "f", 0)
+                        }
+                        valueFromText: function(text, locale) {
+                            return text === qsTr("Not set") ? -1 : Number.fromLocaleString(locale, text)
+                        }
+                        onValueModified: {
+                            UserSettings.headsetcontrolMicVolume = value;
+                            value = Qt.binding(function() { return UserSettings.headsetcontrolMicVolume })
+                        }
+                    }
+                }
+
+                Card {
+                    visible: HeadsetControlBridge.anyDeviceFound && HeadsetControlBridge.hasNoiseFilterCapability
+                    enabled: HeadsetControlBridge.hasNoiseFilterCapability
+                    Layout.fillWidth: true
+                    title: qsTr("Microphone noise filter")
+                    description: qsTr("Choose the microphone noise filter strength")
+
+                    additionalControl: CustomComboBox {
+                        model: [qsTr("Not set"), qsTr("Off"), qsTr("Low"), qsTr("High")]
+                        currentIndex: UserSettings.headsetcontrolNoiseFilter + 1
+                        onActivated: {
+                            UserSettings.headsetcontrolNoiseFilter = currentIndex - 1;
+                            currentIndex = Qt.binding(function() { return UserSettings.headsetcontrolNoiseFilter + 1 })
+                        }
+                    }
+                }
+
+                Card {
+                    visible: HeadsetControlBridge.anyDeviceFound && HeadsetControlBridge.hasVolumeLimiterCapability
+                    enabled: HeadsetControlBridge.hasVolumeLimiterCapability
+                    Layout.fillWidth: true
+                    title: qsTr("Volume limiter")
+                    description: qsTr("Limit the headset playback volume")
+
+                    additionalControl: CustomComboBox {
+                        model: [qsTr("Not set"), qsTr("Off"), qsTr("On")]
+                        currentIndex: UserSettings.headsetcontrolVolumeLimiter + 1
+                        onActivated: {
+                            UserSettings.headsetcontrolVolumeLimiter = currentIndex - 1;
+                            currentIndex = Qt.binding(function() { return UserSettings.headsetcontrolVolumeLimiter + 1 })
+                        }
+                    }
+                }
+
+                Card {
+                    visible: HeadsetControlBridge.anyDeviceFound && HeadsetControlBridge.hasMicMuteLedBrightnessCapability
+                    enabled: HeadsetControlBridge.hasMicMuteLedBrightnessCapability
+                    Layout.fillWidth: true
+                    title: qsTr("Mic mute LED brightness")
+                    description: qsTr("Adjust the microphone mute indicator brightness")
+
+                    additionalControl: CustomComboBox {
+                        model: [qsTr("Not set"), qsTr("Off"), qsTr("Low"), qsTr("Medium"), qsTr("High")]
+                        currentIndex: UserSettings.headsetcontrolMicMuteLedBrightness + 1
+                        onActivated: {
+                            UserSettings.headsetcontrolMicMuteLedBrightness = currentIndex - 1;
+                            currentIndex = Qt.binding(function() { return UserSettings.headsetcontrolMicMuteLedBrightness + 1 })
+                        }
+                    }
+                }
+
+                Card {
+                    visible: HeadsetControlBridge.anyDeviceFound && HeadsetControlBridge.hasBluetoothWhenPoweredOnCapability
+                    enabled: HeadsetControlBridge.hasBluetoothWhenPoweredOnCapability
+                    Layout.fillWidth: true
+                    title: qsTr("Bluetooth on at power-on")
+                    description: qsTr("Enable Bluetooth when the headset powers on")
+
+                    additionalControl: CustomComboBox {
+                        model: [qsTr("Not set"), qsTr("Off"), qsTr("On")]
+                        currentIndex: UserSettings.headsetcontrolBluetoothWhenPoweredOn + 1
+                        onActivated: {
+                            UserSettings.headsetcontrolBluetoothWhenPoweredOn = currentIndex - 1;
+                            currentIndex = Qt.binding(function() { return UserSettings.headsetcontrolBluetoothWhenPoweredOn + 1 })
+                        }
+                    }
+                }
+
+                Card {
+                    visible: HeadsetControlBridge.anyDeviceFound && HeadsetControlBridge.hasBluetoothCallVolumeCapability
+                    enabled: HeadsetControlBridge.hasBluetoothCallVolumeCapability
+                    Layout.fillWidth: true
+                    title: qsTr("Bluetooth call volume")
+                    description: qsTr("Adjust the Bluetooth call volume (0–100)")
+
+                    additionalControl: SpinBox {
+                        from: -1
+                        to: 100
+                        value: UserSettings.headsetcontrolBluetoothCallVolume
+                        editable: true
+                        textFromValue: function(value, locale) {
+                            return value < 0 ? qsTr("Not set") : value.toLocaleString(locale, "f", 0)
+                        }
+                        valueFromText: function(text, locale) {
+                            return text === qsTr("Not set") ? -1 : Number.fromLocaleString(locale, text)
+                        }
+                        onValueModified: {
+                            UserSettings.headsetcontrolBluetoothCallVolume = value;
+                            value = Qt.binding(function() { return UserSettings.headsetcontrolBluetoothCallVolume })
+                        }
+                    }
+                }
+
+                Card {
                     visible: HeadsetControlBridge.anyDeviceFound
                     Layout.fillWidth: true
                     title: qsTr("Fetch rate (seconds)")

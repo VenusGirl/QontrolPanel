@@ -221,6 +221,168 @@ private slots:
         QCOMPARE(bridge->sidetoneLevel(), 72);
     }
 
+    void writeOnlyHeadsetSettings_data()
+    {
+        QTest::addColumn<QString>("key");
+        QTest::addColumn<int>("maximum");
+        QTest::addColumn<QByteArray>("capability");
+        QTest::addColumn<QByteArray>("setter");
+        QTest::addColumn<QByteArray>("setting");
+        QTest::newRow("micVolume") << QString("micVolume") << 128 << QByteArray("hasMicVolumeCapability")
+            << QByteArray("setMicVolume") << QByteArray("headsetcontrolMicVolume");
+        QTest::newRow("noiseFilter") << QString("noiseFilter") << 2 << QByteArray("hasNoiseFilterCapability")
+            << QByteArray("setNoiseFilter") << QByteArray("headsetcontrolNoiseFilter");
+        QTest::newRow("volumeLimiter") << QString("volumeLimiter") << 1 << QByteArray("hasVolumeLimiterCapability")
+            << QByteArray("setVolumeLimiter") << QByteArray("headsetcontrolVolumeLimiter");
+        QTest::newRow("micMuteLedBrightness") << QString("micMuteLedBrightness") << 3 << QByteArray("hasMicMuteLedBrightnessCapability")
+            << QByteArray("setMicMuteLedBrightness") << QByteArray("headsetcontrolMicMuteLedBrightness");
+        QTest::newRow("bluetoothWhenPoweredOn") << QString("bluetoothWhenPoweredOn") << 1 << QByteArray("hasBluetoothWhenPoweredOnCapability")
+            << QByteArray("setBluetoothWhenPoweredOn") << QByteArray("headsetcontrolBluetoothWhenPoweredOn");
+        QTest::newRow("bluetoothCallVolume") << QString("bluetoothCallVolume") << 100 << QByteArray("hasBluetoothCallVolumeCapability")
+            << QByteArray("setBluetoothCallVolume") << QByteArray("headsetcontrolBluetoothCallVolume");
+    }
+
+    void writeOnlyHeadsetSettings()
+    {
+        QFETCH(QString, key); QFETCH(int, maximum); QFETCH(QByteArray, capability);
+        QFETCH(QByteArray, setter); QFETCH(QByteArray, setting);
+        auto* settings = UserSettings::instance();
+        QVERIFY(settings->setProperty(setting.constData(), -1));
+        auto* bridge = HeadsetControlBridge::instance();
+        const auto bridgeCleanup = qScopeGuard([&] {
+            bridge->shutdown();
+            delete bridge;
+            drainRetiredWorkerThreads();
+        });
+        QSignalSpy capabilities(bridge, &HeadsetControlBridge::capabilitiesChanged);
+        // Deliver capability snapshots without starting native monitoring.
+        HeadsetControlState state;
+        state.hasMicVolumeCapability = key == "micVolume";
+        state.hasNoiseFilterCapability = key == "noiseFilter";
+        state.hasVolumeLimiterCapability = key == "volumeLimiter";
+        state.hasMicMuteLedBrightnessCapability = key == "micMuteLedBrightness";
+        state.hasBluetoothWhenPoweredOnCapability = key == "bluetoothWhenPoweredOn";
+        state.hasBluetoothCallVolumeCapability = key == "bluetoothCallVolume";
+        QVERIFY(QMetaObject::invokeMethod(bridge, "applyState", Qt::DirectConnection,
+                                         Q_ARG(HeadsetControlState, state)));
+        QVERIFY(bridge->property(capability.constData()).toBool());
+        QCOMPARE(capabilities.size(), 1);
+        QVERIFY(QMetaObject::invokeMethod(bridge, setter.constData(), Q_ARG(int, maximum + 1)));
+        QCOMPARE(settings->property(setting.constData()).toInt(), maximum);
+        QSettings persisted(QSettings::IniFormat, QSettings::UserScope, "ChrisLauinger77", "QontrolPanel");
+        QCOMPARE(persisted.value(setting.constData()).toInt(), maximum);
+        QVERIFY(settings->setProperty(setting.constData(), -2));
+        QCOMPARE(settings->property(setting.constData()).toInt(), -1);
+        persisted.sync();
+        QCOMPARE(persisted.value(setting.constData()).toInt(), -1);
+
+        const bool wasEnabled = headsetcontrol::isTestDeviceEnabled();
+        const int previousProfile = headsetcontrol::getTestProfile();
+        HeadsetControlMonitor monitor(nullptr, [] {
+            auto devices = headsetcontrol::discover();
+            std::erase_if(devices, [](const auto& headset) {
+                return headset.vendorId() != 0xF00B || headset.productId() != 0xA00C;
+            });
+            return devices;
+        });
+        const auto cleanup = qScopeGuard([&] {
+            monitor.stopMonitoring();
+            headsetcontrol::enableTestDevice(wasEnabled);
+            headsetcontrol::setTestProfile(previousProfile);
+        });
+        monitor.setTestProfile(3);
+        monitor.setTestModeEnabled(true);
+        QSignalSpy errors(&monitor, &HeadsetControlMonitor::operationErrorChanged);
+        monitor.setDesiredSettings({{key, -1}});
+        monitor.startMonitoring();
+        QVERIFY(monitor.snapshot().anyDeviceFound);
+        QVERIFY(errors.last().at(0).toString().isEmpty());
+        const auto snapshot = monitor.snapshot();
+        if (key == "micVolume") QVERIFY(snapshot.hasMicVolumeCapability);
+        if (key == "noiseFilter") QVERIFY(snapshot.hasNoiseFilterCapability);
+        if (key == "volumeLimiter") QVERIFY(snapshot.hasVolumeLimiterCapability);
+        if (key == "micMuteLedBrightness") QVERIFY(snapshot.hasMicMuteLedBrightnessCapability);
+        if (key == "bluetoothWhenPoweredOn") QVERIFY(snapshot.hasBluetoothWhenPoweredOnCapability);
+        if (key == "bluetoothCallVolume") QVERIFY(snapshot.hasBluetoothCallVolumeCapability);
+        monitor.setDesiredSettings({{key, 0}}); // Explicit zero/off is a valid choice.
+        QVERIFY(errors.last().at(0).toString().isEmpty());
+        monitor.setDesiredSettings({{key, maximum}});
+        QVERIFY(errors.last().at(0).toString().isEmpty());
+        monitor.setDesiredSettings({{key, maximum + 1000}}); // Clamp before uint8 conversion/library validation.
+        QVERIFY(errors.last().at(0).toString().isEmpty());
+        monitor.setDesiredSettings({{key, -1}});
+        QVERIFY(errors.last().at(0).toString().isEmpty());
+        monitor.stopMonitoring();
+        if (key == "micVolume") QVERIFY(!monitor.snapshot().hasMicVolumeCapability);
+        if (key == "noiseFilter") QVERIFY(!monitor.snapshot().hasNoiseFilterCapability);
+        if (key == "volumeLimiter") QVERIFY(!monitor.snapshot().hasVolumeLimiterCapability);
+        if (key == "micMuteLedBrightness") QVERIFY(!monitor.snapshot().hasMicMuteLedBrightnessCapability);
+        if (key == "bluetoothWhenPoweredOn") QVERIFY(!monitor.snapshot().hasBluetoothWhenPoweredOnCapability);
+        if (key == "bluetoothCallVolume") QVERIFY(!monitor.snapshot().hasBluetoothCallVolumeCapability);
+        QVERIFY(QMetaObject::invokeMethod(bridge, "applyState", Qt::DirectConnection,
+                                         Q_ARG(HeadsetControlState, monitor.snapshot())));
+        QVERIFY(!bridge->property(capability.constData()).toBool());
+        QCOMPARE(capabilities.size(), 2);
+    }
+
+    void noiseFilterSkipsUnsetAndBoundsRetries()
+    {
+        const bool wasEnabled = headsetcontrol::isTestDeviceEnabled();
+        const int previousProfile = headsetcontrol::getTestProfile();
+        HeadsetControlMonitor monitor(nullptr, [] {
+            auto devices = headsetcontrol::discover();
+            std::erase_if(devices, [](const auto& headset) {
+                return headset.vendorId() != 0xF00B || headset.productId() != 0xA00C;
+            });
+            return devices;
+        });
+        const auto cleanup = qScopeGuard([&] {
+            monitor.stopMonitoring();
+            headsetcontrol::enableTestDevice(wasEnabled);
+            headsetcontrol::setTestProfile(previousProfile);
+        });
+        monitor.setTestProfile(3);
+        monitor.setTestModeEnabled(true);
+        monitor.startMonitoring();
+        QVERIFY(monitor.snapshot().hasNoiseFilterCapability);
+        QSignalSpy errors(&monitor, &HeadsetControlMonitor::operationErrorChanged);
+        monitor.setDesiredSettings({{"noiseFilter", 2}});
+        QVERIFY(errors.last().at(0).toString().isEmpty());
+        // Profile 1 must keep the test controls usable even though its battery read fails.
+        monitor.setTestProfile(1);
+        QVERIFY(monitor.snapshot().anyDeviceFound);
+        QVERIFY(monitor.snapshot().hasNoiseFilterCapability);
+        QCOMPARE(monitor.snapshot().testProfile, 1);
+        monitor.setDesiredSettings({{"noiseFilter", 2}});
+        QVERIFY(errors.last().at(0).toString().isEmpty()); // Acknowledged values are not written twice.
+        monitor.setDesiredSettings({{"noiseFilter", -1}});
+        QVERIFY(errors.last().at(0).toString().isEmpty()); // Unset must not become off or uint8(255).
+        monitor.setDesiredSettings({{"noiseFilter", 2}}); // Selecting the former value after unset must write again.
+        QVERIFY(errors.last().at(0).toString().contains("Test error condition"));
+        monitor.setDesiredSettings({{"noiseFilter", -1}});
+        QVERIFY(errors.last().at(0).toString().isEmpty());
+        for (int attempt = 0; attempt < 3; ++attempt) {
+            // Full desired snapshots and unrelated edits must not reset this value's budget.
+            monitor.setDesiredSettings({{"noiseFilter", 0}, {"inactiveTime", -1}});
+            QVERIFY(errors.last().at(0).toString().contains("Test error condition"));
+            QVERIFY(!errors.last().at(0).toString().contains("retry limit reached"));
+        }
+        monitor.setDesiredSettings({{"noiseFilter", 0}});
+        QVERIFY(errors.last().at(0).toString().contains("noiseFilter: retry limit reached"));
+        monitor.setTestProfile(3);
+        monitor.setDesiredSettings({{"noiseFilter", 0}});
+        QVERIFY(errors.last().at(0).toString().contains("noiseFilter: retry limit reached")); // No fourth write.
+        monitor.requestRefresh(); // Manual refresh resets the budget and succeeds with profile 3.
+        QVERIFY(errors.last().at(0).toString().isEmpty());
+        monitor.setTestProfile(1);
+        monitor.setDesiredSettings({{"noiseFilter", 0}});
+        QVERIFY(errors.last().at(0).toString().isEmpty());
+        monitor.setDesiredSettings({{"noiseFilter", 1}}); // A changed value receives a new budget.
+        QVERIFY(errors.last().at(0).toString().contains("Test error condition"));
+        monitor.setDesiredSettings({{"noiseFilter", -1}});
+        QVERIFY(errors.last().at(0).toString().isEmpty());
+    }
+
     void sidetoneTestDeviceAdoptsAndStillAcceptsWrites()
     {
         const bool wasEnabled = headsetcontrol::isTestDeviceEnabled();

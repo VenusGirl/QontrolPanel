@@ -52,6 +52,12 @@ class UserSettings : public QObject
     Q_PROPERTY(int headsetcontrolEqualizerPreset READ headsetcontrolEqualizerPreset WRITE setHeadsetcontrolEqualizerPreset NOTIFY headsetcontrolEqualizerPresetChanged)
     Q_PROPERTY(int headsetcontrolInactiveTime READ headsetcontrolInactiveTime WRITE setHeadsetcontrolInactiveTime NOTIFY headsetcontrolInactiveTimeChanged)
     Q_PROPERTY(int headsetcontrolSidetone READ headsetcontrolSidetone WRITE setHeadsetcontrolSidetone NOTIFY headsetcontrolSidetoneChanged)
+    Q_PROPERTY(int headsetcontrolBluetoothCallVolume READ headsetcontrolBluetoothCallVolume WRITE setHeadsetcontrolBluetoothCallVolume NOTIFY headsetcontrolBluetoothCallVolumeChanged)
+    Q_PROPERTY(int headsetcontrolBluetoothWhenPoweredOn READ headsetcontrolBluetoothWhenPoweredOn WRITE setHeadsetcontrolBluetoothWhenPoweredOn NOTIFY headsetcontrolBluetoothWhenPoweredOnChanged)
+    Q_PROPERTY(int headsetcontrolMicMuteLedBrightness READ headsetcontrolMicMuteLedBrightness WRITE setHeadsetcontrolMicMuteLedBrightness NOTIFY headsetcontrolMicMuteLedBrightnessChanged)
+    Q_PROPERTY(int headsetcontrolVolumeLimiter READ headsetcontrolVolumeLimiter WRITE setHeadsetcontrolVolumeLimiter NOTIFY headsetcontrolVolumeLimiterChanged)
+    Q_PROPERTY(int headsetcontrolNoiseFilter READ headsetcontrolNoiseFilter WRITE setHeadsetcontrolNoiseFilter NOTIFY headsetcontrolNoiseFilterChanged)
+    Q_PROPERTY(int headsetcontrolMicVolume READ headsetcontrolMicVolume WRITE setHeadsetcontrolMicVolume NOTIFY headsetcontrolMicVolumeChanged)
     Q_PROPERTY(bool allowBrightnessControl READ allowBrightnessControl WRITE setAllowBrightnessControl NOTIFY allowBrightnessControlChanged)
     Q_PROPERTY(bool avoidApplicationsOverflow READ avoidApplicationsOverflow WRITE setAvoidApplicationsOverflow NOTIFY avoidApplicationsOverflowChanged)
     Q_PROPERTY(int ddcciQueueDelay READ ddcciQueueDelay WRITE setDdcciQueueDelay NOTIFY ddcciQueueDelayChanged)
@@ -120,6 +126,12 @@ public:
     int headsetcontrolEqualizerPreset() const { return m_headsetcontrolEqualizerPreset; }
     int headsetcontrolInactiveTime() const { return m_headsetcontrolInactiveTime; }
     int headsetcontrolSidetone() const { return m_headsetcontrolSidetone; }
+    int headsetcontrolBluetoothCallVolume() const { return m_headsetcontrolBluetoothCallVolume; }
+    int headsetcontrolBluetoothWhenPoweredOn() const { return m_headsetcontrolBluetoothWhenPoweredOn; }
+    int headsetcontrolMicMuteLedBrightness() const { return m_headsetcontrolMicMuteLedBrightness; }
+    int headsetcontrolVolumeLimiter() const { return m_headsetcontrolVolumeLimiter; }
+    int headsetcontrolNoiseFilter() const { return m_headsetcontrolNoiseFilter; }
+    int headsetcontrolMicVolume() const { return m_headsetcontrolMicVolume; }
     bool allowBrightnessControl() const { return m_allowBrightnessControl; }
     bool avoidApplicationsOverflow() const { return m_avoidApplicationsOverflow; }
     int ddcciQueueDelay() const { return m_ddcciQueueDelay; }
@@ -183,6 +195,12 @@ public:
     void setHeadsetcontrolEqualizerPreset(int value);
     void setHeadsetcontrolInactiveTime(int value);
     void setHeadsetcontrolSidetone(int value);
+    void setHeadsetcontrolBluetoothCallVolume(int value);
+    void setHeadsetcontrolBluetoothWhenPoweredOn(int value);
+    void setHeadsetcontrolMicMuteLedBrightness(int value);
+    void setHeadsetcontrolVolumeLimiter(int value);
+    void setHeadsetcontrolNoiseFilter(int value);
+    void setHeadsetcontrolMicVolume(int value);
     void setAllowBrightnessControl(bool value);
     void setAvoidApplicationsOverflow(bool value);
     void setDdcciQueueDelay(int value);
@@ -248,6 +266,12 @@ signals:
     void headsetcontrolEqualizerPresetChanged();
     void headsetcontrolInactiveTimeChanged();
     void headsetcontrolSidetoneChanged();
+    void headsetcontrolBluetoothCallVolumeChanged();
+    void headsetcontrolBluetoothWhenPoweredOnChanged();
+    void headsetcontrolMicMuteLedBrightnessChanged();
+    void headsetcontrolVolumeLimiterChanged();
+    void headsetcontrolNoiseFilterChanged();
+    void headsetcontrolMicVolumeChanged();
     void allowBrightnessControlChanged();
     void avoidApplicationsOverflowChanged();
     void ddcciQueueDelayChanged();
@@ -318,6 +342,12 @@ private:
     int m_headsetcontrolEqualizerPreset;
     int m_headsetcontrolInactiveTime;
     int m_headsetcontrolSidetone;
+    int m_headsetcontrolBluetoothCallVolume; // -1: not set; only explicit user choices are written
+    int m_headsetcontrolBluetoothWhenPoweredOn; // -1: not set; only explicit user choices are written
+    int m_headsetcontrolMicMuteLedBrightness; // -1: not set; only explicit user choices are written
+    int m_headsetcontrolVolumeLimiter; // -1: not set; only explicit user choices are written
+    int m_headsetcontrolNoiseFilter; // -1: not set; only explicit user choices are written
+    int m_headsetcontrolMicVolume; // -1: not set; only explicit user choices are written
     bool m_allowBrightnessControl;
     bool m_avoidApplicationsOverflow;
     int m_ddcciQueueDelay;

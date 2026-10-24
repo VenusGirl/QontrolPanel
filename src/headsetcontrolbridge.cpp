@@ -28,6 +28,12 @@ HeadsetControlBridge::HeadsetControlBridge(QObject *parent)
     connect(settings, &UserSettings::enableNotificationsChanged, this,
             &HeadsetControlBridge::updateLowBatteryNotificationState);
     connect(settings, &UserSettings::headsetcontrolLightsChanged, this, &HeadsetControlBridge::syncDesiredSettings);
+    connect(settings, &UserSettings::headsetcontrolBluetoothCallVolumeChanged, this, &HeadsetControlBridge::syncDesiredSettings);
+    connect(settings, &UserSettings::headsetcontrolBluetoothWhenPoweredOnChanged, this, &HeadsetControlBridge::syncDesiredSettings);
+    connect(settings, &UserSettings::headsetcontrolMicMuteLedBrightnessChanged, this, &HeadsetControlBridge::syncDesiredSettings);
+    connect(settings, &UserSettings::headsetcontrolVolumeLimiterChanged, this, &HeadsetControlBridge::syncDesiredSettings);
+    connect(settings, &UserSettings::headsetcontrolNoiseFilterChanged, this, &HeadsetControlBridge::syncDesiredSettings);
+    connect(settings, &UserSettings::headsetcontrolMicVolumeChanged, this, &HeadsetControlBridge::syncDesiredSettings);
     connect(settings, &UserSettings::headsetcontrolRotateToMuteChanged, this,
             &HeadsetControlBridge::syncDesiredSettings);
     connect(settings, &UserSettings::headsetcontrolVoicePromptsChanged, this,
@@ -136,6 +142,12 @@ void HeadsetControlBridge::syncDesiredSettings()
                               {"rotateToMute", settings->headsetcontrolRotateToMute()},
                               {"voicePrompts", settings->headsetcontrolVoicePrompts()},
                               {"equalizerPreset", settings->headsetcontrolEqualizerPreset()},
+                              {"micVolume", settings->headsetcontrolMicVolume()},
+                              {"noiseFilter", settings->headsetcontrolNoiseFilter()},
+                              {"volumeLimiter", settings->headsetcontrolVolumeLimiter()},
+                              {"micMuteLedBrightness", settings->headsetcontrolMicMuteLedBrightness()},
+                              {"bluetoothWhenPoweredOn", settings->headsetcontrolBluetoothWhenPoweredOn()},
+                              {"bluetoothCallVolume", settings->headsetcontrolBluetoothCallVolume()},
                               {"inactiveTime", settings->headsetcontrolInactiveTime()}};
     QMetaObject::invokeMethod(
         m_monitor, [monitor = m_monitor, desired] { monitor->setDesiredSettings(desired); }, Qt::QueuedConnection);
@@ -202,6 +214,36 @@ void HeadsetControlBridge::requestSidetone(int value)
     }, Qt::QueuedConnection);
 }
 
+void HeadsetControlBridge::setMicVolume(int value)
+{
+    UserSettings::instance()->setHeadsetcontrolMicVolume(value);
+}
+
+void HeadsetControlBridge::setNoiseFilter(int value)
+{
+    UserSettings::instance()->setHeadsetcontrolNoiseFilter(value);
+}
+
+void HeadsetControlBridge::setVolumeLimiter(int value)
+{
+    UserSettings::instance()->setHeadsetcontrolVolumeLimiter(value);
+}
+
+void HeadsetControlBridge::setMicMuteLedBrightness(int value)
+{
+    UserSettings::instance()->setHeadsetcontrolMicMuteLedBrightness(value);
+}
+
+void HeadsetControlBridge::setBluetoothWhenPoweredOn(int value)
+{
+    UserSettings::instance()->setHeadsetcontrolBluetoothWhenPoweredOn(value);
+}
+
+void HeadsetControlBridge::setBluetoothCallVolume(int value)
+{
+    UserSettings::instance()->setHeadsetcontrolBluetoothCallVolume(value);
+}
+
 void HeadsetControlBridge::setInactiveTime(int value)
 {
     UserSettings::instance()->setHeadsetcontrolInactiveTime(value);
@@ -248,6 +290,36 @@ bool HeadsetControlBridge::hasEqualizerPresetsCapability() const
 bool HeadsetControlBridge::hasInactiveTimeCapability() const
 {
     return m_cachedState.hasInactiveTimeCapability;
+}
+
+bool HeadsetControlBridge::hasMicVolumeCapability() const
+{
+    return m_cachedState.hasMicVolumeCapability;
+}
+
+bool HeadsetControlBridge::hasNoiseFilterCapability() const
+{
+    return m_cachedState.hasNoiseFilterCapability;
+}
+
+bool HeadsetControlBridge::hasVolumeLimiterCapability() const
+{
+    return m_cachedState.hasVolumeLimiterCapability;
+}
+
+bool HeadsetControlBridge::hasMicMuteLedBrightnessCapability() const
+{
+    return m_cachedState.hasMicMuteLedBrightnessCapability;
+}
+
+bool HeadsetControlBridge::hasBluetoothWhenPoweredOnCapability() const
+{
+    return m_cachedState.hasBluetoothWhenPoweredOnCapability;
+}
+
+bool HeadsetControlBridge::hasBluetoothCallVolumeCapability() const
+{
+    return m_cachedState.hasBluetoothCallVolumeCapability;
 }
 
 QString HeadsetControlBridge::deviceName() const
@@ -355,6 +427,12 @@ void HeadsetControlBridge::applyState(const HeadsetControlState& state)
         previous.hasChatMixCapability != m_cachedState.hasChatMixCapability ||
         previous.hasVoicePromptsCapability != m_cachedState.hasVoicePromptsCapability ||
         previous.hasEqualizerPresetsCapability != m_cachedState.hasEqualizerPresetsCapability ||
+        previous.hasMicVolumeCapability != m_cachedState.hasMicVolumeCapability ||
+        previous.hasNoiseFilterCapability != m_cachedState.hasNoiseFilterCapability ||
+        previous.hasVolumeLimiterCapability != m_cachedState.hasVolumeLimiterCapability ||
+        previous.hasMicMuteLedBrightnessCapability != m_cachedState.hasMicMuteLedBrightnessCapability ||
+        previous.hasBluetoothWhenPoweredOnCapability != m_cachedState.hasBluetoothWhenPoweredOnCapability ||
+        previous.hasBluetoothCallVolumeCapability != m_cachedState.hasBluetoothCallVolumeCapability ||
         previous.hasInactiveTimeCapability != m_cachedState.hasInactiveTimeCapability;
 
     if (capabilitiesChangedNow)

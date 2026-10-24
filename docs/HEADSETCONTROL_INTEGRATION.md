@@ -58,6 +58,12 @@ Important state includes:
 - `m_hasVoicePromptsCapability`
 - `m_hasEqualizerPresetsCapability`
 - `m_hasInactiveTimeCapability`
+- `m_hasBluetoothCallVolumeCapability`
+- `m_hasBluetoothWhenPoweredOnCapability`
+- `m_hasMicMuteLedBrightnessCapability`
+- `m_hasVolumeLimiterCapability`
+- `m_hasNoiseFilterCapability`
+- `m_hasMicVolumeCapability`
 
 ### `HeadsetControlBridge`
 
@@ -103,9 +109,17 @@ Relevant settings live in `UserSettings`:
 - `headsetcontrolEqualizerPreset`
 - `headsetcontrolInactiveTime`
 - `headsetcontrolSidetone`
+- `headsetcontrolBluetoothCallVolume` (-1: not set; 0–100)
+- `headsetcontrolBluetoothWhenPoweredOn` (-1: not set; 0–1)
+- `headsetcontrolMicMuteLedBrightness` (-1: not set; 0–3)
+- `headsetcontrolVolumeLimiter` (-1: not set; 0–1)
+- `headsetcontrolNoiseFilter` (-1: not set; 0–2)
+- `headsetcontrolMicVolume` (-1: not set; 0–128)
 - `headsetcontrolFetchRate`
 - `headsetcontrolLowBatteryThreshold`
 - `enableNotifications`
+
+Microphone volume, microphone noise filter, volume limiter, mic mute LED brightness, Bluetooth at power-on, and Bluetooth call volume are write-only preferences. They default to `-1` ("Not set") and are omitted from hardware writes until the user chooses a value. On/off preferences use `0` for off and `1` for on; the first tray toggle from "Not set" explicitly selects on. Choosing "Not set" again stops future restoration without changing the headset's current value. The UI displays saved desired values because these preferences cannot be read back.
 
 When adding a headset preference, keep persisted settings, bridge state, monitor behavior, and QML controls in sync.
 
@@ -173,6 +187,8 @@ HeadsetControl API calls return result objects. App code should:
 - avoid throwing exceptions through QML.
 
 The monitor never reads GUI-owned UserSettings. The bridge sends copied desired values, and the monitor records applied values only after successful writes. Failed settings are retried at most three times per desired value and active headset; a manual refresh resets the retry budget. An explicit sidetone edit also resets its budget, including a same-value retry. Exceptions and result errors become a visible bridge error. Duplicate setters with unchanged values do not duplicate successful HID writes.
+
+In test mode, the synthetic device stays selectable in profile 1 despite its failed battery query, so the settings controls and retry errors remain visible. The pinned library's noise-filter setter fails in that profile; its microphone-volume, LED, limiter, and Bluetooth setters still succeed. Tests use the synthetic device only, covering successful writes, unset guards, capability changes, retry exhaustion, and recovery through refresh. No HeadsetControl source changes are needed.
 
 The active device key uses VID/PID/name rather than enumeration index. Battery matching to audio endpoints remains model-based (VID/PID). The pinned upstream library deduplicates identical VID/PID devices and resolves HID paths by model, so this app cannot reliably select two physically distinct identical headsets. That requires a HeadsetControl fork/upstream change; it must not be patched in this submodule.
 

@@ -961,6 +961,78 @@ Si quieres apoyar mi trabajo, cualquier contribución será muy apreciada.</tran
         <translation>Configura el preajuste del ecualizador para tus auriculares</translation>
     </message>
     <message>
+        <source>Microphone volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust the headset microphone volume (0–128)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone noise filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the microphone noise filter strength</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished">Desactivado</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume limiter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit the headset playback volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation type="unfinished">Activado</translation>
+    </message>
+    <message>
+        <source>Mic mute LED brightness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust the microphone mute indicator brightness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bluetooth on at power-on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Bluetooth when the headset powers on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bluetooth call volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust the Bluetooth call volume (0–100)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>How often the status from your headset is fetched. Lower values may increase battery usage.</source>
         <translation>Con qué frecuencia se obtiene el estado de tus auriculares. Los valores más bajos pueden aumentar el uso de batería.</translation>
     </message>
@@ -1471,6 +1543,14 @@ Puedes activarla en la pestaña Componentes.</translation>
     <message>
         <source>Equalizer Preset</source>
         <translation>Preajuste del ecualizador</translation>
+    </message>
+    <message>
+        <source>Volume limiter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bluetooth on at power-on</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Lights</source>

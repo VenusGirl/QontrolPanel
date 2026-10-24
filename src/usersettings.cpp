@@ -103,6 +103,12 @@ void UserSettings::initProperties()
     m_headsetcontrolEqualizerPreset = qMax(0, settings.value("headsetcontrolEqualizerPreset", 0).toInt());
     m_headsetcontrolInactiveTime = qBound(0, settings.value("headsetcontrolInactiveTime", 30).toInt(), 90);
     m_headsetcontrolSidetone = qBound(0, settings.value("headsetcontrolSidetone", 0).toInt(), 128);
+    m_headsetcontrolBluetoothCallVolume = qBound(-1, settings.value("headsetcontrolBluetoothCallVolume", -1).toInt(), 100);
+    m_headsetcontrolBluetoothWhenPoweredOn = qBound(-1, settings.value("headsetcontrolBluetoothWhenPoweredOn", -1).toInt(), 1);
+    m_headsetcontrolMicMuteLedBrightness = qBound(-1, settings.value("headsetcontrolMicMuteLedBrightness", -1).toInt(), 3);
+    m_headsetcontrolVolumeLimiter = qBound(-1, settings.value("headsetcontrolVolumeLimiter", -1).toInt(), 1);
+    m_headsetcontrolNoiseFilter = qBound(-1, settings.value("headsetcontrolNoiseFilter", -1).toInt(), 2);
+    m_headsetcontrolMicVolume = qBound(-1, settings.value("headsetcontrolMicVolume", -1).toInt(), 128);
     m_allowBrightnessControl = settings.value("allowBrightnessControl", true).toBool();
     m_avoidApplicationsOverflow = settings.value("avoidApplicationsOverflow", false).toBool();
     m_ddcciQueueDelay = qBound(1, settings.value("ddcciQueueDelay", 500).toInt(), 5000);
@@ -505,6 +511,72 @@ void UserSettings::setHeadsetcontrolInactiveTime(int value)
             return;
         m_headsetcontrolInactiveTime = value;
         emit headsetcontrolInactiveTimeChanged();
+    }
+}
+
+void UserSettings::setHeadsetcontrolMicVolume(int value)
+{
+    value = qBound(-1, value, 128);
+    if (m_headsetcontrolMicVolume != value) {
+        if (!saveValue("headsetcontrolMicVolume", value))
+            return;
+        m_headsetcontrolMicVolume = value;
+        emit headsetcontrolMicVolumeChanged();
+    }
+}
+
+void UserSettings::setHeadsetcontrolNoiseFilter(int value)
+{
+    value = qBound(-1, value, 2);
+    if (m_headsetcontrolNoiseFilter != value) {
+        if (!saveValue("headsetcontrolNoiseFilter", value))
+            return;
+        m_headsetcontrolNoiseFilter = value;
+        emit headsetcontrolNoiseFilterChanged();
+    }
+}
+
+void UserSettings::setHeadsetcontrolVolumeLimiter(int value)
+{
+    value = qBound(-1, value, 1);
+    if (m_headsetcontrolVolumeLimiter != value) {
+        if (!saveValue("headsetcontrolVolumeLimiter", value))
+            return;
+        m_headsetcontrolVolumeLimiter = value;
+        emit headsetcontrolVolumeLimiterChanged();
+    }
+}
+
+void UserSettings::setHeadsetcontrolMicMuteLedBrightness(int value)
+{
+    value = qBound(-1, value, 3);
+    if (m_headsetcontrolMicMuteLedBrightness != value) {
+        if (!saveValue("headsetcontrolMicMuteLedBrightness", value))
+            return;
+        m_headsetcontrolMicMuteLedBrightness = value;
+        emit headsetcontrolMicMuteLedBrightnessChanged();
+    }
+}
+
+void UserSettings::setHeadsetcontrolBluetoothWhenPoweredOn(int value)
+{
+    value = qBound(-1, value, 1);
+    if (m_headsetcontrolBluetoothWhenPoweredOn != value) {
+        if (!saveValue("headsetcontrolBluetoothWhenPoweredOn", value))
+            return;
+        m_headsetcontrolBluetoothWhenPoweredOn = value;
+        emit headsetcontrolBluetoothWhenPoweredOnChanged();
+    }
+}
+
+void UserSettings::setHeadsetcontrolBluetoothCallVolume(int value)
+{
+    value = qBound(-1, value, 100);
+    if (m_headsetcontrolBluetoothCallVolume != value) {
+        if (!saveValue("headsetcontrolBluetoothCallVolume", value))
+            return;
+        m_headsetcontrolBluetoothCallVolume = value;
+        emit headsetcontrolBluetoothCallVolumeChanged();
     }
 }
 

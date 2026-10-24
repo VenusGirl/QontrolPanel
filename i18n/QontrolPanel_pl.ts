@@ -963,6 +963,78 @@ Możesz ją włączyć w zakładce Komponenty.</translation>
         <translation>Predefiniowane Korektora</translation>
     </message>
     <message>
+        <source>Microphone volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust the headset microphone volume (0–128)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microphone noise filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the microphone noise filter strength</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished">Wył.</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume limiter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit the headset playback volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation type="unfinished">Wł.</translation>
+    </message>
+    <message>
+        <source>Mic mute LED brightness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust the microphone mute indicator brightness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bluetooth on at power-on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Bluetooth when the headset powers on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bluetooth call volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust the Bluetooth call volume (0–100)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Version</source>
         <translation>Wersja</translation>
     </message>
@@ -1479,6 +1551,14 @@ Możesz ją włączyć w zakładce Komponenty.</translation>
     <message>
         <source>Equalizer Preset</source>
         <translation>Predefiniowane Korektora</translation>
+    </message>
+    <message>
+        <source>Volume limiter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bluetooth on at power-on</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Lights</source>
