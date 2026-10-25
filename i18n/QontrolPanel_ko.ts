@@ -853,7 +853,7 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>Current battery level of the connected headset</source>
-        <translation>연결된 헤드셋의 현재 배터리 수준</translation>
+        <translation>연결된 헤드셋의 현재 배터리 잔량</translation>
     </message>
     <message>
         <source>ChatMix</source>
@@ -957,7 +957,7 @@ If you&apos;d like to support my work, any contribution would be greatly appreci
     </message>
     <message>
         <source>4 - Battery unavailable</source>
-        <translation>4 - 배터리 없ㅇ</translation>
+        <translation>4 - 배터리 없음</translation>
     </message>
     <message>
         <source>5 - Timeout</source>
