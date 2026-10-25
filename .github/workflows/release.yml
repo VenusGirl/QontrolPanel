@@ -6,16 +6,16 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: release-${{ github.ref }}
-  cancel-in-progress: false
-
 env:
   QT_VERSION: "6.12.0"
   VCPKG_ROOT: "C:/vcpkg"
 jobs:
   build:
     runs-on: windows-2025-vs2026
+    # Serialize builds without holding the lock while a candidate awaits approval.
+    concurrency:
+      group: release-build-${{ github.ref }}
+      cancel-in-progress: false
     steps:
       - name: Require a fresh candidate run from main
         shell: pwsh
@@ -332,25 +332,7 @@ jobs:
           fetch-depth: 0
           # Credentials are kept only to push the release tag.
           persist-credentials: true
-      - name: Refuse an existing release tag
-        env:
-          RELEASE_TAG: ${{ needs.aggregate.outputs.version }}
-        run: |
-          set -euo pipefail
-          if git rev-parse --quiet --verify "refs/tags/$RELEASE_TAG" > /dev/null; then
-              echo "::error::Tag $RELEASE_TAG already exists locally; bump the CMake version and build a new candidate"
-              exit 1
-          fi
-          status=0
-          git ls-remote --exit-code --tags origin "refs/tags/$RELEASE_TAG" > /dev/null || status=$?
-          if [ "$status" -eq 0 ]; then
-              echo "::error::Tag $RELEASE_TAG already exists on origin; bump the CMake version and build a new candidate"
-              exit 1
-          elif [ "$status" -ne 2 ]; then
-              echo "::error::Cannot query remote tags (git ls-remote exit code $status)"
-              exit 1
-          fi
-      - name: Create and push the annotated release tag
+      - name: Create or reuse the candidate's annotated release tag
         env:
           RELEASE_VERSION: ${{ needs.aggregate.outputs.version }}
           RELEASE_TAG: ${{ needs.aggregate.outputs.version }}
@@ -361,6 +343,26 @@ jobs:
           if [ "$(git rev-parse HEAD)" != "$SOURCE_SHA" ]; then
               echo "::error::Checkout does not match the verified candidate source"
               exit 1
+          fi
+          remote_tag=$(git ls-remote --tags origin "refs/tags/$RELEASE_TAG")
+          if [ -n "$remote_tag" ]; then
+              # A previous attempt may have pushed successfully before losing its runner.
+              git fetch --no-tags origin "refs/tags/$RELEASE_TAG"
+              if [ "$(git cat-file -t FETCH_HEAD)" != "tag" ]; then
+                  echo "::error::Existing release tag is not annotated"
+                  exit 1
+              fi
+              tag_contents=$(git cat-file tag FETCH_HEAD)
+              tag_target=$(printf '%s\n' "$tag_contents" | sed -n '1s/^object //p')
+              tag_type=$(printf '%s\n' "$tag_contents" | sed -n '2s/^type //p')
+              candidate_runs=$(printf '%s\n' "$tag_contents" | sed '1,/^$/d' | grep '^Candidate-Run:' || true)
+              if [ "$tag_type" != "commit" ] || [ "$tag_target" != "$SOURCE_SHA" ] ||
+                 [ "$candidate_runs" != "Candidate-Run: $BUILD_RUN_ID" ]; then
+                  echo "::error::Existing release tag does not match this candidate source and run"
+                  exit 1
+              fi
+              echo "Reusing release tag $RELEASE_TAG from this candidate's earlier attempt"
+              exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
@@ -408,11 +410,12 @@ jobs:
           ], text=True).strip()
           if os.environ["RELEASE_TAG"] != version:
               raise ValueError("Release tag must match the candidate CMake version")
-      - name: Refuse a tag moved away from the tested source
+      - name: Refuse a tag moved away from the tested candidate
         uses: actions/github-script@v9
         env:
           RELEASE_TAG: ${{ needs.approve-and-tag.outputs.tag }}
           SOURCE_SHA: ${{ needs.aggregate.outputs.sha }}
+          BUILD_RUN_ID: ${{ github.run_id }}
         with:
           script: |
             const { data: ref } = await github.rest.git.getRef({
@@ -424,6 +427,10 @@ jobs:
             });
             if (tag.object.type !== 'commit' || tag.object.sha !== process.env.SOURCE_SHA) {
               throw new Error('Release tag moved away from the tested source');
+            }
+            const trailers = tag.message.split(/\r?\n/).filter(line => line.startsWith('Candidate-Run:'));
+            if (trailers.length !== 1 || trailers[0] !== `Candidate-Run: ${process.env.BUILD_RUN_ID}`) {
+              throw new Error('Release tag does not identify this candidate run');
             }
       - name: Publish the verified candidate without rebuilding
         uses: softprops/action-gh-release@v3
